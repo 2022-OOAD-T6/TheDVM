@@ -1,7 +1,7 @@
 package dvm.domain;
 
 /**
- * 20220517 문지영
+ * 20220517 MJY
  */
 public class Item {
 
