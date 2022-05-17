@@ -5,6 +5,9 @@ import dvm.repository.PrepaymentRepository;
 
 import java.util.Random;
 
+/**
+ * 선결제 정보 서비스 클래스
+ */
 public class PrepaymentService {
 
     private final PrepaymentRepository prepaymentRepository;
