@@ -4,6 +4,9 @@ import dvm.domain.PrepaymentInfo;
 
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 선결제 정보를 저장하는 레포지토리 클래스
+ */
 public class PrepaymentRepository {
 
     private final ConcurrentHashMap<String, PrepaymentInfo> savedPrepayments;
