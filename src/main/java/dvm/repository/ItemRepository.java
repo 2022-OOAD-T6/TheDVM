@@ -1,5 +1,7 @@
 package dvm.repository;
 
+import dvm.domain.Item;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -22,7 +24,7 @@ public class ItemRepository {
     /**
      * 
      */
-    private HashMap<Item, int> stock;
+    private HashMap<Item, Integer> stock;
 
     /**
      * @param itemCode 
@@ -49,7 +51,6 @@ public class ItemRepository {
      */
     public void update(String itemCode, int quantity) {
         // TODO implement here
-        return null;
     }
 
 }

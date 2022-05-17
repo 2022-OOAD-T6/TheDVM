@@ -36,7 +36,6 @@ public class NetworkService {
      */
     public void sendSaleRequestMessage(String itemCode, int quantity) {
         // TODO implement here
-        return null;
     }
 
     /**
@@ -45,7 +44,6 @@ public class NetworkService {
      */
     public void sendSaleResponseMessage(String itemCode) {
         // TODO implement here
-        return null;
     }
 
     /**
@@ -62,7 +60,6 @@ public class NetworkService {
      */
     public void sendStockResponseMessage(String itemCode) {
         // TODO implement here
-        return null;
     }
 
     /**
@@ -72,7 +69,6 @@ public class NetworkService {
      */
     public void sendStockRequestMessage(String itemCode, int quantity) {
         // TODO implement here
-        return null;
     }
 
     /**
@@ -91,7 +87,6 @@ public class NetworkService {
      */
     public void sendPrepaymentInfoMessage(String itemCode, int quantity, String verificationCode) {
         // TODO implement here
-        return null;
     }
 
 }

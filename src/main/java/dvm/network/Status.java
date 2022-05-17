@@ -3,27 +3,27 @@ package dvm.network;
 /**
  * 
  */
-public Status {
+public enum Status {
 
-    /**
-     * Default constructor
-     */
-    public Status() {
-    }
-
-    /**
-     *
-     */
-    public void SALE;
-
-    /**
-     *
-     */
-    public void STOCK;
-
-    /**
-     *
-     */
-    public void STOP;
+    // /**
+    //  * Default constructor
+    //  */
+    // public Status() {
+    // }
+    //
+    // /**
+    //  *
+    //  */
+    // public void SALE;
+    //
+    // /**
+    //  *
+    //  */
+    // public void STOCK;
+    //
+    // /**
+    //  *
+    //  */
+    // public void STOP;
 
 }

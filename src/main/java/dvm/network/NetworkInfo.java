@@ -21,18 +21,11 @@ public class NetworkInfo {
      */
     private String port;
 
-    /**
-     * 
-     */
-    public void getIp() {
-        // TODO implement here
+    public String getIp() {
+        return ip;
     }
 
-    /**
-     * 
-     */
-    public void getPort() {
-        // TODO implement here
+    public String getPort() {
+        return port;
     }
-
 }

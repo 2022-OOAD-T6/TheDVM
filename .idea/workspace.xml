@@ -6,7 +6,21 @@
   <component name="ChangeListManager">
     <list default="true" id="a83761df-2b45-4fbf-b803-f6d52bfd287d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/domain/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/domain/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/domain/PrepaymentInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/domain/PrepaymentInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/NetworkInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/NetworkInfo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/NetworkService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/NetworkService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/ReceiveMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/ReceiveMessageHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/Receiver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/Receiver.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/Response.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/Response.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/Sender.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/Sender.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/Status.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/Status.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/repository/PrepaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/repository/PrepaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

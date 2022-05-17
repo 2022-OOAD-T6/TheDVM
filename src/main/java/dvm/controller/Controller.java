@@ -1,9 +1,10 @@
 package dvm.controller;
 
-import network.NetworkService;
-import service.CardService;
-import service.ItemService;
-import service.PrepaymentService;
+import dvm.network.NetworkService;
+import dvm.network.Response;
+import dvm.service.CardService;
+import dvm.service.ItemService;
+import dvm.service.PrepaymentService;
 
 /**
  * 
@@ -82,20 +83,6 @@ public class Controller {
     public Response updateStock(String itemCode, int quantity) {
         // TODO implement here
         return null;
-    }
-
-    /**
-     * 
-     */
-    public void Operation1() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void Operation2() {
-        // TODO implement here
     }
 
 }

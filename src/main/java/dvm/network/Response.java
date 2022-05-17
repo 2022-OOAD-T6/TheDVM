@@ -24,7 +24,7 @@ public class Response {
     /**
      * 
      */
-    private T result;
+    //private T result;
 
     /**
      * @return
@@ -45,9 +45,9 @@ public class Response {
     /**
      * @return
      */
-    public T getResult() {
-        // TODO implement here
-        return null;
-    }
+    // public T getResult() {
+    //     // TODO implement here
+    //     return null;
+    // }
 
 }

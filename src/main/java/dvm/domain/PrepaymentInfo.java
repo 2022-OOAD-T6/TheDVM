@@ -14,7 +14,7 @@ public class PrepaymentInfo {
     /**
      * 
      */
-    private bool isValid;
+    private boolean isValid;
 
     /**
      * 
@@ -26,28 +26,15 @@ public class PrepaymentInfo {
      */
     private int quantity;
 
-    /**
-     * @return
-     */
     public boolean isValid() {
-        // TODO implement here
-        return false;
+        return isValid;
     }
 
-    /**
-     * @return
-     */
     public String getItemCode() {
-        // TODO implement here
-        return "";
+        return itemCode;
     }
 
-    /**
-     * @return
-     */
     public int getQuantity() {
-        // TODO implement here
-        return 0;
+        return quantity;
     }
-
 }

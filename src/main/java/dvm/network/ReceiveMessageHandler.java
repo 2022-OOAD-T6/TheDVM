@@ -1,5 +1,9 @@
 package dvm.network;
 
+import dvm.service.ItemService;
+import dvm.service.PrepaymentService;
+
+import java.net.Socket;
 import java.util.Vector;
 
 /**
@@ -21,12 +25,12 @@ public class ReceiveMessageHandler {
     /**
      * 
      */
-    private void itemService;
+    private ItemService itemService;
 
     /**
      * 
      */
-    private void prepaymentService;
+    private PrepaymentService prepaymentService;
 
     /**
      * 
@@ -38,7 +42,6 @@ public class ReceiveMessageHandler {
      */
     public void run() {
         // TODO implement here
-        return null;
     }
 
 }

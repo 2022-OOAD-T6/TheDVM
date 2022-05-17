@@ -1,6 +1,6 @@
 package dvm.repository;
 
-import domain.PrepaymentInfo;
+import dvm.domain.PrepaymentInfo;
 
 import java.util.HashMap;
 
@@ -35,7 +35,6 @@ public class PrepaymentRepository {
      */
     public void save(PrepaymentInfo prepaymentInfo) {
         // TODO implement here
-        return null;
     }
 
 }

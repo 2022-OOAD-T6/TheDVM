@@ -15,9 +15,8 @@ public class Sender {
      * @param message 
      * @return
      */
-    public void send(void message) {
+    public void send(Message message) {
         // TODO implement here
-        return null;
     }
 
 }

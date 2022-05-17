@@ -1,5 +1,7 @@
 package dvm.service;
 
+import dvm.repository.ItemRepository;
+
 /**
  * 
  */
@@ -42,7 +44,6 @@ public class ItemService {
      */
     public void updateStock(String itemCode, int quantity) {
         // TODO implement here
-        return null;
     }
 
     /**

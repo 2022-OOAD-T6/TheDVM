@@ -26,28 +26,15 @@ public class Item {
      */
     private int price;
 
-    /**
-     * @return
-     */
     public String getItemCode() {
-        // TODO implement here
-        return "";
+        return itemCode;
     }
 
-    /**
-     * @return
-     */
     public String getName() {
-        // TODO implement here
-        return "";
+        return name;
     }
 
-    /**
-     * @return
-     */
     public int getPrice() {
-        // TODO implement here
-        return 0;
+        return price;
     }
-
 }

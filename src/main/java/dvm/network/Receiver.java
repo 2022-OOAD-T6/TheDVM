@@ -24,21 +24,10 @@ public class Receiver {
     private Status status;
 
     /**
-     * 
-     */
-    public void Attribute1;
-
-    /**
-     * 
-     */
-    public void Attribute2;
-
-    /**
      * @return
      */
     public void run() {
         // TODO implement here
-        return null;
     }
 
     /**
@@ -47,7 +36,6 @@ public class Receiver {
      */
     public void changeStatus(Status status) {
         // TODO implement here
-        return null;
     }
 
     /**

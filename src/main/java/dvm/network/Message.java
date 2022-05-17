@@ -31,32 +31,19 @@ public class Message {
      */
     private String description;
 
-    /**
-     * 
-     */
     public String getSrcId() {
-        // TODO implement here
+        return srcId;
     }
 
-    /**
-     * 
-     */
     public String getDstId() {
-        // TODO implement here
+        return dstId;
     }
 
-    /**
-     * 
-     */
     public String getType() {
-        // TODO implement here
+        return type;
     }
 
-    /**
-     * 
-     */
     public String getDescription() {
-        // TODO implement here
+        return description;
     }
-
 }

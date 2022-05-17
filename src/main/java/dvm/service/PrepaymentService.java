@@ -1,5 +1,8 @@
 package dvm.service;
 
+import dvm.domain.PrepaymentInfo;
+import dvm.repository.PrepaymentRepository;
+
 /**
  * 
  */
@@ -33,7 +36,6 @@ public class PrepaymentService {
      */
     public void savePrepaymentInfo(String verificationCode, String itemCode, int quantity) {
         // TODO implement here
-        return null;
     }
 
     /**
@@ -42,34 +44,6 @@ public class PrepaymentService {
     public String generateVerificationCode() {
         // TODO implement here
         return "";
-    }
-
-    /**
-     * 
-     */
-    public void Operation1() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void Operation2() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void Operation3() {
-        // TODO implement here
-    }
-
-    /**
-     * 
-     */
-    public void Operation4() {
-        // TODO implement here
     }
 
 }
