@@ -1,53 +1,49 @@
 package dvm.network;
 
 /**
- * 
+ * Controller 응답용 data 클래스
  */
-public class Response {
+public class Response<T> {
 
     /**
-     * Default constructor
-     */
-    public Response() {
-    }
-
-    /**
-     * 
+     * 요청 성공 여부
      */
     private boolean isSuccess;
 
-    /**
-     * 
-     */
     private String message;
 
     /**
-     * 
+     * 결과 객체 리턴해야할 때 리턴
      */
-    //private T result;
+    private T result;
 
-    /**
-     * @return
-     */
+    public Response(boolean isSuccess, String message, T result) {
+        this.isSuccess = isSuccess;
+        this.message = message;
+        this.result = result;
+    }
+
     public boolean isSuccess() {
-        // TODO implement here
-        return false;
+        return isSuccess;
     }
 
-    /**
-     * @return
-     */
+    public void setSuccess(boolean success) {
+        isSuccess = success;
+    }
+
     public String getMessage() {
-        // TODO implement here
-        return "";
+        return message;
     }
 
-    /**
-     * @return
-     */
-    // public T getResult() {
-    //     // TODO implement here
-    //     return null;
-    // }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
+    public T getResult() {
+        return result;
+    }
+
+    public void setResult(T result) {
+        this.result = result;
+    }
 }
