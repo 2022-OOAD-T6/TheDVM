@@ -6,8 +6,8 @@ package dvm.network.message;
 public abstract class Message {
 
     // TODO: 현 DVM의 좌표 정보 -> 후에 좌표 정보 주어진 후 구체적으로 수정
-    private static final int currentX = 10;
-    private static final int currentY = 10;
+    private static int currentX = 10;
+    private static int currentY = 10;
     private static final String currentId = "Team6";
 
     private String srcId;
@@ -46,6 +46,14 @@ public abstract class Message {
 
     public static String getCurrentId() {
         return currentId;
+    }
+
+    public static void setCurrentX(int x){
+        currentX = x;
+    }
+
+    public static void setCurrentY(int y){
+        currentY = y;
     }
 
     public abstract String toString();
