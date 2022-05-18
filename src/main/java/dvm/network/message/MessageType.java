@@ -1,6 +1,7 @@
 package dvm.network.message;
 
 public enum MessageType {
+    NONE,
     STOCK_REQUEST,
     STOCK_RESPONSE,
     PREPAYMENT_INFO,
@@ -20,6 +21,8 @@ public enum MessageType {
                 return "3";
             case SALE_RESPONSE:
                 return "4";
+            case NONE:
+                return "5";
         }
         return super.toString();
     }

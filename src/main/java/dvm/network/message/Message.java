@@ -8,7 +8,7 @@ public abstract class Message {
     // TODO: 현 DVM의 좌표 정보 -> 후에 좌표 정보 주어진 후 구체적으로 수정
     private static int currentX = 10;
     private static int currentY = 10;
-    private static final String currentId = "Team6";
+    private static String currentId = "Team6";
 
     private String srcId;
     private String dstId;
@@ -23,6 +23,7 @@ public abstract class Message {
     public Message(String dstId, String type){
         this(currentId, dstId, type);
     }
+
 
     public String getSrcId() {
         return srcId;
@@ -49,11 +50,15 @@ public abstract class Message {
     }
 
     public static void setCurrentX(int x){
-        currentX = x;
+        Message.currentX = x;
     }
 
     public static void setCurrentY(int y){
-        currentY = y;
+        Message.currentY = y;
+    }
+
+    public static void setCurrentId(String currentId) {
+        Message.currentId = currentId;
     }
 
     public abstract String toString();

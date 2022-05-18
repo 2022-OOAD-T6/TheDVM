@@ -15,20 +15,12 @@ public class NetworkService {
 
     private final Receiver receiver;
 
-    private final List<NetworkInfo> dvmNetworkInfo;
-
     public NetworkService(Sender sender, Receiver receiver) {
         this.sender = sender;
         this.receiver = receiver;
-        dvmNetworkInfo = new ArrayList<>();
-
-        // 임시 네트워크 정보
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1001"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1002"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1003"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1004"));
-
+        Thread serverThread = new Thread(receiver);
+        serverThread.start();
+        System.out.println("Run thread");
         // 현 DVM X,Y
         Message.setCurrentX(5);
         Message.setCurrentY(5);
@@ -39,8 +31,9 @@ public class NetworkService {
         sender.send(sendingMessage);
     }
 
-    public void sendStockResponseMessage(String itemCode, int quantity) {
-        StockResponseMessage sendingMessage = new StockResponseMessage("어디로?", itemCode, quantity);
+    public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
+        // TODO: 클래스 다이어그램에 dstId 추가
+        StockResponseMessage sendingMessage = new StockResponseMessage(dstId, itemCode, quantity);
         sender.send(sendingMessage);
     }
 
@@ -60,15 +53,15 @@ public class NetworkService {
     }
 
     public Vector<Message> getSaleResponseMessages() {
-        // TODO implement here
-        return null;
+        Vector<Message> receivedMessages = receiver.getResponseMessages();
+        return receivedMessages;
     }
 
     /**
      * @return
      */
     public Vector<Message> getStockResponseMessages() {
-        // TODO implement here
-        return null;
+        Vector<Message> receivedMessages = receiver.getResponseMessages();
+        return receivedMessages;
     }
 }

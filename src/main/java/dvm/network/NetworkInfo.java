@@ -7,9 +7,9 @@ public class NetworkInfo {
 
     private String ip;
 
-    private String port;
+    private int port;
 
-    public NetworkInfo(String ip, String port) {
+    public NetworkInfo(String ip, int port) {
         this.ip = ip;
         this.port = port;
     }
@@ -18,7 +18,7 @@ public class NetworkInfo {
         return ip;
     }
 
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 
