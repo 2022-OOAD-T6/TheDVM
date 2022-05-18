@@ -47,9 +47,10 @@ public class CardCompany {
         if(cardValue >= price){
             cardValue -= price;
             registeredCards.put(cardNum,cardValue);
+            return true;
+        }else{
+            return false;
         }
-
-        return false;
     }
 
     /**

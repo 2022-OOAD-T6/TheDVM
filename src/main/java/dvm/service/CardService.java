@@ -11,8 +11,8 @@ public class CardService {
      * Default constructor
      */
     public CardService() {
-    }
 
+    }
     /**
      * 
      */
@@ -29,7 +29,12 @@ public class CardService {
      */
     public boolean saveCardNum(String cardNum) {
         // TODO implement here
-        return false;
+        if(cardNum.length()==8) {
+            this.curCardNum = cardNum;
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**
@@ -38,6 +43,7 @@ public class CardService {
      */
     public boolean pay(int price) {
         // TODO implement here
+        cardCompany.pay(this.curCardNum,price);
         return false;
     }
 
