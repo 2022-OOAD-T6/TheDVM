@@ -1,5 +1,7 @@
 package dvm.network;
 
+import dvm.network.message.Message;
+
 /**
  * 
  */

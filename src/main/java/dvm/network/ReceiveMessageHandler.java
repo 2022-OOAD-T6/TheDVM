@@ -1,5 +1,6 @@
 package dvm.network;
 
+import dvm.network.message.Message;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
