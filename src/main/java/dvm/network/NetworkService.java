@@ -1,6 +1,6 @@
 package dvm.network;
 
-import dvm.network.message.Message;
+import dvm.network.message.*;
 
 import java.util.List;
 import java.util.Vector;
@@ -10,67 +10,56 @@ import java.util.Vector;
  */
 public class NetworkService {
 
-    /**
-     * Default constructor
-     */
-    public NetworkService() {
-    }
-
-    /**
-     * 
-     */
     private Sender sender;
 
-    /**
-     * 
-     */
     private Receiver receiver;
 
-    /**
-     * 
-     */
     private List<NetworkInfo> dvmNetworkInfo;
 
-    /**
-     * @param itemCode 
-     * @param quantity 
-     * @return
-     */
+    public NetworkService() {
+        sender = new Sender();
+
+        // 임시 네트워크 정보
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
+
+        // 현 DVM X,Y
+        Message.setCurrentX(5);
+        Message.setCurrentY(5);
+    }
+
+    public void sendStockRequestMessage(String itemCode, int quantity) {
+        StockRequestMessage sendingMessage = new StockRequestMessage(itemCode, quantity);
+        sender.send(sendingMessage);
+    }
+
+    public void sendStockResponseMessage(String itemCode, int quantity) {
+        StockResponseMessage sendingMessage = new StockResponseMessage("어디로?", itemCode, quantity);
+        sender.send(sendingMessage);
+    }
+
+    public void sendPrepaymentInfoMessage(String dstId, String itemCode, int quantity, String verificationCode) {
+        PrepaymentInfoMessage sendingMessage = new PrepaymentInfoMessage(dstId, itemCode, quantity, verificationCode);
+        sender.send(sendingMessage);
+    }
+
     public void sendSaleRequestMessage(String itemCode, int quantity) {
-        // TODO implement here
+        SaleRequestMessage sendingMessage = new SaleRequestMessage(itemCode, quantity);
+        sender.send(sendingMessage);
     }
 
-    /**
-     * @param itemCode 
-     * @return
-     */
-    public void sendSaleResponseMessage(String itemCode) {
-        // TODO implement here
+    public void sendSaleResponseMessage(String dstId, String itemCode) {
+        SaleResponseMessage sendingMessage = new SaleResponseMessage(dstId, itemCode);
+        sender.send(sendingMessage);
     }
 
-    /**
-     * @return
-     */
     public Vector<Message> getSaleResponseMessages() {
         // TODO implement here
         return null;
-    }
-
-    /**
-     * @param itemCode 
-     * @return
-     */
-    public void sendStockResponseMessage(String itemCode) {
-        // TODO implement here
-    }
-
-    /**
-     * @param itemCode 
-     * @param quantity 
-     * @return
-     */
-    public void sendStockRequestMessage(String itemCode, int quantity) {
-        // TODO implement here
     }
 
     /**
@@ -80,15 +69,4 @@ public class NetworkService {
         // TODO implement here
         return null;
     }
-
-    /**
-     * @param itemCode 
-     * @param quantity 
-     * @param verificationCode 
-     * @return
-     */
-    public void sendPrepaymentInfoMessage(String itemCode, int quantity, String verificationCode) {
-        // TODO implement here
-    }
-
 }
