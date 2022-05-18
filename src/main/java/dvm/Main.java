@@ -1,5 +1,6 @@
 package dvm;
 
+import dvm.repository.ItemRepository;
 import dvm.service.ItemService;
 
 public class Main {
@@ -8,7 +9,8 @@ public class Main {
 
 
         // item testing
-        ItemService service=new ItemService();
+        ItemRepository ir = new ItemRepository();
+        ItemService service=new ItemService(ir);
 
         String itemCode = "01";
         int qty = 111;

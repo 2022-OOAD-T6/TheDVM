@@ -8,11 +8,11 @@ import dvm.repository.ItemRepository;
  */
 public class ItemService {
 
-    public ItemService() {
-        itemRepository= new ItemRepository();
-    }
-
     private ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     /**
      * 선택한 음료 수량이 충분하면 true
