@@ -45,6 +45,8 @@ public class ReceiveMessageHandler implements Runnable {
                 Message requestedMessage = MessageParser.createMessage(message);
                 if(waitingMessageType == requestedMessage.getMessageType()){
                     responseMessages.add(requestedMessage);
+                }else{
+                    // TODO: 각 타입별로 응답
                 }
             }
         } catch (IOException e) {

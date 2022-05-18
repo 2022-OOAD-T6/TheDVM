@@ -27,6 +27,7 @@ public class NetworkService {
     }
 
     public void sendStockRequestMessage(String itemCode, int quantity) {
+        receiver.changeWaitingMessageType(MessageType.STOCK_RESPONSE);
         StockRequestMessage sendingMessage = new StockRequestMessage(itemCode, quantity);
         sender.send(sendingMessage);
     }
@@ -43,6 +44,7 @@ public class NetworkService {
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
+        receiver.changeWaitingMessageType(MessageType.SALE_RESPONSE);
         SaleRequestMessage sendingMessage = new SaleRequestMessage(itemCode, quantity);
         sender.send(sendingMessage);
     }
@@ -53,15 +55,17 @@ public class NetworkService {
     }
 
     public Vector<Message> getSaleResponseMessages() {
+        receiver.changeWaitingMessageType(MessageType.NONE);
         Vector<Message> receivedMessages = receiver.getResponseMessages();
         return receivedMessages;
     }
 
-    /**
-     * @return
-     */
     public Vector<Message> getStockResponseMessages() {
         Vector<Message> receivedMessages = receiver.getResponseMessages();
         return receivedMessages;
+    }
+
+    public void clearResponseMessages(){
+        receiver.clearResponseMessages();
     }
 }

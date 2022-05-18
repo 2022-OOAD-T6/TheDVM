@@ -55,7 +55,6 @@ public class Receiver implements Runnable {
         return responseMessages;
     }
 
-    // TODO: 여기서 clear?
     public void clearResponseMessages(){
         responseMessages.clear();
     }
