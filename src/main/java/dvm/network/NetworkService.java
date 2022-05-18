@@ -2,6 +2,7 @@ package dvm.network;
 
 import dvm.network.message.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -10,22 +11,23 @@ import java.util.Vector;
  */
 public class NetworkService {
 
-    private Sender sender;
+    private final Sender sender;
 
-    private Receiver receiver;
+    private final Receiver receiver;
 
-    private List<NetworkInfo> dvmNetworkInfo;
+    private final List<NetworkInfo> dvmNetworkInfo;
 
-    public NetworkService() {
-        sender = new Sender();
+    public NetworkService(Sender sender, Receiver receiver) {
+        this.sender = sender;
+        this.receiver = receiver;
+        dvmNetworkInfo = new ArrayList<>();
 
         // 임시 네트워크 정보
         dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
-        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1000"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1001"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1002"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1003"));
+        dvmNetworkInfo.add(new NetworkInfo("127.0.0.1", "1004"));
 
         // 현 DVM X,Y
         Message.setCurrentX(5);
