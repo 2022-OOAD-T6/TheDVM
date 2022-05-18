@@ -19,15 +19,8 @@ public class CardCompany {
         registeredCards.put("02444444",8000);
     }
 
-    /**
-     * 
-     */
     private HashMap<String,Integer> registeredCards;
 
-    /**
-     * @param cardNum 
-     * @return
-     */
     public boolean isValid(String cardNum) {
         // TODO implement here
         if(this.registeredCards.containsKey(cardNum) == true){      //존재하는 카드일 경우
@@ -36,11 +29,6 @@ public class CardCompany {
             return false;
     }
 
-    /**
-     * @param cardNum 
-     * @param price 
-     * @return
-     */
     public boolean pay(String cardNum, int price) {
         // TODO implement here
         int cardValue = this.registeredCards.get(cardNum);
@@ -53,16 +41,10 @@ public class CardCompany {
         }
     }
 
-    /**
-     * 
-     */
     public void Operation1() {
         // TODO implement here
     }
 
-    /**
-     * 
-     */
     public void Operation2() {
         // TODO implement here
     }

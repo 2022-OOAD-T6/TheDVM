@@ -23,7 +23,7 @@ public class ItemService {
         if(itemRepository.count(itemCode) >= quantity)
             return true;
         else
-           return false;
+            return false;
     }
 
     /**
@@ -40,9 +40,14 @@ public class ItemService {
      * 정상적으로 결제 후 수행 가능
      * 음료 재고 수량 빼기
      */
-    public void updateStock(String itemCode, int quantity) {
+    public boolean updateStock(String itemCode, int quantity) {
         // TODO implement here
-        itemRepository.update(itemCode, quantity);
+        if(itemRepository.count(itemCode)+quantity >= 0 &&
+                itemRepository.count(itemCode)+quantity <= 999){
+            itemRepository.update(itemCode, quantity);
+            return true;
+        }else
+            return false;
     }
 
     /**

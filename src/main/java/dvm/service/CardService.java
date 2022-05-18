@@ -2,31 +2,18 @@ package dvm.service;
 
 import java.util.HashMap;
 
-/**
- * 
- */
 public class CardService {
 
-    /**
-     * Default constructor
-     */
-    public CardService() {
 
+    public CardService(String curCardNum, CardCompany cardCompany) {
+        this.curCardNum = curCardNum;
+        this. cardCompany = cardCompany;
     }
-    /**
-     * 
-     */
+
     private String curCardNum;
 
-    /**
-     * 
-     */
     private CardCompany cardCompany;
 
-    /**
-     * @param cardNum 
-     * @return
-     */
     public boolean saveCardNum(String cardNum) {
         // TODO implement here
         if(cardNum.length()==8) {
@@ -37,16 +24,12 @@ public class CardService {
         }
     }
 
-    /**
-     * @param price 
-     * @return
-     */
     public boolean pay(int price) {
         // TODO implement here
-        cardCompany.pay(this.curCardNum,price);
-        return false;
+        if(cardCompany.pay(this.curCardNum,price)==true){
+            return true;
+        }else
+            return false;
     }
-
-
 
 }
