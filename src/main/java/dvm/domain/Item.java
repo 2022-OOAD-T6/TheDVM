@@ -1,30 +1,19 @@
 package dvm.domain;
 
 /**
- * 
+ * 20220517 MJY
  */
 public class Item {
 
-    /**
-     * Default constructor
-     */
-    public Item() {
+    public Item(String itemCode, String name, int price) {
+        this.itemCode=itemCode;
+        this.name=name;
+        this.price=price;
     }
 
-    /**
-     * 
-     */
-    private String itemCode;
-
-    /**
-     * 
-     */
-    private String name;
-
-    /**
-     * 
-     */
-    private int price;
+    private String itemCode; // 음료코드
+    private String name;// 음료이름
+    private int price; //음료가격
 
     public String getItemCode() {
         return itemCode;
