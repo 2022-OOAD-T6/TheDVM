@@ -8,7 +8,7 @@ public class MainFrame extends JFrame {
     JPanel menuPanel[] = new JPanel[20];
     JPanel paymentPanel = new JPanel();
     JPanel startPanel = new JPanel();
-    JPanel bottomPanel = new JPanel();
+    JPanel lowestPanel = new JPanel();
 
     JButton[] itemsBtn= new JButton[20];
     JLabel[] pricesLb= new JLabel[20];
@@ -42,20 +42,24 @@ public class MainFrame extends JFrame {
         showBottom();
 
 
-        contentPane.setLayout(new FlowLayout());
-        contentPane.add(menu);
-        contentPane.add(paymentPanel);
-        contentPane.add(startPanel);
-        contentPane.add(bottomPanel);
+        contentPane.setLayout(new BorderLayout());
+        contentPane.add(menu, BorderLayout.NORTH);
+        contentPane.add(paymentPanel, BorderLayout.CENTER);
+
+        JPanel bottomPanel = new JPanel();
+        bottomPanel.setLayout(new GridLayout(2, 1));
+        bottomPanel.add(startPanel);
+        bottomPanel.add(lowestPanel);
+        contentPane.add(bottomPanel, BorderLayout.SOUTH);
 
         setSize(600, 400);
         setVisible(true);
     }
 
     private void showBottom() {
-        bottomPanel.setSize(600,bottomPanel.getHeight());
-        bottomPanel.add(adminBtn);
-        bottomPanel.add(itemLb);
+        lowestPanel.setSize(600, lowestPanel.getHeight());
+        lowestPanel.add(adminBtn);
+        lowestPanel.add(itemLb);
     }
 
     private void showStart() {
