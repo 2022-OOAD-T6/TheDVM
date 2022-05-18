@@ -43,6 +43,7 @@ public class Controller {
      */
     public Response enterCardNum(String cardNum) {
         // TODO implement here
+        this.cardService.saveCardNum(cardNum);
         return null;
     }
 
@@ -52,6 +53,7 @@ public class Controller {
      */
     public Response enterVerificationCode(String verificationCode) {
         // TODO implement here
+        this.prepaymentService.getPrepaymentInfo(verificationCode);
         return null;
     }
 
@@ -62,6 +64,7 @@ public class Controller {
      */
     public Response selectItem(String itemCode, int quantity) {
         // TODO implement here
+        this.itemService.isEnough(itemCode,quantity);
         return null;
     }
 
@@ -72,6 +75,10 @@ public class Controller {
      */
     public Response requestPayment(String itemCode, int quantity) {
         // TODO implement here
+        this.itemService.isEnough(itemCode,quantity);
+
+        int itemPrice = this.itemService.getItemPrice(itemCode);
+        this.cardService.pay(itemPrice);
         return null;
     }
 
