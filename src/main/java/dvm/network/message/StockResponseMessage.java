@@ -62,7 +62,7 @@ public class StockResponseMessage extends Message{
     @Override
     public String toString() {
         return getSrcId() + "_" + getDstId() + "_" + messageType + "_" +
-                getItemCode() + "_"+getQuantity()+"_"+getDstId()+"_"+getDstX()+"_"+getDstY();
+                getItemCode() + "_"+getQuantity()+"_"+getResponseDstId()+"_"+getDstX()+"_"+getDstY();
     }
 
     @Override
