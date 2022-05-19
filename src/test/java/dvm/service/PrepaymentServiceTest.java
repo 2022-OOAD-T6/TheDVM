@@ -20,7 +20,7 @@ class PrepaymentServiceTest {
         assertNull(saveInfo);
 
         String vCode = "vCode1";
-        String iCode = "itemCode1";
+        String iCode = "01";
         int quantity = 20;
         boolean valid = false;
 
@@ -35,7 +35,7 @@ class PrepaymentServiceTest {
     @Test
     void savePrepaymentInfo() {
         String vCode = "vCode2";
-        String iCode = "itemCode2";
+        String iCode = "02";
         int quantity = 10;
         boolean valid = true;
 
