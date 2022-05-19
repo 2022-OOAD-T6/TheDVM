@@ -20,7 +20,7 @@ public abstract class Message {
         this.type = type;
     }
 
-    public Message(String dstId, String type){
+    public Message(String dstId, String type) {
         this(currentId, dstId, type);
     }
 
@@ -31,10 +31,6 @@ public abstract class Message {
 
     public String getDstId() {
         return dstId;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public static int getCurrentX() {
@@ -49,11 +45,15 @@ public abstract class Message {
         return currentId;
     }
 
-    public static void setCurrentX(int x){
+    public void setDstId(String dstId) {
+        this.dstId = dstId;
+    }
+
+    public static void setCurrentX(int x) {
         Message.currentX = x;
     }
 
-    public static void setCurrentY(int y){
+    public static void setCurrentY(int y) {
         Message.currentY = y;
     }
 
