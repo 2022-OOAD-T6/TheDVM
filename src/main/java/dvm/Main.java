@@ -23,13 +23,30 @@ public class Main {
         NetworkService networkService = new NetworkService(currentId, 5, 10, itemService, prepaymentService);
 
         String[] teamIds = {"Team1", "Team2", "Team3", "Team4", "Team5", "Team6"};
-        Random rand = new Random();
+        Random dstRand = new Random();
+        Random typeRand = new Random();
 
-        while(true){
-            System.out.println("Sleep for 2000ms...");
+        while (true) {
             Thread.sleep(2000);
-            int index = rand.nextInt(6);
-            networkService.sendPrepaymentInfoMessage(teamIds[index], "05", 5, "aabbded");
+            int dstIndex = dstRand.nextInt(6);
+            int typeIndex = typeRand.nextInt(4);
+
+            switch(typeIndex){
+                case 0:
+                    networkService.sendStockRequestMessage("10", 20);
+                    break;
+                case 1:
+                    networkService.sendStockResponseMessage(teamIds[dstIndex], "05", 2);
+                    break;
+                case 2:
+                    networkService.sendPrepaymentInfoMessage(teamIds[dstIndex], "04", 5, "aabbded");
+                    break;
+                case 3:
+                    networkService.sendSaleRequestMessage("12", 24);
+                    break;
+                case 4:
+                    networkService.sendSaleResponseMessage(teamIds[dstIndex], "08");
+            }
         }
     }
 }
