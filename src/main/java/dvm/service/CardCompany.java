@@ -19,7 +19,7 @@ public class CardCompany {
         registeredCards.put("02444444",8000);
     }
 
-    private HashMap<String,Integer> registeredCards;
+    private final HashMap<String,Integer> registeredCards = new HashMap<>();
 
     public boolean isValid(String cardNum) {
         // TODO implement here
