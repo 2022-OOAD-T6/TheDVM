@@ -1,6 +1,8 @@
 package dvm.service;
 
+import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
+import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class PrepaymentServiceTest {
 
     PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
+
+    ItemService itemService = new ItemService(new ItemRepository());
 
     @Test
     void getPrepaymentInfo() {
@@ -20,7 +24,7 @@ class PrepaymentServiceTest {
         int quantity = 20;
         boolean valid = false;
 
-        prepaymentService.savePrepaymentInfo(vCode, iCode, quantity, valid);
+        prepaymentService.savePrepaymentInfo(itemService, vCode, iCode, quantity);
         saveInfo = prepaymentService.getPrepaymentInfo(vCode);
 
         assertEquals(saveInfo.getItemCode(), iCode);
@@ -35,7 +39,7 @@ class PrepaymentServiceTest {
         int quantity = 10;
         boolean valid = true;
 
-        prepaymentService.savePrepaymentInfo(vCode, iCode, quantity, valid);
+        prepaymentService.savePrepaymentInfo(itemService, vCode, iCode, quantity);
         PrepaymentInfo saveInfo = prepaymentService.getPrepaymentInfo(vCode);
 
         assertEquals(saveInfo.getItemCode(), iCode);

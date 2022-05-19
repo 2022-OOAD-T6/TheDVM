@@ -1,5 +1,6 @@
 package dvm.service;
 
+import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
 import dvm.repository.PrepaymentRepository;
 
@@ -29,8 +30,8 @@ public class PrepaymentService {
      * 선결제 정보 저장
      * 수정사항: 정상적인 선결제인지 지정하는 isValid 파라미터 추가
      */
-    public void savePrepaymentInfo(String verificationCode, String itemCode, int quantity, boolean isValid) {
-        prepaymentRepository.save(verificationCode, new PrepaymentInfo(itemCode, quantity, isValid));
+    public void savePrepaymentInfo(ItemService itemService, String verificationCode, String itemCode, int quantity) {
+        prepaymentRepository.save(verificationCode, new PrepaymentInfo(itemCode, quantity, true));
     }
 
     /**
