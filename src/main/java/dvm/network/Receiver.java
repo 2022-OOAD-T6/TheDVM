@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.util.Vector;
 
 /**
- * 
+ *
  */
 public class Receiver implements Runnable {
 
@@ -22,12 +22,15 @@ public class Receiver implements Runnable {
 
     private final PrepaymentService prepaymentService;
 
+    private final NetworkService networkService;
+
     private MessageType waitingMessageType;
 
-    public Receiver(int port, ItemService itemService, PrepaymentService prepaymentService) {
+    public Receiver(int port, ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
         this.port = port;
         this.itemService = itemService;
         this.prepaymentService = prepaymentService;
+        this.networkService = networkService;
 
         this.responseMessages = new Vector<>();
         this.waitingMessageType = MessageType.NONE;
@@ -39,7 +42,7 @@ public class Receiver implements Runnable {
             ServerSocket serverSocket = new ServerSocket(port);
             while (true) {
                 Socket socket = serverSocket.accept();
-                ReceiveMessageHandler handler = new ReceiveMessageHandler(socket, waitingMessageType, responseMessages, itemService, prepaymentService);
+                ReceiveMessageHandler handler = new ReceiveMessageHandler(socket, waitingMessageType, responseMessages, itemService, prepaymentService, networkService);
                 new Thread(handler).start();
             }
         } catch (Exception e) {
@@ -55,7 +58,7 @@ public class Receiver implements Runnable {
         return responseMessages;
     }
 
-    public void clearResponseMessages(){
+    public void clearResponseMessages() {
         responseMessages.clear();
     }
 

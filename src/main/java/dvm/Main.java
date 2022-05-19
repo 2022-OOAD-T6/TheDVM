@@ -11,19 +11,16 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-        if(args.length <1){
+        if (args.length < 1) {
             System.out.println("팀 아이디를 입력해주세요 예: Team1");
             return;
         }
 
         String currentId = args[0];
-        Message.setCurrentId(currentId);
 
-        Sender sender = new Sender();
         ItemService itemService = new ItemService();
         PrepaymentService prepaymentService = new PrepaymentService();
-        Receiver receiver = new Receiver(sender.getNetworkInfo(currentId).getPort(), itemService, prepaymentService);
-        NetworkService networkService = new NetworkService(sender, receiver);
+        NetworkService networkService = new NetworkService(currentId, 5, 10, itemService, prepaymentService);
 
         String[] teamIds = {"Team1", "Team2", "Team3", "Team4", "Team5", "Team6"};
         Random rand = new Random();

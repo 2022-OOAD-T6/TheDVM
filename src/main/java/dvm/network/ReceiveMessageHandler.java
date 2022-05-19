@@ -2,6 +2,7 @@ package dvm.network;
 
 import dvm.network.message.Message;
 import dvm.network.message.MessageType;
+import dvm.domain.PrepaymentInfo;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
@@ -18,7 +19,7 @@ public class ReceiveMessageHandler implements Runnable {
 
     private final Socket socket;
 
-    private MessageType waitingMessageType;
+    private final MessageType waitingMessageType;
 
     private final Vector<Message> responseMessages;
 
@@ -26,13 +27,15 @@ public class ReceiveMessageHandler implements Runnable {
 
     private final PrepaymentService prepaymentService;
 
+    private final NetworkService networkService;
 
-    public ReceiveMessageHandler(Socket socket, MessageType waitingMessageType, Vector<Message> responseMessages, ItemService itemService, PrepaymentService prepaymentService) {
+    public ReceiveMessageHandler(Socket socket, MessageType waitingMessageType, Vector<Message> responseMessages, ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
         this.socket = socket;
         this.waitingMessageType = waitingMessageType;
         this.responseMessages = responseMessages;
         this.itemService = itemService;
         this.prepaymentService = prepaymentService;
+        this.networkService = networkService;
     }
 
     @Override

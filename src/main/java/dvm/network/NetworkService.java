@@ -1,11 +1,13 @@
 package dvm.network;
 
 import dvm.network.message.*;
+import dvm.service.ItemService;
+import dvm.service.PrepaymentService;
 
 import java.util.*;
 
 /**
- * 
+ *
  */
 public class NetworkService {
 
@@ -13,15 +15,16 @@ public class NetworkService {
 
     private final Receiver receiver;
 
-    public NetworkService(Sender sender, Receiver receiver) {
-        this.sender = sender;
-        this.receiver = receiver;
+    public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
+        this.sender = new Sender();
+        this.receiver = new Receiver(sender.getNetworkInfo(currentId).getPort(), itemService, prepaymentService, this);
+        Message.setCurrentId(currentId);
+        Message.setCurrentX(currentX);
+        Message.setCurrentY(currentY);
+
         Thread serverThread = new Thread(receiver);
         serverThread.start();
         System.out.println("Run thread");
-        // 현 DVM X,Y
-        Message.setCurrentX(5);
-        Message.setCurrentY(5);
     }
 
     public void sendStockRequestMessage(String itemCode, int quantity) {
