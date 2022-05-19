@@ -1,9 +1,11 @@
 package dvm.network.message;
 
+import java.util.Comparator;
+
 /**
  * PFR: 음료 판매 응답 메세지
  */
-public class SaleResponseMessage extends Message{
+public class SaleResponseMessage extends Message implements Comparable<SaleResponseMessage> {
     private String itemCode;
     private String responseDstId;
     private int dstX;
@@ -26,8 +28,8 @@ public class SaleResponseMessage extends Message{
     /**
      * 현 자판기 -> 외부 자판기
      */
-    public SaleResponseMessage(String dstId, String itemCode){
-        super(dstId,messageType.toString());
+    public SaleResponseMessage(String dstId, String itemCode) {
+        super(dstId, messageType.toString());
         this.itemCode = itemCode;
         this.responseDstId = getCurrentId();
         this.dstX = getCurrentX();
@@ -53,12 +55,38 @@ public class SaleResponseMessage extends Message{
     @Override
     public String toString() {
         return getSrcId() + "_" + getDstId() + "_" + messageType + "_" +
-                getItemCode() + "_"+getResponseDstId()+"_"+getDstX()+"_"+getDstY();
+                getItemCode() + "_" + getResponseDstId() + "_" + getDstX() + "_" + getDstY();
     }
 
 
     @Override
     public MessageType getMessageType() {
         return messageType;
+    }
+
+    /**
+     * 응답값 sort 위해 compareTo override
+     */
+    @Override
+    public int compareTo(SaleResponseMessage o) {
+        int currentX = getCurrentX();
+        int currentY = getCurrentX();
+
+        int thisDifferX = currentX - this.getDstX();
+        int thisDifferY = currentY - this.getDstY();
+        double thisDistance = Math.sqrt(thisDifferX * thisDifferX + thisDifferY * thisDifferY);
+
+        int otherDifferX = currentX - o.getDstX();
+        int otherDifferY = currentY - o.getDstY();
+        double otherDistance = Math.sqrt(otherDifferX * otherDifferX + otherDifferY * otherDifferY);
+
+        if (thisDistance == otherDistance) {
+            if ((this.getSrcId().compareTo(o.getSrcId())) == 1) {
+                return 1;
+            }
+        } else if (thisDistance > otherDistance) {
+            return 1;
+        }
+        return -1;
     }
 }

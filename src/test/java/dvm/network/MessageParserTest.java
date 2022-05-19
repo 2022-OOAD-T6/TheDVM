@@ -12,22 +12,19 @@ class MessageParserTest {
 
     @Test
     public void invalidMessage() {
-        try {
-            Message invalidMessage = MessageParser.createMessage("d;fajswefjnal");
-        } catch (Exception exception) {
-            assertThat(exception.getMessage()).isEqualTo("메세지 생성 불가능");
-        }
+        Message invalidMessage = MessageParser.createMessage("d;fajswefjnal");
+        assertThat(invalidMessage).isNull();
     }
 
     @Test
-    public void createStockRequestMessage() throws Exception {
+    public void createStockRequestMessage() {
         String receivedMessage = "Team5_Team6_0_01_10";
         StockRequestMessage parsedMessage = (StockRequestMessage) MessageParser.createMessage(receivedMessage);
         assertThat(receivedMessage.toString()).isEqualTo(receivedMessage);
     }
 
     @Test
-    public void createStockResponseMessage() throws Exception {
+    public void createStockResponseMessage() {
         String receivedMessage = "Team5_Team6_1_05_05_Team5_10_5";
 
         StockResponseMessage parsedMessage = (StockResponseMessage) MessageParser.createMessage(receivedMessage);
@@ -35,7 +32,7 @@ class MessageParserTest {
     }
 
     @Test
-    public void createPrepaymentInfoMessage() throws Exception {
+    public void createPrepaymentInfoMessage() {
         String receivedMessage = "Team5_Team6_2_17_2_test105te";
 
         PrepaymentInfoMessage parsedMessage = (PrepaymentInfoMessage) MessageParser.createMessage(receivedMessage);
@@ -43,7 +40,7 @@ class MessageParserTest {
     }
 
     @Test
-    public void createSaleRequestMessage() throws Exception {
+    public void createSaleRequestMessage(){
         String receivedMessage = "Team5_Team6_3_15_1";
 
         SaleRequestMessage parsedMessage = (SaleRequestMessage) MessageParser.createMessage(receivedMessage);
@@ -51,7 +48,7 @@ class MessageParserTest {
     }
 
     @Test
-    public void createSaleResponseMessage() throws Exception {
+    public void createSaleResponseMessage() {
         String receivedMessage = "Team5_Team6_4_20_Team5_5_10";
 
         SaleResponseMessage parsedMessage = (SaleResponseMessage) MessageParser.createMessage(receivedMessage);

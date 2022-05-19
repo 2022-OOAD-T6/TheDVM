@@ -3,7 +3,7 @@ package dvm.network.message;
 /**
  * PFR: 재고 확인 응답 메세지
  */
-public class StockResponseMessage extends Message{
+public class StockResponseMessage extends Message implements Comparable<StockResponseMessage>{
     private String itemCode;
     private int quantity;
     private String responseDstId;
@@ -68,5 +68,31 @@ public class StockResponseMessage extends Message{
     @Override
     public MessageType getMessageType() {
         return messageType;
+    }
+
+    /**
+     * 응답값 sort 위해 compareTo override
+     */
+    @Override
+    public int compareTo(StockResponseMessage o) {
+        int currentX = getCurrentX();
+        int currentY = getCurrentX();
+
+        int thisDifferX = currentX - this.getDstX();
+        int thisDifferY = currentY - this.getDstY();
+        double thisDistance = Math.sqrt(thisDifferX * thisDifferX + thisDifferY * thisDifferY);
+
+        int otherDifferX = currentX - o.getDstX();
+        int otherDifferY = currentY - o.getDstY();
+        double otherDistance = Math.sqrt(otherDifferX * otherDifferX + otherDifferY * otherDifferY);
+
+        if (thisDistance == otherDistance) {
+            if ((this.getSrcId().compareTo(o.getSrcId())) == 1) {
+                return 1;
+            }
+        } else if (thisDistance > otherDistance) {
+            return 1;
+        }
+        return -1;
     }
 }

@@ -2,9 +2,7 @@ package dvm.network;
 
 import dvm.network.message.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 /**
  * 
@@ -33,7 +31,6 @@ public class NetworkService {
     }
 
     public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
-        // TODO: 클래스 다이어그램에 dstId 추가
         StockResponseMessage sendingMessage = new StockResponseMessage(dstId, itemCode, quantity);
         sender.send(sendingMessage);
     }
@@ -54,18 +51,33 @@ public class NetworkService {
         sender.send(sendingMessage);
     }
 
-    public Vector<Message> getSaleResponseMessages() {
+    public Vector<SaleResponseMessage> getSaleResponseMessages() {
         receiver.changeWaitingMessageType(MessageType.NONE);
-        Vector<Message> receivedMessages = receiver.getResponseMessages();
-        return receivedMessages;
+        Vector<Message> messages = receiver.getResponseMessages();
+        Vector<SaleResponseMessage> saleResponseMessages = new Vector<>();
+        for (Message message : messages) {
+            if (message instanceof SaleResponseMessage) {
+                saleResponseMessages.add((SaleResponseMessage) message);
+            }
+        }
+        Collections.sort(saleResponseMessages);
+        return saleResponseMessages;
     }
 
-    public Vector<Message> getStockResponseMessages() {
-        Vector<Message> receivedMessages = receiver.getResponseMessages();
-        return receivedMessages;
+    public Vector<StockResponseMessage> getStockResponseMessages() {
+        receiver.changeWaitingMessageType(MessageType.NONE);
+        Vector<Message> messages = receiver.getResponseMessages();
+        Vector<StockResponseMessage> stockResponseMessage = new Vector<>();
+        for (Message message : messages) {
+            if (message instanceof StockResponseMessage) {
+                stockResponseMessage.add((StockResponseMessage) message);
+            }
+        }
+        Collections.sort(stockResponseMessage);
+        return stockResponseMessage;
     }
 
-    public void clearResponseMessages(){
+    public void clearResponseMessages() {
         receiver.clearResponseMessages();
     }
 }
