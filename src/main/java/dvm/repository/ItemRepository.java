@@ -11,6 +11,9 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ItemRepository {
 
+    private List<Item> items;// 모든 음료 20개
+    private ConcurrentHashMap<Item, Integer> stock;// 우리 자판기 음료 7개
+
     public ItemRepository() {
         items = new ArrayList<>(20);
         items.add(new Item("01", "콜라", 100));
@@ -44,9 +47,6 @@ public class ItemRepository {
         stock.put(items.get(5), 100);
         stock.put(items.get(6), 100);
     }
-
-    private List<Item> items;// 모든 음료 20개
-    private ConcurrentHashMap<Item, Integer> stock;// 우리 자판기 음료 7개
 
     /**
      * 우리 자판기에 있는 음료 수량 리턴
