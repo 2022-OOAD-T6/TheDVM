@@ -5,27 +5,21 @@ package dvm.network;
  */
 public class NetworkInfo {
 
-    /**
-     * Default constructor
-     */
-    public NetworkInfo() {
-    }
-
-    /**
-     * 
-     */
     private String ip;
 
-    /**
-     * 
-     */
-    private String port;
+    private int port;
+
+    public NetworkInfo(String ip, int port) {
+        this.ip = ip;
+        this.port = port;
+    }
 
     public String getIp() {
         return ip;
     }
 
-    public String getPort() {
+    public int getPort() {
         return port;
     }
+
 }
