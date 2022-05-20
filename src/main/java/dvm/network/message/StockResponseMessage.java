@@ -4,16 +4,16 @@ package dvm.network.message;
  * PFR: 재고 확인 응답 메세지
  */
 public class StockResponseMessage extends Message implements Comparable<StockResponseMessage>{
-    private String itemCode;
-    private int quantity;
-    private String responseDstId;
+    private final String itemCode;
+    private final int quantity;
+    private final String responseDstId;
 
     private static final MessageType messageType = MessageType.STOCK_RESPONSE;
 
 
     // TODO: 좌표 형태 일단 X_Y -> _로 구분
-    private int dstX;
-    private int dstY;
+    private final int dstX;
+    private final int dstY;
 
     /**
      * 외부 자판기 -> 현 자판기

@@ -5,9 +5,9 @@ package dvm.network;
  */
 public class NetworkInfo {
 
-    private String ip;
+    private final String ip;
 
-    private int port;
+    private final int port;
 
     public NetworkInfo(String ip, int port) {
         this.ip = ip;

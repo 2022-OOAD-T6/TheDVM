@@ -11,8 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ItemRepository {
 
-    private List<Item> items;// 모든 음료 20개
-    private ConcurrentHashMap<Item, Integer> stock;// 우리 자판기 음료 7개
+    private final List<Item> items;// 모든 음료 20개
+    private final ConcurrentHashMap<Item, Integer> stock;// 우리 자판기 음료 7개
 
     public ItemRepository() {
         items = new ArrayList<>(20);

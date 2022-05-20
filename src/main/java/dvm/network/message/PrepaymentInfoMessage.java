@@ -4,9 +4,9 @@ package dvm.network.message;
  * PFR: 선결제 확인 메세지
  */
 public class PrepaymentInfoMessage extends Message{
-    private String itemCode;
-    private int quantity;
-    private String verificationCode;
+    private final String itemCode;
+    private final int quantity;
+    private final String verificationCode;
 
     private static final MessageType messageType = MessageType.PREPAYMENT_INFO;
 

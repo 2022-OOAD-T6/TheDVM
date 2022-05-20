@@ -4,8 +4,8 @@ package dvm.network.message;
  * PFR: 재고 확인 요청 메세지
  */
 public class StockRequestMessage extends Message {
-    private String itemCode;
-    private int quantity;
+    private final String itemCode;
+    private final int quantity;
 
     private static final MessageType messageType = MessageType.STOCK_REQUEST;
 

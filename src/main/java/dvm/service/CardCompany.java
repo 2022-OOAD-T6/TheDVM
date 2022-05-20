@@ -23,10 +23,8 @@ public class CardCompany {
 
     public boolean isValid(String cardNum) {
         // TODO implement here
-        if(this.registeredCards.containsKey(cardNum) == true){      //존재하는 카드일 경우
-            return true;
-        }else
-            return false;
+        //존재하는 카드일 경우
+        return this.registeredCards.containsKey(cardNum) == true;
     }
 
     public boolean pay(String cardNum, int price) {

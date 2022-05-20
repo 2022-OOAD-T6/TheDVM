@@ -12,7 +12,7 @@ public class CardService {
 
     private String curCardNum;
 
-    private CardCompany cardCompany;
+    private final CardCompany cardCompany;
 
     public boolean saveCardNum(String cardNum) {
         // TODO implement here
@@ -26,10 +26,7 @@ public class CardService {
 
     public boolean pay(int price) {
         // TODO implement here
-        if(cardCompany.pay(this.curCardNum,price)==true){
-            return true;
-        }else
-            return false;
+        return cardCompany.pay(this.curCardNum, price) == true;
     }
 
 }

@@ -10,9 +10,9 @@ public abstract class Message {
     private static int currentY = 10;
     private static String currentId = "Team6";
 
-    private String srcId;
+    private final String srcId;
     private String dstId;
-    private String type;
+    private final String type;
 
     public Message(String srcId, String dstId, String type) {
         this.srcId = srcId;

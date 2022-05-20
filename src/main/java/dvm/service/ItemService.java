@@ -8,7 +8,7 @@ import dvm.repository.ItemRepository;
  */
 public class ItemService {
 
-    private ItemRepository itemRepository;
+    private final ItemRepository itemRepository;
 
     public ItemService(ItemRepository itemRepository) {
         this.itemRepository = itemRepository;
@@ -20,10 +20,7 @@ public class ItemService {
      */
     public boolean isEnough(String itemCode, int quantity) {
         // TODO implement here
-        if(itemRepository.count(itemCode) >= quantity)
-            return true;
-        else
-            return false;
+        return itemRepository.count(itemCode) >= quantity;
     }
 
     /**

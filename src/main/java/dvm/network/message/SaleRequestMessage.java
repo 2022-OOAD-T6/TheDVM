@@ -5,8 +5,8 @@ package dvm.network.message;
  * PFR: 음료 판매 확인 메세지
  */
 public class SaleRequestMessage extends Message{
-    private String itemCode;
-    private int quantity;
+    private final String itemCode;
+    private final int quantity;
     private static final MessageType messageType = MessageType.SALE_REQUEST;
 
     /**

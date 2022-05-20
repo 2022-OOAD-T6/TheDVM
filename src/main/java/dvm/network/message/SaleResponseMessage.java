@@ -6,10 +6,10 @@ import java.util.Comparator;
  * PFR: 음료 판매 응답 메세지
  */
 public class SaleResponseMessage extends Message implements Comparable<SaleResponseMessage> {
-    private String itemCode;
-    private String responseDstId;
-    private int dstX;
-    private int dstY;
+    private final String itemCode;
+    private final String responseDstId;
+    private final int dstX;
+    private final int dstY;
 
     private static final MessageType messageType = MessageType.SALE_RESPONSE;
 
