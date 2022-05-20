@@ -1,49 +1,66 @@
 package dvm.network;
 
+import dvm.network.message.Message;
+import dvm.network.message.MessageType;
+import dvm.service.ItemService;
+import dvm.service.PrepaymentService;
+
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.Vector;
 
 /**
- * 
+ *
  */
-public class Receiver {
+public class Receiver implements Runnable {
 
-    /**
-     * Default constructor
-     */
-    public Receiver() {
+    private final int port;
+
+    private final Vector<Message> responseMessages;
+
+    private final ItemService itemService;
+
+    private final PrepaymentService prepaymentService;
+
+    private final NetworkService networkService;
+
+    private MessageType waitingMessageType;
+
+    public Receiver(int port, ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
+        this.port = port;
+        this.itemService = itemService;
+        this.prepaymentService = prepaymentService;
+        this.networkService = networkService;
+
+        this.responseMessages = new Vector<>();
+        this.waitingMessageType = MessageType.NONE;
     }
 
-    /**
-     * 
-     */
-    private Vector<Message> responseMessages;
-
-    /**
-     * 
-     */
-    private Status status;
-
-    /**
-     * @return
-     */
+    @Override
     public void run() {
-        // TODO implement here
+        try {
+            ServerSocket serverSocket = new ServerSocket(port);
+            while (true) {
+                Socket socket = serverSocket.accept();
+                ReceiveMessageHandler handler = new ReceiveMessageHandler(socket, waitingMessageType, responseMessages, itemService, prepaymentService, networkService);
+                new Thread(handler).start();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    /**
-     * @param status 
-     * @return
-     */
-    public void changeStatus(Status status) {
-        // TODO implement here
+    public void changeWaitingMessageType(MessageType messageType) {
+        this.waitingMessageType = messageType;
+        System.out.println("receiver 상태 수정 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
     }
 
-    /**
-     * @return
-     */
     public Vector<Message> getResponseMessages() {
-        // TODO implement here
-        return null;
+        return responseMessages;
+    }
+
+    public void clearResponseMessages() {
+        responseMessages.clear();
     }
 
 }

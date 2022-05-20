@@ -1,30 +1,16 @@
 package dvm.domain;
 
-/**
- * 
- */
 public class PrepaymentInfo {
 
-    /**
-     * Default constructor
-     */
-    public PrepaymentInfo() {
+    private final String itemCode;
+    private final int quantity;
+    private final boolean isValid;
+
+    public PrepaymentInfo(String itemCode, int quantity, boolean isValid) {
+        this.itemCode = itemCode;
+        this.quantity = quantity;
+        this.isValid = isValid;
     }
-
-    /**
-     * 
-     */
-    private boolean isValid;
-
-    /**
-     * 
-     */
-    private String itemCode;
-
-    /**
-     * 
-     */
-    private int quantity;
 
     public boolean isValid() {
         return isValid;

@@ -2,12 +2,19 @@ package dvm.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class MainFrame extends JFrame {
+//    CardLayout cards= new CardLayout();
+//    JPanel cardPanel= new JPanel();
+    JPanel topPanel= new JPanel(new BorderLayout());
+    JPanel topPanel2= new AdminFrame();
     JPanel menu= new JPanel();
     JPanel menuPanel[] = new JPanel[20];
     JPanel paymentPanel = new JPanel();
     JPanel startPanel = new JPanel();
+    JPanel bottomPanel = new JPanel();
     JPanel lowestPanel = new JPanel();
 
     JButton[] itemsBtn= new JButton[20];
@@ -30,36 +37,52 @@ public class MainFrame extends JFrame {
     JButton cardBtn = new JButton("카드번호 입력");
     JButton adminBtn = new JButton("ADMIN");
     JLabel itemLb = new JLabel("사이다");
+    Container contentPane= getContentPane();
     public MainFrame(){
         setTitle("DVM6");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 
-        Container contentPane = getContentPane();
+//        Container contentPane = getContentPane();
+        adminBtn.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                contentPane.removeAll();
+                contentPane.add(topPanel2);
+                revalidate();
+                repaint();
+
+//                cards.next(cardPanel);
+//                cards.show(cardPanel,"2");
+            }
+        });
         showMenu();
         showPayment();
         showStart();
         showBottom();
 
 
-        contentPane.setLayout(new BorderLayout());
-        contentPane.add(menu, BorderLayout.NORTH);
-        contentPane.add(paymentPanel, BorderLayout.CENTER);
+        topPanel.add(menu, BorderLayout.NORTH);
+        topPanel.add(paymentPanel, BorderLayout.CENTER);
+        topPanel.add(bottomPanel, BorderLayout.SOUTH);
 
-        JPanel bottomPanel = new JPanel();
-        bottomPanel.setLayout(new GridLayout(2, 1));
-        bottomPanel.add(startPanel);
-        bottomPanel.add(lowestPanel);
-        contentPane.add(bottomPanel, BorderLayout.SOUTH);
-
+//        cardPanel.setLayout(cards);
+//        cardPanel.add(topPanel,"1");
+//        cardPanel.add(topPanel2,"2");
+//        cards.show(cardPanel,"1");
+        contentPane.add(topPanel);
         setSize(600, 400);
         setVisible(true);
     }
 
     private void showBottom() {
-        lowestPanel.setSize(600, lowestPanel.getHeight());
         lowestPanel.add(adminBtn);
         lowestPanel.add(itemLb);
+
+        bottomPanel.setLayout(new GridLayout(2, 1));
+        bottomPanel.add(startPanel);
+        bottomPanel.add(lowestPanel);
     }
 
     private void showStart() {

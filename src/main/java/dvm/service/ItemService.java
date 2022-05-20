@@ -1,58 +1,62 @@
 package dvm.service;
 
+import dvm.domain.Item;
 import dvm.repository.ItemRepository;
 
 /**
- * 
+ * 20220517 MJY
  */
 public class ItemService {
 
-    /**
-     * Default constructor
-     */
-    public ItemService() {
+    private ItemRepository itemRepository;
+
+    public ItemService(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
     }
 
     /**
-     * 
-     */
-    private ItemRepository itemRepository;
-
-    /**
-     * @param itemCode 
-     * @param quantity 
-     * @return
+     * 선택한 음료 수량이 충분하면 true
+     * 아니면 false
      */
     public boolean isEnough(String itemCode, int quantity) {
         // TODO implement here
-        return false;
+        if(itemRepository.count(itemCode) >= quantity)
+            return true;
+        else
+            return false;
     }
 
     /**
-     * @param itemCode 
-     * @return
+     * 음료 가격 리턴
+     * 여기서 Item 객체 필요?
      */
     public int getItemPrice(String itemCode) {
         // TODO implement here
-        return 0;
+        Item item = itemRepository.findItem(itemCode);
+        return item.getPrice();
     }
 
     /**
-     * @param itemCode 
-     * @param quantity 
-     * @return
+     * 정상적으로 결제 후 수행 가능
+     * 음료 재고 수량 빼기
      */
-    public void updateStock(String itemCode, int quantity) {
+    public boolean updateStock(String itemCode, int quantity) {
         // TODO implement here
+        if(itemRepository.count(itemCode)+quantity >= 0 &&
+                itemRepository.count(itemCode)+quantity <= 999){
+            itemRepository.update(itemCode, quantity);
+            return true;
+        }else
+            return false;
     }
 
     /**
-     * @param itemCode 
-     * @return
+     * 재고 정보 확인 프로토콜이 들어오면 수행
+     * 음료 수량 리턴
      */
     public int getItemCount(String itemCode) {
         // TODO implement here
-        return 0;
+        return itemRepository.count(itemCode);
     }
 
 }
