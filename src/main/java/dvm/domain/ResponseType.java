@@ -1,5 +1,21 @@
 package dvm.domain;
 
 public enum ResponseType {
+    ITEMS_OK,
+    NOT_EXIST_CARD,
+    CARD_OK,
+    NOT_EXIST_CODE,
+    INVALID_PREPAYMENT,
+    CODE_OK,
+    SELECTION_OK,
+    NO_RESPONSE_MESSAGE,
+    RESPONSE_OK,
+    NOT_ENOUGH_STOCK,
+    PAYMENT_FAIL,
+    PAYMENT_OK,
+    UPDATE_OK,
+    UPDATE_FAIL,
+    PREPAYMENT_OK,
+    PREPAYMENT_FAIL
 
 }
