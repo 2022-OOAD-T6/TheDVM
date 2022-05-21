@@ -18,15 +18,15 @@ public class ItemRepository {
 
     public ItemRepository() {
         items = new ArrayList<>(20);
-        items.add(new Item("01", "콜라", 100));
-        items.add(new Item("02", "사이다", 100));
-        items.add(new Item("03", "녹차", 100));
+        items.add(new Item("01", "콜라", 1000));
+        items.add(new Item("02", "사이다", 2000));
+        items.add(new Item("03", "녹차", 3000));
         items.add(new Item("04", "홍차", 100));
         items.add(new Item("05", "밀크티", 100));
         items.add(new Item("06", "탄산수", 100));
         items.add(new Item("07", "보리차", 100));
         items.add(new Item("08", "캔커피", 100));
-        items.add(new Item("09", "물", 100));
+        items.add(new Item("09", "물", 1500));
         items.add(new Item("10", "에너지드링크", 100));
         items.add(new Item("11", "바닷물", 100));
         items.add(new Item("12", "식혜", 100));
