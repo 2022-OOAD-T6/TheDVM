@@ -54,12 +54,25 @@ public class NetworkService {
         sender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
     }
 
-    public Vector<Message> getSaleResponseMessages() {
-        return getMessages(SALE_RESPONSE);
+    public Message getSaleResponseMessage() {
+        Vector<Message> saleResponseMessages = getMessages(SALE_RESPONSE);
+        clearResponseMessages();
+        if(saleResponseMessages.isEmpty()){
+            return null;
+        }else{
+            return saleResponseMessages.get(0);
+        }
     }
 
-    public Vector<Message> getStockResponseMessages() {
-        return getMessages(STOCK_RESPONSE);
+    public Message getStockResponseMessageFrom(String srcId) {
+        Vector<Message> stockResponseMessages = getMessages(STOCK_RESPONSE);
+        clearResponseMessages();
+        for(Message message : stockResponseMessages){
+            if(message.getSrcId().equals(srcId)){
+                return message;
+            }
+        }
+        return null;
     }
 
     private Vector<Message> getMessages(MessageType messageType){
@@ -75,7 +88,11 @@ public class NetworkService {
         return responseMessage;
     }
 
-    public void clearResponseMessages() {
+    public void changeWaitingMessageType(MessageType messageType){
+        receiver.changeWaitingMessageType(messageType);
+    }
+
+    private void clearResponseMessages() {
         receiver.clearResponseMessages();
     }
 }
