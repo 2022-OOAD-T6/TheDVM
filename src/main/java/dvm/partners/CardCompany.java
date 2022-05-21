@@ -1,12 +1,13 @@
 package dvm.partners;
 
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
  *  외부 카드사
  */
 public class CardCompany {
-
+    private final Logger logger = Logger.getGlobal();
 
     public CardCompany() {
         registeredCards.put("01711374",1000);
@@ -17,6 +18,11 @@ public class CardCompany {
         registeredCards.put("02222222",6000);
         registeredCards.put("02333333",7000);
         registeredCards.put("02444444",8000);
+
+        // 디버깅 위해 카드 번호 로그 남김
+        for (String cardNum : registeredCards.keySet()) {
+            System.out.println("카드번호: " + cardNum+" | 잔고: "+registeredCards.get(cardNum));
+        }
     }
 
     private final HashMap<String,Integer> registeredCards = new HashMap<>();
@@ -32,7 +38,8 @@ public class CardCompany {
         if(cardValue == null || cardValue < price){
             return false;
         }else{
-            cardValue -= price;
+            logger.info("현재 카드 잔액 "+ cardValue+"원 | "+price+" 결제 가능. 결제합니다.");
+            this.registeredCards.put(cardNum, cardValue - price);
             return true;
         }
     }
