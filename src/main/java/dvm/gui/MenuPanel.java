@@ -2,6 +2,8 @@ package dvm.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -32,7 +34,7 @@ public class MenuPanel extends JPanel {
     JButton plusBtn = new JButton("+");// 넣기 버튼
     JLabel countLb = new JLabel("0개");// 총 개수 라벨
     JLabel priceLb = new JLabel("0원");// 총 가격 라벨
-    JButton payBtn = new JButton("결제하기");// 결제하기 버튼
+    JButton payBtn = new JButton("결제하기");// 결제하기 버튼 -> dialog
     JButton codeBtn = new JButton("인증코드");// 인증코드 버튼 -> dialog
     JButton cardBtn = new JButton("카드번호 입력");// 카드번호 버튼 -> dialog
 
@@ -66,8 +68,30 @@ public class MenuPanel extends JPanel {
         countPanel.add(plusBtn);
         countPanel.add(priceLb);
 
+        payBtn.addActionListener(new ActionListener() {                 //결제버튼다이얼로그
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                int answer = JOptionPane.showConfirmDialog(null,"금액 : "+priceLb.getText(),"결제를 진행하시겠습니까?",JOptionPane.YES_NO_OPTION);
+            }
+        });
+
+
         selectPanel.add(countPanel);
         selectPanel.add(payBtn);
+
+
+        codeBtn.addActionListener(new ActionListener() {                //인증코드다이얼로그
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");
+            }
+        });
+        cardBtn.addActionListener(new ActionListener() {                //카드번호다이얼로그
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String userCard = JOptionPane.showInputDialog("카드번호를 입력하세요");
+            }
+        });
 
         inputPanel.add(codeBtn);
         inputPanel.add(cardBtn);
