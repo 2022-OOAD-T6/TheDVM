@@ -65,7 +65,7 @@ public class ItemRepository {
     public Item findItem(String itemCode) {
         // TODO implement here
         for (Item item : items) {
-            if (item.getItemCode() == itemCode) {
+            if (item.getItemCode().equals(itemCode)) {
                 return item;
             }
         }
