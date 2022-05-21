@@ -16,7 +16,6 @@ public class MenuPanel extends JPanel {
     JPanel itemPanel[] = new JPanel[20];// 음료와 가격을 갖고 있는 panel
     JPanel selectPanel = new JPanel(); // 음료 종류와 개수를 선택하고 결제하기를 담고 있는 panel
     JPanel inputPanel = new JPanel(); // 인증코드나 카드번호 입력을 담고 있는 panel
-    JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
 
     JButton[] itemsBtn = new JButton[20]; // 음료 20개 버튼
     JLabel[] pricesLb = new JLabel[20];// 가격 20개 라벨
@@ -36,39 +35,22 @@ public class MenuPanel extends JPanel {
     JButton payBtn = new JButton("결제하기");// 결제하기 버튼
     JButton codeBtn = new JButton("인증코드");// 인증코드 버튼 -> dialog
     JButton cardBtn = new JButton("카드번호 입력");// 카드번호 버튼 -> dialog
-    JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
-    JLabel itemLb = new JLabel("사이다"); // 배출구 라벨, 일단 임시
+
 
     MenuPanel() {
         setLayout(new BorderLayout());
-        adminBtn.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-//                contentPane.removeAll();
-//                contentPane.add(topPanel2);
-//                validate();
-//                repaint();
-            }
-        });
+
         showMenu();
         showSelect();
-        showBottom();
+//        showBottom();
 
         add(menu, BorderLayout.NORTH);
         add(selectPanel, BorderLayout.CENTER);
-        add(bottomPanel, BorderLayout.SOUTH);
+//        add(bottomPanel, BorderLayout.SOUTH);
 //        add(topPanel);
     }
 
-    /**
-     * SOUTH
-     * 관라자 버튼, 배출구 라벨
-     */
-    private void showBottom() {
-        bottomPanel.add(adminBtn);
-        bottomPanel.add(itemLb);
-    }
+
 
     /**
      * CENTER, 3개의 panel
