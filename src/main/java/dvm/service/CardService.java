@@ -1,6 +1,6 @@
 package dvm.service;
 
-import java.util.HashMap;
+import dvm.partners.CardCompany;
 
 public class CardService {
 

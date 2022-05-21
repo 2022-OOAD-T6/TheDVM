@@ -1,4 +1,4 @@
-package dvm.service;
+package dvm.partners;
 
 import java.util.HashMap;
 
@@ -38,13 +38,4 @@ public class CardCompany {
             return false;
         }
     }
-
-    public void Operation1() {
-        // TODO implement here
-    }
-
-    public void Operation2() {
-        // TODO implement here
-    }
-
 }

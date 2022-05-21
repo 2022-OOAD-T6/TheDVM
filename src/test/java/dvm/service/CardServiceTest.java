@@ -1,6 +1,6 @@
 package dvm.service;
 
-import dvm.repository.PrepaymentRepository;
+import dvm.partners.CardCompany;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -55,7 +55,9 @@ public class ItemRepository {
     public int count(String itemCode) {
         // TODO implement here
 //        System.out.println(stock.get(findItem(itemCode)));
+        if(stock.get(itemCode)!=null)
         return stock.get(itemCode);
+        else return 0;
     }
 
     /**
