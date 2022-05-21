@@ -4,7 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
+
 import dvm.controller.Controller;
+import dvm.domain.Item;
+import dvm.domain.Response;
 
 
 /**
@@ -12,7 +16,7 @@ import dvm.controller.Controller;
  */
 public class MenuPanel extends JPanel {
 
-    Controller ctr;
+    Controller controller;
     String userItemCode;            //유저 선택 음료코드
     int userItemQuantity=0;         //유저 선택 음료개수
 
@@ -42,9 +46,8 @@ public class MenuPanel extends JPanel {
     JButton cardBtn = new JButton("카드번호 입력");// 카드번호 버튼 -> dialog
 
 
-    MenuPanel() {
-
-
+    MenuPanel(Controller controller) {
+        this.controller = controller;
 
         setLayout(new BorderLayout());
 
@@ -85,7 +88,6 @@ public class MenuPanel extends JPanel {
                     countLb.setText(userItemQuantity+"개");
                     priceLb.setText(userItemQuantity*1000+"원");
                 }
-
             }
         });
 
@@ -108,7 +110,6 @@ public class MenuPanel extends JPanel {
                 int answer = JOptionPane.showConfirmDialog(null,"음료 :"+items[Integer.parseInt(userItemCode)]+" "+userItemQuantity+"개\n"+"금액 : "+priceLb.getText(),"결제를 진행하시겠습니까?",JOptionPane.YES_NO_OPTION);
             }
         });
-
 
         selectPanel.add(countPanel);
         selectPanel.add(payBtn);
@@ -140,16 +141,32 @@ public class MenuPanel extends JPanel {
      */
     private void showMenu() {
         menu.setLayout(new GridLayout(4, 5));
-        for (int i = 0; i < 20; i++) {
-            itemsPanel[i] = new JPanel();
-            itemsPanel[i].setLayout(new GridLayout(2, 1));
-            itemsBtn[i] = new JButton(items[i]);
-            pricesLb[i] = new JLabel(prices[i]);
-            pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
-            itemsPanel[i].add(itemsBtn[i]);
-            itemsPanel[i].add(pricesLb[i]);
-            menu.add(itemsPanel[i]);
+
+        Response<List<Item>> getAllItemsRes = controller.getAllItems();
+        if(getAllItemsRes.isSuccess()){
+            List<Item> allItems = getAllItemsRes.getResult();
+            for(int i=0;i<allItems.size();i++){
+                Item item = allItems.get(i);
+                itemsPanel[i] = new JPanel();
+                itemsPanel[i].setLayout(new GridLayout(2, 1));
+                itemsBtn[i] = new JButton(item.getName());
+                pricesLb[i] = new JLabel(String.valueOf(item.getPrice()));
+                pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
+                itemsPanel[i].add(itemsBtn[i]);
+                itemsPanel[i].add(pricesLb[i]);
+                menu.add(itemsPanel[i]);
+            }
         }
+        // for (int i = 0; i < 20; i++) {
+        //     itemsPanel[i] = new JPanel();
+        //     itemsPanel[i].setLayout(new GridLayout(2, 1));
+        //     itemsBtn[i] = new JButton(items[i]);
+        //     pricesLb[i] = new JLabel(prices[i]);
+        //     pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
+        //     itemsPanel[i].add(itemsBtn[i]);
+        //     itemsPanel[i].add(pricesLb[i]);
+        //     menu.add(itemsPanel[i]);
+        // }
         for (int i = 0; i < 20; i++) {
             int finalI = i;
             itemsBtn[i].addActionListener(new ActionListener() {

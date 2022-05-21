@@ -1,15 +1,16 @@
 package dvm.gui;
 
+import dvm.controller.Controller;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 /**
  * 관리자 화면
  */
 public class AdminPanel extends JPanel {
 
+    Controller controller;
     JPanel menu = new JPanel();// 아이템 7개 panel을 담고 있는 panel
     JPanel[] itemsPanel = new JPanel[7]; // 내 자판기의 음료와 가격을 갖고 있는 panel
     JPanel subAddPanel = new JPanel(); // 재고 넣기, 빼기 panel
@@ -24,7 +25,9 @@ public class AdminPanel extends JPanel {
     JButton subBtn = new JButton("SUB");// 빼기 버튼
     JButton addBtn = new JButton("ADD");// 넣기 버튼
 
-    public AdminPanel(){
+    public AdminPanel(Controller controller){
+        this.controller = controller;
+
         setLayout(new BorderLayout());
 
         showMenu();

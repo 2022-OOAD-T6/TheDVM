@@ -5,19 +5,33 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import dvm.controller.Controller;
+import dvm.network.NetworkService;
+import dvm.partners.CardCompany;
+import dvm.repository.ItemRepository;
+import dvm.repository.PrepaymentRepository;
+import dvm.service.CardService;
+import dvm.service.ItemService;
+import dvm.service.PrepaymentService;
 
 public class MainFrame extends JFrame {
     Container contentPane= getContentPane();
     CardLayout cards = new CardLayout();
     JPanel cardPanel = new JPanel(cards);
-    JPanel menuPanel = new MenuPanel();// 메뉴있는 화면
-    JPanel adminPanel = new AdminPanel();// 관리자 화면
+    JPanel menuPanel;
+    JPanel adminPanel;
     JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
 
 
     JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
     JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
-    public MainFrame(){
+
+    private Controller controller;
+
+    public MainFrame(Controller controller){
+        this.controller = controller;
+        menuPanel = new MenuPanel(controller);// 메뉴있는 화면
+        adminPanel = new AdminPanel(controller);// 관리자 화면
+
         setTitle("DVM6");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -57,8 +71,9 @@ public class MainFrame extends JFrame {
         bottomPanel.add(itemLb);
     }
     public static void main(String[] args) {
-        new MainFrame();
+        ItemService itemService = new ItemService(new ItemRepository());
+        PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
+        new MainFrame(new Controller(new NetworkService("Team6", 10, 10, itemService, prepaymentService), itemService,
+                prepaymentService, new CardService(new CardCompany())));
     }
-
-
 }
