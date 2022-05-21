@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import dvm.controller.Controller;
 
 public class MainFrame extends JFrame {
     Container contentPane= getContentPane();
@@ -13,8 +14,9 @@ public class MainFrame extends JFrame {
     JPanel adminPanel = new AdminPanel();// 관리자 화면
     JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
 
+
     JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
-    JLabel itemLb = new JLabel("사이다"); // 배출구 라벨, 일단 임시
+    JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
     public MainFrame(){
         setTitle("DVM6");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
