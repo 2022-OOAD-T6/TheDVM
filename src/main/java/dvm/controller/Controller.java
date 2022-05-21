@@ -1,7 +1,7 @@
 package dvm.controller;
 
 import dvm.network.NetworkService;
-import dvm.network.Response;
+import dvm.domain.Response;
 import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;

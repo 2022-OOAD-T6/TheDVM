@@ -1,5 +1,9 @@
 package dvm;
 
+import DVM_Client.DVMClient;
+import GsonConverter.Deserializer;
+import GsonConverter.Serializer;
+import Model.Message;
 import dvm.network.NetworkService;
 import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
@@ -8,14 +12,17 @@ import dvm.service.PrepaymentService;
 
 import java.util.Random;
 
+import static Model.Message.*;
+
 public class NetworkMain {
     public static void main(String[] args) throws InterruptedException {
+        String currentId;
         if (args.length < 1) {
-            System.out.println("팀 아이디를 입력해주세요 예: Team1");
-            return;
+            System.out.println("팀 아이디를 입력해주세요 예: Team1. 기본으로 Team6이 id가 됩니다.");
+            currentId = "Team6";
+        }else{
+            currentId = args[0];
         }
-
-        String currentId = args[0];
 
         ItemService itemService=new ItemService(new ItemRepository());
         PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
@@ -26,7 +33,7 @@ public class NetworkMain {
         Random typeRand = new Random();
 
         while (true) {
-            Thread.sleep(2000);
+            Thread.sleep(5000);
             int dstIndex = dstRand.nextInt(6);
             int typeIndex = typeRand.nextInt(4);
 
@@ -47,5 +54,22 @@ public class NetworkMain {
                     networkService.sendSaleResponseMessage(teamIds[dstIndex], "08");
             }
         }
+
+        // while(true){
+        //     Thread.sleep(1000);
+        //     Message message = new Message();
+        //     message.setSrcId("Team6");
+        //     message.setDstID("Team1");
+        //     MessageDescription messageDescription = new MessageDescription();
+        //     messageDescription.setItemCode("item");
+        //     messageDescription.setItemNum(10);
+        //     message.setMsgDescription(messageDescription);
+        //     Serializer serializer = new Serializer();
+        //     try{
+        //         DVMClient client = new DVMClient("localhost", serializer.message2Json(message));
+        //         client.run();
+        //     }catch(Exception e){
+        //     }
+        // }
     }
 }
