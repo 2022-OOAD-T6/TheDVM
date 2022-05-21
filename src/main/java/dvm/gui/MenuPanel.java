@@ -10,10 +10,8 @@ import java.awt.event.MouseEvent;
  */
 public class MenuPanel extends JPanel {
 
-//    JPanel topPanel = new JPanel(new BorderLayout());
-//    JPanel topPanel2 = new AdminPanel();
-    JPanel menu = new JPanel();// 음료 20개 panel을 담고 있는 panel
-    JPanel itemPanel[] = new JPanel[20];// 음료와 가격을 갖고 있는 panel
+    JPanel menu = new JPanel();// 아이템 20개 panel을 담고 있는 panel
+    JPanel itemsPanel[] = new JPanel[20];// 음료와 가격을 갖고 있는 panel
     JPanel selectPanel = new JPanel(); // 음료 종류와 개수를 선택하고 결제하기를 담고 있는 panel
     JPanel inputPanel = new JPanel(); // 인증코드나 카드번호 입력을 담고 있는 panel
 
@@ -42,21 +40,28 @@ public class MenuPanel extends JPanel {
 
         showMenu();
         showSelect();
-//        showBottom();
+        showInput();
 
         add(menu, BorderLayout.NORTH);
         add(selectPanel, BorderLayout.CENTER);
-//        add(bottomPanel, BorderLayout.SOUTH);
-//        add(topPanel);
+        add(inputPanel, BorderLayout.SOUTH);
+    }
+
+    /**
+     * SOUTH
+     * 인증코드 버튼, 카드번호 버튼
+     */
+    private void showInput() {
+        inputPanel.add(codeBtn);
+        inputPanel.add(cardBtn);
+        selectPanel.add(inputPanel);
     }
 
 
-
     /**
-     * CENTER, 3개의 panel
+     * CENTER
      * -, 개수, +, 총 가격
      * 결제하기 버튼
-     * 인증코드 버튼, 카드번호 버튼
      */
     private void showSelect() {
         selectPanel.setLayout(new GridLayout(3, 1));
@@ -68,10 +73,6 @@ public class MenuPanel extends JPanel {
 
         selectPanel.add(countPanel);
         selectPanel.add(payBtn);
-
-        inputPanel.add(codeBtn);
-        inputPanel.add(cardBtn);
-        selectPanel.add(inputPanel);
     }
 
     /**
@@ -81,14 +82,14 @@ public class MenuPanel extends JPanel {
     private void showMenu() {
         menu.setLayout(new GridLayout(4, 5));
         for (int i = 0; i < 20; i++) {
-            itemPanel[i] = new JPanel();
-            itemPanel[i].setLayout(new GridLayout(2, 1));
+            itemsPanel[i] = new JPanel();
+            itemsPanel[i].setLayout(new GridLayout(2, 1));
             itemsBtn[i] = new JButton(items[i]);
             pricesLb[i] = new JLabel(prices[i]);
             pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
-            itemPanel[i].add(itemsBtn[i]);
-            itemPanel[i].add(pricesLb[i]);
-            menu.add(itemPanel[i]);
+            itemsPanel[i].add(itemsBtn[i]);
+            itemsPanel[i].add(pricesLb[i]);
+            menu.add(itemsPanel[i]);
         }
     }
 }
