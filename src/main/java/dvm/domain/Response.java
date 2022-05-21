@@ -1,4 +1,4 @@
-package dvm.network;
+package dvm.domain;
 
 /**
  * Controller 응답용 data 클래스

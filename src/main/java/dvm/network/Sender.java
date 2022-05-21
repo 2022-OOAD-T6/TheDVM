@@ -1,52 +1,60 @@
 package dvm.network;
 
-import dvm.network.message.Message;
+import DVM_Client.DVMClient;
+import GsonConverter.Serializer;
+import Model.Message;
 
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.HashMap;
+import java.util.logging.Logger;
 
 /**
  *
  */
 public class Sender {
 
-    private final HashMap<String, NetworkInfo> dvmNetworkInfoMap = new HashMap<>();
+    private final HashMap<String, String> dvmsNetworkInfo = new HashMap<>();
+
+    // Message to jsonString
+    private final Serializer serializer = new Serializer();
+
+    private final static Logger logger = Logger.getGlobal();
 
     public Sender() {
-        dvmNetworkInfoMap.put("Team1", new NetworkInfo("127.0.0.1", 1001));
-        dvmNetworkInfoMap.put("Team2", new NetworkInfo("127.0.0.1", 1002));
-        dvmNetworkInfoMap.put("Team3", new NetworkInfo("127.0.0.1", 1003));
-        dvmNetworkInfoMap.put("Team4", new NetworkInfo("127.0.0.1", 1004));
-        dvmNetworkInfoMap.put("Team5", new NetworkInfo("127.0.0.1", 1005));
-        dvmNetworkInfoMap.put("Team6", new NetworkInfo("127.0.0.1", 1006)); // Our dvm
+        dvmsNetworkInfo.put("Team1", "127.0.0.1");
+        dvmsNetworkInfo.put("Team2", "127.0.0.1");
+        dvmsNetworkInfo.put("Team3", "127.0.0.1");
+        dvmsNetworkInfo.put("Team4", "127.0.0.1");
+        dvmsNetworkInfo.put("Team5", "127.0.0.1");
+        dvmsNetworkInfo.put("Team6", "127.0.0.1"); // Our dvm
     }
 
     public void send(Message message) {
         try {
-            if(message.getDstId().equals("0")){
-                for (String teamId : dvmNetworkInfoMap.keySet()) {
-                    message.setDstId(teamId);
-                    NetworkInfo dstNetworkInfo = dvmNetworkInfoMap.get(teamId);
-                    Socket socket = new Socket(dstNetworkInfo.getIp(), dstNetworkInfo.getPort());
-                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    out.println(message);
-                    System.out.println("메세지 전달 완료 | " + message);
+            if(message.getDstID().equals("0")){
+                for (String teamId : dvmsNetworkInfo.keySet()) {
+                    if(teamId.equals(message.getSrcId())) continue;
+                    message.setDstID(teamId);
+                    String dstIp = dvmsNetworkInfo.get(message.getDstID());
+                    String jsonMessage = serializer.message2Json(message);
+                    DVMClient client = new DVMClient(dstIp, jsonMessage);
+                    client.run();
+                    logger.info("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
                 }
-            }else{
-                NetworkInfo dstNetworkInfo = dvmNetworkInfoMap.get(message.getDstId());
-                Socket socket = new Socket(dstNetworkInfo.getIp(), dstNetworkInfo.getPort());
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                out.println(message);
-                System.out.println("메세지 전달 완료 | " + message);
+            }else {
+                String dstIp = dvmsNetworkInfo.get(message.getDstID());
+                String jsonMessage = serializer.message2Json(message);
+                DVMClient client = new DVMClient(dstIp, jsonMessage);
+                client.run();
+                logger.info("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
             }
         } catch (Exception e) {
-            System.out.println("전송 불가 | " + message.getSrcId() + " to " + message.getDstId());
+            logger.warning("전송 불가 | " + e.getMessage() + "|" + message.getSrcId() + " to " + message.getDstID());
         }
     }
 
-    public NetworkInfo getNetworkInfo(String id) {
-        return dvmNetworkInfoMap.get(id);
+    public String getNetworkInfo(String id) {
+        return dvmsNetworkInfo.get(id);
     }
-
 }

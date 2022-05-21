@@ -1,10 +1,13 @@
 package dvm.network;
 
-import dvm.network.message.*;
+import Model.Message;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
 import java.util.*;
+import java.util.logging.Logger;
+
+import static dvm.network.MessageType.*;
 
 /**
  *
@@ -14,70 +17,62 @@ public class NetworkService {
     private final Sender sender;
 
     private final Receiver receiver;
+    private final Logger logger = Logger.getGlobal();
 
     public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
         this.sender = new Sender();
-        this.receiver = new Receiver(sender.getNetworkInfo(currentId).getPort(), itemService, prepaymentService, this);
-        Message.setCurrentId(currentId);
-        Message.setCurrentX(currentX);
-        Message.setCurrentY(currentY);
+        this.receiver = new Receiver(itemService, prepaymentService, this);
+
+        MessageFactory.setCurrentId(currentId);
+        MessageFactory.setCurrentX(currentX);
+        MessageFactory.setCurrentY(currentY);
 
         Thread serverThread = new Thread(receiver);
         serverThread.start();
-        System.out.println("Run thread");
+        logger.info("Run thread");
     }
 
     public void sendStockRequestMessage(String itemCode, int quantity) {
-        receiver.changeWaitingMessageType(MessageType.STOCK_RESPONSE);
-        StockRequestMessage sendingMessage = new StockRequestMessage(itemCode, quantity);
-        sender.send(sendingMessage);
+        receiver.changeWaitingMessageType(STOCK_RESPONSE);
+        sender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
     }
 
     public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
-        StockResponseMessage sendingMessage = new StockResponseMessage(dstId, itemCode, quantity);
-        sender.send(sendingMessage);
+        sender.send(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
     }
 
     public void sendPrepaymentInfoMessage(String dstId, String itemCode, int quantity, String verificationCode) {
-        PrepaymentInfoMessage sendingMessage = new PrepaymentInfoMessage(dstId, itemCode, quantity, verificationCode);
-        sender.send(sendingMessage);
+        sender.send(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
-        receiver.changeWaitingMessageType(MessageType.SALE_RESPONSE);
-        SaleRequestMessage sendingMessage = new SaleRequestMessage(itemCode, quantity);
-        sender.send(sendingMessage);
+        receiver.changeWaitingMessageType(SALE_RESPONSE);
+        sender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
     }
 
     public void sendSaleResponseMessage(String dstId, String itemCode) {
-        SaleResponseMessage sendingMessage = new SaleResponseMessage(dstId, itemCode);
-        sender.send(sendingMessage);
+        sender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
     }
 
-    public Vector<SaleResponseMessage> getSaleResponseMessages() {
-        receiver.changeWaitingMessageType(MessageType.NONE);
-        Vector<Message> messages = receiver.getResponseMessages();
-        Vector<SaleResponseMessage> saleResponseMessages = new Vector<>();
-        for (Message message : messages) {
-            if (message instanceof SaleResponseMessage) {
-                saleResponseMessages.add((SaleResponseMessage) message);
-            }
-        }
-        Collections.sort(saleResponseMessages);
-        return saleResponseMessages;
+    public Vector<Message> getSaleResponseMessages() {
+        return getMessages(SALE_RESPONSE);
     }
 
-    public Vector<StockResponseMessage> getStockResponseMessages() {
-        receiver.changeWaitingMessageType(MessageType.NONE);
+    public Vector<Message> getStockResponseMessages() {
+        return getMessages(STOCK_RESPONSE);
+    }
+
+    private Vector<Message> getMessages(MessageType messageType){
+        receiver.changeWaitingMessageType(NONE);
         Vector<Message> messages = receiver.getResponseMessages();
-        Vector<StockResponseMessage> stockResponseMessage = new Vector<>();
+        Vector<Message> responseMessage = new Vector<>();
         for (Message message : messages) {
-            if (message instanceof StockResponseMessage) {
-                stockResponseMessage.add((StockResponseMessage) message);
+            if (message.getMsgType().equals(messageType.getTypeName())) {
+                responseMessage.add(message);
             }
         }
-        Collections.sort(stockResponseMessage);
-        return stockResponseMessage;
+        MessageFactory.sortMessages(responseMessage);
+        return responseMessage;
     }
 
     public void clearResponseMessages() {
