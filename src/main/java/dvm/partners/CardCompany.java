@@ -28,14 +28,12 @@ public class CardCompany {
     }
 
     public boolean pay(String cardNum, int price) {
-        // TODO implement here
-        int cardValue = this.registeredCards.get(cardNum);
-        if(cardValue >= price){
-            cardValue -= price;
-            registeredCards.put(cardNum,cardValue);
-            return true;
-        }else{
+        Integer cardValue = this.registeredCards.get(cardNum);
+        if(cardValue == null || cardValue < price){
             return false;
+        }else{
+            cardValue -= price;
+            return true;
         }
     }
 }

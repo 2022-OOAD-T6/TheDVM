@@ -5,8 +5,7 @@ import dvm.partners.CardCompany;
 public class CardService {
 
 
-    public CardService(String curCardNum, CardCompany cardCompany) {
-        this.curCardNum = curCardNum;
+    public CardService(CardCompany cardCompany) {
         this.cardCompany = cardCompany;
     }
 
@@ -15,8 +14,7 @@ public class CardService {
     private CardCompany cardCompany;
 
     public boolean saveCardNum(String cardNum) {
-        // TODO implement here
-        if(cardNum.length()==8) {
+        if(cardCompany.isValid(cardNum)) {
             this.curCardNum = cardNum;
             return true;
         }else{
@@ -31,5 +29,4 @@ public class CardService {
         }else
             return false;
     }
-
 }
