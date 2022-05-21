@@ -32,6 +32,9 @@ public class ItemService {
     public int getItemPrice(String itemCode) {
         // TODO implement here
         Item item = itemRepository.findItem(itemCode);
+        if(item == null){
+            return -1;
+        }
         return item.getPrice();
     }
 

@@ -10,11 +10,12 @@ import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import static dvm.domain.ResponseType.*;
 
 public class Controller {
-
+    private final Logger logger = Logger.getGlobal();
     private final NetworkService networkService;
     private final ItemService itemService;
     private final PrepaymentService prepaymentService;
@@ -74,7 +75,6 @@ public class Controller {
     public Response<String> requestPayment(String itemCode, int quantity) {
         if (itemService.isEnough(itemCode, quantity)) {
             int price = itemService.getItemPrice(itemCode);
-
             if (cardService.pay(price * quantity)) {
                 itemService.updateStock(itemCode, -quantity);
                 return new Response<>(true, PAYMENT_OK);

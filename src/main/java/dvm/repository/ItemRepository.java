@@ -5,12 +5,14 @@ import dvm.domain.Item;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 /**
  * 20220517 MJY
  */
 public class ItemRepository {
 
+    private final Logger logger = Logger.getGlobal();
     private final List<Item> items;// 모든 음료 20개
     private final ConcurrentHashMap<String, Integer> stock;// 우리 자판기 음료 7개
 
@@ -55,9 +57,12 @@ public class ItemRepository {
     public int count(String itemCode) {
         // TODO implement here
 //        System.out.println(stock.get(findItem(itemCode)));
-        if(stock.get(itemCode)!=null)
-        return stock.get(itemCode);
-        else return 0;
+        if (stock.get(itemCode) != null){
+            return stock.get(itemCode);
+        }else{
+            logger.warning("존재하지 않는 음료 코드입니다.");
+            return 0;
+        }
     }
 
     /**
