@@ -51,7 +51,7 @@ public class MainFrame extends JFrame {
             }
         });
         contentPane.add(cardPanel);
-        setSize(600, 400);
+        setSize(600, 450);
         setVisible(true);
     }
 

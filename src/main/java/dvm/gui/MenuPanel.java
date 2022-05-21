@@ -17,8 +17,8 @@ import dvm.domain.Response;
 public class MenuPanel extends JPanel {
 
     Controller controller;
-    String userItemCode;            //유저 선택 음료코드
-    int userItemQuantity=0;         //유저 선택 음료개수
+    int userItemCode = -1;            //유저 선택 음료코드 -> List<Item> allItems 기반 인덱스
+    int userItemQuantity = 0;         //유저 선택 음료개수
 
     JPanel menu = new JPanel();// 아이템 20개 panel을 담고 있는 panel
     JPanel itemsPanel[] = new JPanel[20];// 음료와 가격을 갖고 있는 panel
@@ -27,15 +27,8 @@ public class MenuPanel extends JPanel {
 
     JButton[] itemsBtn = new JButton[20]; // 음료 20개 버튼
     JLabel[] pricesLb = new JLabel[20];// 가격 20개 라벨
-    String[] items = {"콜라", "사이다", "녹차", "홍차", "밀크티",
-            "탄산수", "보리차", "캔커피", "꿀", "에너지드링크",
-            "바닷물", "식혜", "아이스티", "딸기주스", "오렌지주스",
-            "포도주스", "이온음료", "아메리카노", "핫초코", "카페라떼"}; // 음료 종류 스트링 ->후에 ctr을 통해 itemRepository의 items로 변경예정
-    String[] prices = {"1000", "1000", "1000", "1000", "1000",
-            "1000", "1000", "1000", "1000", "1000",
-            "1000", "1000", "1000", "1000", "1000",
-            "1000", "1000", "1000", "1000", "1000"};// 음료 가격 스트링
 
+    List<Item> allItems;
 
     JButton minusBtn = new JButton("-");// 빼기 버튼
     JButton plusBtn = new JButton("+");// 넣기 버튼
@@ -83,10 +76,10 @@ public class MenuPanel extends JPanel {
         minusBtn.addActionListener(new ActionListener() {               //마이너스 버튼 이벤트처리
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if(userItemQuantity>0){
+                if (userItemCode != -1 && userItemQuantity > 0) {
                     userItemQuantity--;
-                    countLb.setText(userItemQuantity+"개");
-                    priceLb.setText(userItemQuantity*1000+"원");
+                    countLb.setText(userItemQuantity + "개");
+                    priceLb.setText(userItemQuantity * allItems.get(userItemCode).getPrice() + "원");
                 }
             }
         });
@@ -96,9 +89,11 @@ public class MenuPanel extends JPanel {
         plusBtn.addActionListener(new ActionListener() {                //플러스 버튼 이벤트처리
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                userItemQuantity++;
-                countLb.setText(userItemQuantity+"개");
-                priceLb.setText(userItemQuantity*1000+"원");
+                if (userItemCode != -1 && userItemQuantity < 999){
+                    userItemQuantity++;
+                    countLb.setText(userItemQuantity + "개");
+                    priceLb.setText(userItemQuantity * allItems.get(userItemCode).getPrice() + "원");
+                }
             }
         });
 
@@ -107,7 +102,12 @@ public class MenuPanel extends JPanel {
         payBtn.addActionListener(new ActionListener() {                 //결제버튼다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                int answer = JOptionPane.showConfirmDialog(null,"음료 :"+items[Integer.parseInt(userItemCode)]+" "+userItemQuantity+"개\n"+"금액 : "+priceLb.getText(),"결제를 진행하시겠습니까?",JOptionPane.YES_NO_OPTION);
+                if(userItemQuantity != 0) {
+                    int answer = JOptionPane.showConfirmDialog(null,
+                            "음료: " + allItems.get(userItemCode).getName() + "\n개수: " + userItemQuantity + "개\n"
+                                    + "금액 : " + priceLb.getText(), "결제를 진행하시겠습니까?", JOptionPane.YES_NO_OPTION);
+
+                }
             }
         });
 
@@ -142,10 +142,11 @@ public class MenuPanel extends JPanel {
     private void showMenu() {
         menu.setLayout(new GridLayout(4, 5));
 
+        // Controller에서 받은 정보 바탕으로 음료 메뉴, 가격 보여줌
         Response<List<Item>> getAllItemsRes = controller.getAllItems();
-        if(getAllItemsRes.isSuccess()){
-            List<Item> allItems = getAllItemsRes.getResult();
-            for(int i=0;i<allItems.size();i++){
+        if (getAllItemsRes.isSuccess()) {
+            allItems = getAllItemsRes.getResult();
+            for (int i = 0; i < allItems.size(); i++) {
                 Item item = allItems.get(i);
                 itemsPanel[i] = new JPanel();
                 itemsPanel[i].setLayout(new GridLayout(2, 1));
@@ -155,27 +156,20 @@ public class MenuPanel extends JPanel {
                 itemsPanel[i].add(itemsBtn[i]);
                 itemsPanel[i].add(pricesLb[i]);
                 menu.add(itemsPanel[i]);
+
+                int finalI = i;
+                itemsBtn[i].addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent actionEvent) {
+                        if(userItemCode != finalI){
+                            priceLb.setText("0원");
+                            countLb.setText("0개");
+                            userItemQuantity = 0;
+                            userItemCode = finalI;
+                        }
+                    }
+                });
             }
-        }
-        // for (int i = 0; i < 20; i++) {
-        //     itemsPanel[i] = new JPanel();
-        //     itemsPanel[i].setLayout(new GridLayout(2, 1));
-        //     itemsBtn[i] = new JButton(items[i]);
-        //     pricesLb[i] = new JLabel(prices[i]);
-        //     pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
-        //     itemsPanel[i].add(itemsBtn[i]);
-        //     itemsPanel[i].add(pricesLb[i]);
-        //     menu.add(itemsPanel[i]);
-        // }
-        for (int i = 0; i < 20; i++) {
-            int finalI = i;
-            itemsBtn[i].addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent actionEvent) {
-                    String temp = Integer.toString(finalI);
-                    userItemCode = temp;
-                }
-            });
         }
     }
 }
