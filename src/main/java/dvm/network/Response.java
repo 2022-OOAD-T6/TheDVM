@@ -22,6 +22,9 @@ public class Response<T> {
         this.message = message;
         this.result = result;
     }
+    public Response(boolean isSuccess){
+        this.isSuccess = isSuccess;
+    }
 
     public boolean isSuccess() {
         return isSuccess;

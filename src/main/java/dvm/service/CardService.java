@@ -7,7 +7,7 @@ public class CardService {
 
     public CardService(String curCardNum, CardCompany cardCompany) {
         this.curCardNum = curCardNum;
-        this. cardCompany = cardCompany;
+        this.cardCompany = cardCompany;
     }
 
     private String curCardNum;
@@ -26,7 +26,7 @@ public class CardService {
 
     public boolean pay(int price) {
         // TODO implement here
-        if(cardCompany.pay(this.curCardNum,price)==true){
+        if(cardCompany.pay(this.curCardNum, price)==true){
             return true;
         }else
             return false;
