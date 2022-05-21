@@ -1,6 +1,7 @@
 package dvm.controller;
 
 import Model.Message;
+import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
 import dvm.network.NetworkService;
 import dvm.domain.Response;
@@ -8,6 +9,7 @@ import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
+import java.util.List;
 import java.util.Vector;
 
 public class Controller {
@@ -22,6 +24,11 @@ public class Controller {
         this.itemService = itemService;
         this.cardService = cardService;
         this.prepaymentService = prepaymentService;
+    }
+
+    public Response<List<Item>> getAllItems() {
+        List<Item> items = itemService.getItems();
+        return new Response<>(true, "", items);
     }
 
     public Response<String> enterCardNum(String cardNum) {
