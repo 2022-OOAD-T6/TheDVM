@@ -1,13 +1,11 @@
 package dvm.gui;
 
-import dvm.Main;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class AdminFrame extends JPanel {
+public class AdminPanel extends JPanel {
 
     JPanel menu = new JPanel();
     JPanel[] menuPanel = new JPanel[7];
@@ -27,7 +25,7 @@ public class AdminFrame extends JPanel {
     JButton adminBtn = new JButton("ADMIN");
     JLabel itemLb = new JLabel("사이다");
 
-    public AdminFrame(){
+    public AdminPanel(){
 //        setTitle("DVM6");
 //        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 //        Container contentPane = getContentPane();
