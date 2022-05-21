@@ -11,8 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class ItemRepository {
 
-    private List<Item> items;// 모든 음료 20개
-    private ConcurrentHashMap<Item, Integer> stock;// 우리 자판기 음료 7개
+    private final List<Item> items;// 모든 음료 20개
+    private final ConcurrentHashMap<String, Integer> stock;// 우리 자판기 음료 7개
 
     public ItemRepository() {
         items = new ArrayList<>(20);
@@ -39,13 +39,13 @@ public class ItemRepository {
 
         stock = new ConcurrentHashMap<>(7);
         // 임시 배정
-        stock.put(items.get(0), 100);
-        stock.put(items.get(1), 100);
-        stock.put(items.get(2), 100);
-        stock.put(items.get(3), 100);
-        stock.put(items.get(4), 100);
-        stock.put(items.get(5), 100);
-        stock.put(items.get(6), 100);
+        stock.put("01", 100);
+        stock.put("02", 100);
+        stock.put("03", 100);
+        stock.put("04", 100);
+        stock.put("05", 100);
+        stock.put("06", 100);
+        stock.put("07", 100);
     }
 
     /**
@@ -55,7 +55,7 @@ public class ItemRepository {
     public int count(String itemCode) {
         // TODO implement here
 //        System.out.println(stock.get(findItem(itemCode)));
-        return stock.get(findItem(itemCode));
+        return stock.get(itemCode);
     }
 
     /**
@@ -80,7 +80,7 @@ public class ItemRepository {
         // TODO implement here
 //        Item item = findItem(itemCode);
         int oldQty = stock.get(itemCode);
-        stock.put(findItem(itemCode), oldQty - quantity);
+        stock.put(itemCode, oldQty + quantity);
     }
 
 }
