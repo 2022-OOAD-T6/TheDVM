@@ -10,22 +10,22 @@ public class Response<T> {
      */
     private boolean isSuccess;
 
-    private ResponseType message;
+    private ResponseType responseType;
 
     /**
      * 결과 객체 리턴해야할 때 리턴
      */
     private T result;
 
-    public Response(boolean isSuccess, ResponseType message, T result) {
+    public Response(boolean isSuccess, ResponseType responseType, T result) {
         this.isSuccess = isSuccess;
-        this.message = message;
+        this.responseType = responseType;
         this.result = result;
     }
 
-    public Response(boolean isSuccess, ResponseType message) {
+    public Response(boolean isSuccess, ResponseType responseType) {
         this.isSuccess = isSuccess;
-        this.message = message;
+        this.responseType = responseType;
     }
 
     public Response(boolean isSuccess){
@@ -40,12 +40,12 @@ public class Response<T> {
         isSuccess = success;
     }
 
-    public ResponseType getMessage() {
-        return message;
+    public ResponseType getResponseType() {
+        return responseType;
     }
 
-    public void setMessage(ResponseType message) {
-        this.message = message;
+    public void setResponseType(ResponseType responseType) {
+        this.responseType = responseType;
     }
 
     public T getResult() {
