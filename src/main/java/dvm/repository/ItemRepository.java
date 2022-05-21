@@ -41,18 +41,18 @@ public class ItemRepository {
 
         stock = new ConcurrentHashMap<>(7);
         // 임시 배정
-        stock.put("01", 100);
-        stock.put("02", 100);
-        stock.put("03", 100);
-        stock.put("04", 100);
-        stock.put("05", 100);
-        stock.put("06", 100);
-        stock.put("07", 100);
+        stock.put("01", 2);
+        stock.put("02", 2);
+        stock.put("03", 2);
+        stock.put("04", 2);
+        stock.put("05", 2);
+        stock.put("06", 2);
+        stock.put("07", 2);
     }
 
     /**
      * 우리 자판기에 있는 음료 수량 리턴
-     * key가 없으면 return null
+     * key가 없으면 return 0
      */
     public int count(String itemCode) {
         // TODO implement here
@@ -60,7 +60,6 @@ public class ItemRepository {
         if (stock.get(itemCode) != null){
             return stock.get(itemCode);
         }else{
-            logger.warning("존재하지 않는 음료 코드입니다.");
             return 0;
         }
     }
