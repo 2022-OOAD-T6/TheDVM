@@ -22,6 +22,7 @@ public class ItemService {
      */
     public boolean isEnough(String itemCode, int quantity) {
         // TODO implement here
+        System.out.println("확인 요청 수량: "+quantity+" | 현재 재고: "+itemRepository.count(itemCode));
         return itemRepository.count(itemCode) >= quantity;
     }
 
