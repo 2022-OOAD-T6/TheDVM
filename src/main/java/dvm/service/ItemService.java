@@ -3,6 +3,8 @@ package dvm.service;
 import dvm.domain.Item;
 import dvm.repository.ItemRepository;
 
+import java.util.List;
+
 /**
  * 20220517 MJY
  */
@@ -31,6 +33,13 @@ public class ItemService {
         // TODO implement here
         Item item = itemRepository.findItem(itemCode);
         return item.getPrice();
+    }
+
+    /**
+     * 모든 음료 정보 리턴
+     */
+    public List<Item> getItems() {
+        return itemRepository.findAllItems();
     }
 
     /**
