@@ -73,6 +73,13 @@ public class ItemRepository {
     }
 
     /**
+     * 모든 아이템 리턴
+     */
+    public List<Item> findAllItems() {
+        return items;
+    }
+
+    /**
      * 정상적으로 결제 후에만 재고 변경 가능
      * 결제한 음료 수량만큼 재고 빼기
      */
