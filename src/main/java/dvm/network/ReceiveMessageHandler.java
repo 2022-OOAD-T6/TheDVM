@@ -53,7 +53,7 @@ public class ReceiveMessageHandler implements Runnable {
                 logger.info("from "+ message.getSrcId() + " | "+message.getMsgType() + " | " + request);
                 if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
                     responseMessages.add(message);
-                    logger.info(waitingMessageType + "type 메세지 추가 from "+message.getSrcId());
+                    logger.info(waitingMessageType + " type 메세지 추가 from "+message.getSrcId());
                 } else {
                     handleReceivedMessage(message);
                 }
