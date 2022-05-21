@@ -26,15 +26,15 @@ public class Deserializer {
 ## 3. Message
 ```java
 public class Message {
-    private int srcId;
-    private int dstId;
+    private String srcId;
+    private String dstId;
     private String msgType;
     MsgDescription msgDescription;
     public static class msgDesription {
-        private int itemCode;
+        private String itemCode;
         private int itemNum;
         private int dvmXCoord, dvmYCoord;
-        private int authCode;
+        private String authCode;
     }
 }
 ```

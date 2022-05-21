@@ -1,19 +1,14 @@
 package dvm.controller;
 
 import dvm.network.NetworkService;
-import dvm.network.Response;
+import dvm.domain.Response;
 import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
-/**
- * 
- */
 public class Controller {
 
-    /**
-     * Default constructor
-     */
+
     public Controller(NetworkService networkService, ItemService itemService, PrepaymentService prepaymentService, CardService cardService) {
         this.networkService = networkService;
         this.itemService = itemService;
@@ -24,67 +19,47 @@ public class Controller {
 
     }
 
-    /**
-     * 
-     */
+
     private NetworkService networkService;
 
-    /**
-     * 
-     */
+
     private ItemService itemService;
 
-    /**
-     * 
-     */
+
     private PrepaymentService prepaymentService;
 
-    /**
-     * 
-     */
     private CardService cardService;
 
-    /**
-     * @param cardNum 
-     * @return
-     */
-    public Response enterCardNum(String cardNum) {
+
+    public Response<Boolean> enterCardNum(String cardNum) {
         // TODO implement here
-        this.cardService.saveCardNum(cardNum);
-        return null;
+        if(this.cardService.saveCardNum(cardNum)) {
+            Response responseTrue = new Response(true, "", null);
+            return responseTrue;
+        }else {
+            Response responseFalse = new Response(false, "", null);
+            return responseFalse;
+        }
     }
 
-    /**
-     * @param verificationCode 
-     * @return
-     */
     public Response enterVerificationCode(String verificationCode) {
         // TODO implement here
         this.prepaymentService.getPrepaymentInfo(verificationCode);
         return null;
     }
 
-    /**
-     * @param itemCode 
-     * @param quantity 
-     * @return
-     */
+
     public Response selectItem(String itemCode, int quantity) {
         // TODO implement here
         this.itemService.isEnough(itemCode,quantity);
         return null;
     }
 
-    /**
-     * @param itemCode 
-     * @param quantity 
-     * @return
-     */
     public Response requestPayment(String itemCode, int quantity) {
         // TODO implement here
-        if(this.itemService.isEnough(itemCode,quantity)==true){
+        if(this.itemService.isEnough(itemCode,quantity)){
             int itemPrice = this.itemService.getItemPrice(itemCode);
-            if(this.cardService.pay(itemPrice)==true){
+            if(this.cardService.pay(itemPrice)){
                 this.itemService.updateStock(itemCode,quantity);
                 return null;            //결제 및 업데이트 성공
             }else
@@ -96,7 +71,7 @@ public class Controller {
 
     public Response updateStock(String itemCode, int quantity) {
         // TODO implement here
-        if(this.itemService.updateStock(itemCode,quantity)==true){
+        if(this.itemService.updateStock(itemCode,quantity)){
             return null;                //업데이트 성공
         }else
             return null;                //업데이트 실패
