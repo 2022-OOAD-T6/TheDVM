@@ -18,7 +18,6 @@ class CardServiceTest {
 
     @Test
     void pay() {
-
         assertTrue(cardService.pay(1000));
     }
 }
