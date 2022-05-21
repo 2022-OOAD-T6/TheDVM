@@ -25,6 +25,12 @@ class ItemServiceTest {
 
     @Test
     void updateStock() {
+        ItemRepository ir = new ItemRepository();
+        ItemService is = new ItemService(ir);
+        int oldQty = ir.count(itemCode);
+        is.updateStock(itemCode, qty);
+        int newQty=ir.count(itemCode);
+        assertEquals(oldQty+111, newQty);
     }
 
     @Test
