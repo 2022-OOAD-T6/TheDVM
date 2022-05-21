@@ -35,19 +35,18 @@ public class Sender {
             if(message.getDstID().equals("0")){
                 for (String teamId : dvmsNetworkInfo.keySet()) {
                     if(teamId.equals(message.getSrcId())) continue;
-                    message.setDstID(teamId);
-                    String dstIp = dvmsNetworkInfo.get(message.getDstID());
+                    String dstIp = dvmsNetworkInfo.get(teamId);
                     String jsonMessage = serializer.message2Json(message);
                     DVMClient client = new DVMClient(dstIp, jsonMessage);
                     client.run();
-                    logger.info("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
+                    System.out.println("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
                 }
             }else {
                 String dstIp = dvmsNetworkInfo.get(message.getDstID());
                 String jsonMessage = serializer.message2Json(message);
                 DVMClient client = new DVMClient(dstIp, jsonMessage);
                 client.run();
-                logger.info("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
+                System.out.println("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
             }
         } catch (Exception e) {
             logger.warning("전송 불가 | " + e.getMessage() + "|" + message.getSrcId() + " to " + message.getDstID());

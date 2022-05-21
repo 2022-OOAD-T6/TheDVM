@@ -50,7 +50,7 @@ public class ReceiveMessageHandler implements Runnable {
             String request;
             while ((request = in.readLine()) != null) {
                 Message message = deserializer.json2Message(request);
-                logger.info("from "+ message.getSrcId() + " | "+message.getMsgType() + " | " + request);
+                System.out.println("메세지 받음 | from "+ message.getSrcId() + " | "+message.getMsgType() + " | " + request);
                 if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
                     responseMessages.add(message);
                     logger.info(waitingMessageType + " type 메세지 추가 from "+message.getSrcId());
@@ -66,18 +66,18 @@ public class ReceiveMessageHandler implements Runnable {
     private void handleReceivedMessage(Message message) {
         switch (MessageType.json2MessageType(message.getMsgType())) {
             case STOCK_REQUEST:
-                logger.info(message.getSrcId() + "로부터 받은 " + STOCK_REQUEST.getTypeName() + " 처리");
+                System.out.println(message.getSrcId() + "로부터 받은 " + STOCK_REQUEST.getTypeName() + " 처리");
                 responseStockRequest(message.getSrcId(), message.getMsgDescription().getItemCode());
                 break;
             case STOCK_RESPONSE:
                 logger.warning(message.getSrcId() + "로부터 받은 " + STOCK_RESPONSE.getTypeName() + " 무시함. " + waitingMessageType.getTypeName() + "을 기다리는 중입니다.");
                 break;
             case PREPAYMENT_CHECK:
-                logger.info(message.getSrcId() + "로부터 받은 " + PREPAYMENT_CHECK.getTypeName() + " 처리");
+                System.out.println(message.getSrcId() + "로부터 받은 " + PREPAYMENT_CHECK.getTypeName() + " 처리");
                 prepaymentService.savePrepaymentInfo(itemService, message.getMsgDescription().getAuthCode(),  message.getMsgDescription().getItemCode(),  message.getMsgDescription().getItemNum());
                 break;
             case SALE_REQUEST:
-                logger.info(message.getSrcId() + "로부터 받은 " + SALE_REQUEST.getTypeName() + " 처리");
+                System.out.println(message.getSrcId() + "로부터 받은 " + SALE_REQUEST.getTypeName() + " 처리");
                 responseSaleRequest(message.getSrcId(), message.getMsgDescription().getItemCode(), message.getMsgDescription().getItemNum());
                 break;
             case SALE_RESPONSE:
@@ -89,8 +89,7 @@ public class ReceiveMessageHandler implements Runnable {
     }
 
     private void responseStockRequest(String dstId, String itemCode) {
-        int count = 10;
-        //int count = itemService.getItemCount(itemCode);
+        int count = itemService.getItemCount(itemCode);
         networkService.sendStockResponseMessage(dstId, itemCode, count);
     }
 

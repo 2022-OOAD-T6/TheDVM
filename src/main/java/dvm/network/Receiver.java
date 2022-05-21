@@ -48,7 +48,11 @@ public class Receiver implements Runnable {
 
     public void changeWaitingMessageType(MessageType messageType) {
         this.waitingMessageType = messageType;
-        System.out.println("receiver 상태 수정 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
+        if(messageType == MessageType.NONE){
+            System.out.println("receiver 상태 수정 | 기다리는 메세지가 없습니다. ");
+        }else{
+            System.out.println("receiver 상태 수정 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
+        }
     }
 
     public Vector<Message> getResponseMessages() {
