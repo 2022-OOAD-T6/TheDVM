@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d75a8bd8-6b89-4ab7-a29e-721bae233970" name="Changes" comment="Changes">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/dvm_network_JDK11_1.0.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dvm/service/ItemServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dvm/service/ItemServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dvm/service/PrepaymentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dvm/service/PrepaymentServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
