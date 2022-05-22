@@ -39,6 +39,7 @@ public class MenuPanel extends JPanel {
     JButton plusBtn = new JButton("+");// 넣기 버튼
     JLabel countLb = new JLabel("0개");// 총 개수 라벨
     JLabel priceLb = new JLabel("0원");// 총 가격 라벨
+    JLabel selectedItemLb = new JLabel("");
 
     JLabel infoLb = new JLabel("카드를 먼저 입력해주세요."); // 카드 넣기 전 안내 문구
     JButton payBtn = new JButton("결제하기");// 결제하기 버튼 -> dialog
@@ -112,6 +113,7 @@ public class MenuPanel extends JPanel {
     private void showSelect() {
         selectPanel.setLayout(new GridLayout(3, 1));
         JPanel countPanel = new JPanel();
+        countPanel.add(selectedItemLb);
         countPanel.add(minusBtn);
         minusBtn.addActionListener(new ActionListener() {               //마이너스 버튼 이벤트처리
             @Override
@@ -157,6 +159,7 @@ public class MenuPanel extends JPanel {
                             } else if (reqPaymentRes.getResponseType() == NOT_ENOUGH_STOCK) { // 재고가 충분하지 않음 -> 선결제 여부 묻기
                                 JOptionPane.showMessageDialog(null, "재고가 충분하지 않습니다. 다시 시도해주세요.", "재고 부족", JOptionPane.YES_NO_OPTION);
                             }
+                            initSelectedInfo();
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "현재 자판기에 재고가 부족합니다.. 다른 자판기의 재고를 탐색중입니다. 잠시만 기다려주세요.");
@@ -196,11 +199,10 @@ public class MenuPanel extends JPanel {
                 itemsBtn[i].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        if (userItemCode != finalI) {
-                            priceLb.setText("0원");
-                            countLb.setText("0개");
-                            userItemQuantity = 0;
-                            userItemCode = finalI;
+                        if(userCardNum != null){
+                            if (userItemCode != finalI) {
+                                updateSelectedItem(finalI);
+                            }
                         }
                     }
                 });
@@ -208,16 +210,27 @@ public class MenuPanel extends JPanel {
         }
     }
 
+    private void updateSelectedItem(int itemIndex) {
+        initSelectedInfo();
+        userItemCode = itemIndex;
+        selectedItemLb.setText(allItems.get(itemIndex).getName());
+    }
+
     // 저장된 카드 제거 + 결제 버튼 안보이게, 각종 가격들 다시 초기화
     private void removeCard() {
-        userItemCode = -1;
-        priceLb.setText("0원");
-        countLb.setText("0개");
-        userItemQuantity = 0;
+        initSelectedInfo();
         userCardNum = null;
         cardBtn.setText("카드 번호 입력");
         selectPanel.setVisible(false);
         infoLb.setVisible(true);
+    }
+
+    private void initSelectedInfo(){
+        userItemCode = -1;
+        selectedItemLb.setText("");
+        priceLb.setText("0원");
+        countLb.setText("0개");
+        userItemQuantity = 0;
     }
 
     private void registerCard(String cardNum) {
