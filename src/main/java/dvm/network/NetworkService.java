@@ -23,6 +23,7 @@ public class NetworkService {
         this.sender = new Sender();
         this.receiver = new Receiver(itemService, prepaymentService, this);
 
+        currentId = "Team1";
         MessageFactory.setCurrentId(currentId);
         MessageFactory.setCurrentX(currentX);
         MessageFactory.setCurrentY(currentY);
@@ -34,24 +35,29 @@ public class NetworkService {
 
     public void sendStockRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(STOCK_RESPONSE);
-        sender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
+        Sender responseSender = new Sender();
+        responseSender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
     }
 
     public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
-        sender.send(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
+        Sender responseSender = new Sender();
+        responseSender.send(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
     }
 
     public void sendPrepaymentInfoMessage(String dstId, String itemCode, int quantity, String verificationCode) {
-        sender.send(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
+        Sender responseSender = new Sender();
+        responseSender.send(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(SALE_RESPONSE);
-        sender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
+        Sender responseSender = new Sender();
+        responseSender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
     }
 
     public void sendSaleResponseMessage(String dstId, String itemCode) {
-        sender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
+        Sender responseSender = new Sender();
+        responseSender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
     }
 
     public Message getSaleResponseMessage(String itemCode) {

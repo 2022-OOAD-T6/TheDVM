@@ -35,14 +35,14 @@ public class Receiver implements Runnable {
 
     @Override
     public void run() {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            while (true) {
+        while(true){
+            try (ServerSocket serverSocket = new ServerSocket(port)) {
                 Socket socket = serverSocket.accept();
                 ReceiveMessageHandler handler = new ReceiveMessageHandler(socket, waitingMessageType, responseMessages, itemService, prepaymentService, networkService);
                 new Thread(handler).start();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
