@@ -22,8 +22,8 @@ public class Sender {
     private final static Logger logger = Logger.getGlobal();
 
     public Sender() {
-        //dvmsNetworkInfo.put("Team1", "192.168.67.7");
-        dvmsNetworkInfo.put("4", "192.168.67.7");
+        dvmsNetworkInfo.put("Team1", "192.168.66.43");
+        //dvmsNetworkInfo.put("4", "192.168.67.7");
 
         // dvmsNetworkInfo.put("Team2", "192.168.67.7");
         // dvmsNetworkInfo.put("Team3", "192.168.67.7");

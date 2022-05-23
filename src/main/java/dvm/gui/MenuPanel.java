@@ -9,6 +9,7 @@ import java.util.List;
 import Model.Message;
 import dvm.controller.Controller;
 import dvm.domain.Item;
+import dvm.domain.PrepaymentInfo;
 import dvm.domain.Response;
 
 import static dvm.domain.ResponseType.*;
@@ -82,7 +83,6 @@ public class MenuPanel extends JPanel {
     private void showSelect() {
         selectPanel.setLayout(new GridLayout(3, 1));
         JPanel countPanel = new JPanel();
-
         countPanel.add(selectedItemLb);
         countPanel.add(minusBtn);
         countPanel.add(countLb);
@@ -110,7 +110,10 @@ public class MenuPanel extends JPanel {
                 itemsPanel[i] = new JPanel();
                 itemsPanel[i].setLayout(new GridLayout(2, 1));
                 itemsBtn[i] = new JButton(item.getName());
-                pricesLb[i] = new JLabel(String.valueOf(item.getPrice()));
+//                itemsBtn[i].setBackground(Color.darkGray);                  //배경색
+//                itemsBtn[i].setForeground(Color.white);                     //글자색
+//                itemsBtn[i].setBorderPainted(false);
+                pricesLb[i] = new JLabel(String.valueOf(item.getPrice())+"원");
                 pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
                 itemsPanel[i].add(itemsBtn[i]);
                 itemsPanel[i].add(pricesLb[i]);

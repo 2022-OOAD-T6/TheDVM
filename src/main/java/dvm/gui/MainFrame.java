@@ -64,6 +64,13 @@ public class MainFrame extends JFrame {
                 cards.next(cardPanel);
             }
         });
+
+        contentPane.add(cardPanel);
+        setSize(600, 450);      //사이즈 설정
+        setLocationRelativeTo(null);        //가운데 설정
+        setResizable(false);                //사이즈 고정
+        setVisible(true);                   //보이게
+
     }
 
 
