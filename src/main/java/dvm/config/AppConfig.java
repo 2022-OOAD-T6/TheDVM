@@ -1,7 +1,7 @@
 package dvm.config;
 
 import dvm.controller.Controller;
-import dvm.network.NetworkService;
+import dvm.service.NetworkService;
 import dvm.partners.CardCompany;
 import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
