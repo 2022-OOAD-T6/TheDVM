@@ -36,13 +36,7 @@ public class NetworkService {
         logger.info("Run thread");
     }*/
 
-    public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
-
-        this.currentId = "Team4";
-        MessageFactory.setCurrentId(this.currentId);
-        MessageFactory.setCurrentX(currentX);
-        MessageFactory.setCurrentY(currentY);
-
+    public NetworkService(ItemService itemService, PrepaymentService prepaymentService) {
         // 리시버 구현체는 여기서 선택
         this.receiver = new MyReceiver(itemService, prepaymentService, this);
 //        this.receiver = new ReceiverImpl(itemService, prepaymentService, this);

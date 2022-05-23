@@ -10,9 +10,9 @@ import java.util.logging.Logger;
 /**
  *
  */
-public class Sender implements  Runnable{
+public class Sender implements Runnable {
 
-    private final HashMap<String, String> dvmsNetworkInfo = new HashMap<>();
+    private static final HashMap<String, String> dvmsNetworkInfo = new HashMap<>();
 
     // Message to jsonString
     private final Serializer serializer = new Serializer();
@@ -22,17 +22,7 @@ public class Sender implements  Runnable{
     private final Message message;
 
     public Sender(Message message) {
-        //dvmsNetworkInfo.put("Team0", "192.168.67.7");
-        //dvmsNetworkInfo.put("Team2", "192.168.67.7");
-        //dvmsNetworkInfo.put("Team3", "192.168.64.1");
-
-        dvmsNetworkInfo.put("Team1", "192.168.66.43");
-        //dvmsNetworkInfo.put("Team2", "192.168.64.202");
-        dvmsNetworkInfo.put("Team3", "192.168.64.242");
-//        dvmsNetworkInfo.put("Team4", "192.168.67.39");
         this.message = message;
-        // dvmsNetworkInfo.put("Team5", "192.168.67.7");
-        //dvmsNetworkInfo.put("Team6", "127.0.0.1"); // Our dvm
     }
 
     public void send(Message message) {
@@ -62,5 +52,17 @@ public class Sender implements  Runnable{
     @Override
     public void run() {
         send(message);
+    }
+
+    public static void initDvmsNetworkInfo(String[] ids, String[] ips) {
+        for (int i = 0; i < ids.length; i++) {
+            dvmsNetworkInfo.put(ids[i], ips[i]);
+        }
+    }
+
+    public static void printDvmsNetworkInfo(){
+        for (String s : dvmsNetworkInfo.keySet()) {
+            System.out.println("team id: "+s+" | "+dvmsNetworkInfo.get(s));
+        }
     }
 }

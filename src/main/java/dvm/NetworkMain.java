@@ -1,5 +1,7 @@
 package dvm;
 
+import dvm.network.MessageFactory;
+import dvm.network.Sender;
 import dvm.service.NetworkService;
 import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
@@ -20,7 +22,7 @@ public class NetworkMain {
 
         ItemService itemService=new ItemService(new ItemRepository());
         PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
-        NetworkService networkService = new NetworkService(currentId, 5, 10, itemService, prepaymentService);
+        NetworkService networkService = new NetworkService(itemService, prepaymentService);
 
         String[] teamIds = {"Team1", "Team2", "Team3", "Team4", "Team5", "Team6"};
         Random dstRand = new Random();

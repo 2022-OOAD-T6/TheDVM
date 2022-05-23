@@ -12,8 +12,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class NetworkServiceTest {
 
-    private final NetworkService networkService = new NetworkService("Team6", 10, 10,
-            new ItemService(new ItemRepository()), new PrepaymentService(new PrepaymentRepository()));
+    private final NetworkService networkService = new NetworkService(new ItemService(new ItemRepository()), new PrepaymentService(new PrepaymentRepository()));
 
     private final Serializer serializer = new Serializer();
 

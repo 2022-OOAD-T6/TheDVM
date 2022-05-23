@@ -1,6 +1,8 @@
 package dvm.config;
 
 import dvm.controller.Controller;
+import dvm.network.MessageFactory;
+import dvm.network.Sender;
 import dvm.service.NetworkService;
 import dvm.partners.CardCompany;
 import dvm.repository.ItemRepository;
@@ -9,7 +11,8 @@ import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
-import java.util.logging.Logger;
+import java.io.FileReader;
+import java.util.Properties;
 
 public class AppConfig {
 
@@ -73,7 +76,27 @@ public class AppConfig {
 
     private static NetworkService networkService() {
         if (networkService == null) {
-            networkService = new NetworkService("Team6", 50, 30, itemService(), prepaymentService());
+            try{
+                // resoureces에 properities/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
+                Properties p = new Properties();
+                p.load(new FileReader("src/main/resources/properties/network.properties"));
+                MessageFactory.setCurrentId(p.getProperty("current.id"));
+                MessageFactory.setCurrentX(Integer.parseInt(p.getProperty("current.x")));
+                MessageFactory.setCurrentY(Integer.parseInt(p.getProperty("current.y")));
+                Sender.initDvmsNetworkInfo(p.getProperty("other.id").split(","), p.getProperty("other.ip").split(","));
+            }catch (Exception e) {
+                e.printStackTrace();
+                String currentId = "Team6";
+                int currentX = 30;
+                int currentY = 50;
+                String[] ids = new String[]{"Team1"};
+                String[] ips = new String[]{"127.0.0.1"};
+                MessageFactory.setCurrentId(currentId);
+                MessageFactory.setCurrentX(currentX);
+                MessageFactory.setCurrentY(currentY);
+                Sender.initDvmsNetworkInfo(ids, ips);
+            }
+            networkService = new NetworkService(itemService(), prepaymentService());
         }
         return networkService;
     }
