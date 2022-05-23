@@ -14,13 +14,13 @@ import static dvm.network.MessageType.*;
  */
 public class NetworkService {
 
-    private final Sender sender;
+    //private final Sender sender;
 
     private final Receiver receiver;
     private final Logger logger = Logger.getGlobal();
 
     public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
-        this.sender = new Sender();
+        //this.sender = new Sender();
         this.receiver = new Receiver(itemService, prepaymentService, this);
 
         currentId = "Team1";
@@ -35,29 +35,34 @@ public class NetworkService {
 
     public void sendStockRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(STOCK_RESPONSE);
-        Sender responseSender = new Sender();
-        responseSender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
+        Sender responseSender = new Sender(MessageFactory.createStockRequestMessage(itemCode, quantity));
+        new Thread(responseSender).start();
+        //responseSender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
     }
 
     public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
-        Sender responseSender = new Sender();
-        responseSender.send(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
+        Sender responseSender = new Sender(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
+        new Thread(responseSender).start();
+        //responseSender.send(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
     }
 
     public void sendPrepaymentInfoMessage(String dstId, String itemCode, int quantity, String verificationCode) {
-        Sender responseSender = new Sender();
-        responseSender.send(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
+        Sender responseSender = new Sender(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
+        new Thread(responseSender).start();
+        //responseSender.send(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(SALE_RESPONSE);
-        Sender responseSender = new Sender();
-        responseSender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
+        Sender responseSender = new Sender(MessageFactory.createSaleRequestMessage(itemCode, quantity));
+        new Thread(responseSender).start();
+        //responseSender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
     }
 
     public void sendSaleResponseMessage(String dstId, String itemCode) {
-        Sender responseSender = new Sender();
-        responseSender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
+        Sender responseSender = new Sender(MessageFactory.createSaleResponseMessage(dstId, itemCode));
+        new Thread(responseSender).start();
+        //responseSender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
     }
 
     public Message getSaleResponseMessage(String itemCode) {

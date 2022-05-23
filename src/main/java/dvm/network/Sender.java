@@ -4,15 +4,13 @@ import DVM_Client.DVMClient;
 import GsonConverter.Serializer;
 import Model.Message;
 
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
 /**
  *
  */
-public class Sender {
+public class Sender implements  Runnable{
 
     private final HashMap<String, String> dvmsNetworkInfo = new HashMap<>();
 
@@ -21,14 +19,17 @@ public class Sender {
 
     private final static Logger logger = Logger.getGlobal();
 
-    public Sender() {
+    private final Message message;
+
+    public Sender(Message message) {
         //dvmsNetworkInfo.put("Team0", "192.168.67.7");
         //dvmsNetworkInfo.put("Team2", "192.168.67.7");
         //dvmsNetworkInfo.put("Team3", "192.168.64.1");
 
-        dvmsNetworkInfo.put("Team2", "192.168.64.202");
+        //dvmsNetworkInfo.put("Team2", "192.168.64.202");
         dvmsNetworkInfo.put("Team3", "192.168.64.242");
-        // dvmsNetworkInfo.put("Team4", "192.168.67.7");
+        dvmsNetworkInfo.put("Team4", "192.168.67.39");
+        this.message = message;
         // dvmsNetworkInfo.put("Team5", "192.168.67.7");
         //dvmsNetworkInfo.put("Team6", "127.0.0.1"); // Our dvm
     }
@@ -58,5 +59,10 @@ public class Sender {
 
     public String getNetworkInfo(String id) {
         return dvmsNetworkInfo.get(id);
+    }
+
+    @Override
+    public void run() {
+        send(message);
     }
 }
