@@ -26,11 +26,7 @@ public class AppConfig {
 
     public static Controller controller() {
         if (controller == null) {
-            logger.info("Config Controller start");
-
             controller = new Controller(networkService(), itemService(), prepaymentService(), cardService());
-
-            logger.info("Config Controller finish");
         }
         return controller;
     }
