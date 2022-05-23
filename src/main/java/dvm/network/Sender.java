@@ -4,8 +4,6 @@ import DVM_Client.DVMClient;
 import GsonConverter.Serializer;
 import Model.Message;
 
-import java.io.PrintWriter;
-import java.net.Socket;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
@@ -45,21 +43,15 @@ public class Sender implements  Runnable{
                     if(teamId.equals(message.getSrcId())) continue;
                     String dstIp = dvmsNetworkInfo.get(teamId);
                     String jsonMessage = serializer.message2Json(message);
-                    // DVMClient client = new DVMClient(dstIp, jsonMessage);
-                    // client.run();
-                    Socket socket = new Socket(dstIp, 8080);
-                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                    out.println(jsonMessage);
+                    DVMClient client = new DVMClient(dstIp, jsonMessage);
+                    client.run();
                     System.out.println("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
                 }
             }else {
                 String dstIp = dvmsNetworkInfo.get(message.getDstID());
                 String jsonMessage = serializer.message2Json(message);
-                // DVMClient client = new DVMClient(dstIp, jsonMessage);
-                // client.run();
-                Socket socket = new Socket(dstIp, 8080);
-                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-                out.println(jsonMessage);
+                DVMClient client = new DVMClient(dstIp, jsonMessage);
+                client.run();
                 System.out.println("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
             }
         } catch (Exception e) {
