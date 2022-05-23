@@ -33,6 +33,15 @@ public class Controller {
         return new Response<>(true, ITEMS_OK, items);
     }
 
+    public Response<List<Item>> getOurItems() {
+        List<Item> items = itemService.getOurItems();
+        return new Response<>(true, ITEMS_OK, items);
+    }
+
+    public Response<Integer> getItemCount(String itemCode) {
+        return new Response<>(true, ITEMS_OK, itemService.getItemCount(itemCode));
+    }
+
     public Response<String> enterCardNum(String cardNum) {
         boolean result = cardService.saveCardNum(cardNum);
         if (result) {
