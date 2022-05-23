@@ -9,6 +9,8 @@ import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
+import java.util.logging.Logger;
+
 public class AppConfig {
 
     private static Controller controller;
@@ -20,59 +22,64 @@ public class AppConfig {
     private static CardService cardService;
     private static NetworkService networkService;
 
+    static Logger logger = Logger.getGlobal();
 
     public static Controller controller() {
         if (controller == null) {
-            return new Controller(networkService(), itemService(), prepaymentService(), cardService());
+            logger.info("Config Controller start");
+
+            controller = new Controller(networkService(), itemService(), prepaymentService(), cardService());
+
+            logger.info("Config Controller finish");
         }
         return controller;
     }
 
     private static ItemRepository itemRepository() {
         if (itemRepository == null) {
-            return new ItemRepository();
+            itemRepository = new ItemRepository();
         }
         return itemRepository;
     }
 
     private static PrepaymentRepository prepaymentRepository() {
         if (prepaymentRepository == null) {
-            return new PrepaymentRepository();
+            prepaymentRepository = new PrepaymentRepository();
         }
         return prepaymentRepository;
     }
 
     private static ItemService itemService() {
         if (itemService == null) {
-            return new ItemService(itemRepository());
+            itemService = new ItemService(itemRepository());
         }
         return itemService;
     }
 
     private static PrepaymentService prepaymentService() {
         if (prepaymentService == null) {
-            return new PrepaymentService(prepaymentRepository());
+            prepaymentService = new PrepaymentService(prepaymentRepository());
         }
         return prepaymentService;
     }
 
     private static CardCompany cardCompany() {
         if (cardCompany == null) {
-            return new CardCompany();
+            cardCompany = new CardCompany();
         }
         return cardCompany;
     }
 
     private static CardService cardService() {
         if (cardService == null) {
-            return new CardService(cardCompany());
+            cardService = new CardService(cardCompany());
         }
         return cardService;
     }
 
     private static NetworkService networkService() {
         if (networkService == null) {
-            return new NetworkService("Team6", 50, 30, itemService(), prepaymentService());
+            networkService = new NetworkService("Team6", 50, 30, itemService(), prepaymentService());
         }
         return networkService;
     }

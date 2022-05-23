@@ -1,11 +1,13 @@
 package dvm.network;
 
+import DVM_Server.DVMServer;
 import Model.Message;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -35,14 +37,26 @@ public class Receiver implements Runnable {
 
     @Override
     public void run() {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
-            while (true) {
+
+/*        DVMServer server = new DVMServer();
+        try {
+            server.run();
+            ArrayList<Message> msgList = server.msgList;
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+        while(true){
+            try (ServerSocket serverSocket = new ServerSocket(port)) {
                 Socket socket = serverSocket.accept();
                 ReceiveMessageHandler handler = new ReceiveMessageHandler(socket, waitingMessageType, responseMessages, itemService, prepaymentService, networkService);
                 new Thread(handler).start();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 

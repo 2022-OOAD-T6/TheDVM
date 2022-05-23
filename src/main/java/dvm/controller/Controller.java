@@ -68,13 +68,13 @@ public class Controller {
         }
         networkService.sendSaleRequestMessage(itemCode, quantity);
         try{
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             Message message = networkService.getSaleResponseMessage(itemCode);
             if (message == null) {
-                logger.warning("받은 SaleResponseMessage가 없습니다.");
+                logger.warning("Controller | SaleResponseMessage 없음 | 받은 SaleResponseMessage가 없습니다.");
                 return new Response<>(false, NO_RESPONSE_MESSAGE);
             }
-            logger.info("받은 SaleResponseMessage | from " + message.getSrcId() + " | 보유 수량: " + message.getMsgDescription().getItemNum());
+            logger.info("Controller | SaleResponseMessage 받음 | from " + message.getSrcId() + " | 보유 수량: " + message.getMsgDescription().getItemNum());
             return new Response<>(true, RESPONSE_OK, message);
         }catch(Exception e){
             return new Response<>(false, NO_RESPONSE_MESSAGE);
@@ -105,13 +105,13 @@ public class Controller {
 
         Message message = networkService.getStockResponseMessageFrom(dstDvmId, itemCode, quantity);
         if (message == null) {
-            logger.warning("받은 StockResponseMessage가 없습니다.");
+            logger.warning("Controller | StockResponseMessage 없음 | 받은 StockResponseMessage가 없습니다.");
             return new Response<>(false, NO_RESPONSE_MESSAGE);
         } else if (message.getMsgDescription().getItemNum() < quantity) {
-            logger.info("받은 StockResponseMessag | from " + message.getSrcId() + " | 하지만 재고가 부족합니다.");
+            logger.info("Controller | StockResponseMessage 받음 | from " + message.getSrcId() + " | 하지만 재고가 부족합니다.");
             return new Response<>(false, NOT_ENOUGH_STOCK);
         }
-        logger.info("받은 StockResponseMessag | from " + message.getSrcId() + " | 재고가 충분합니다.");
+        logger.info("Controller | StockResponseMessage 받음 | from " + message.getSrcId() + " | 재고가 충분합니다.");
 
         int price = itemService.getItemPrice(itemCode);
         if (cardService.pay(price * quantity)) {
