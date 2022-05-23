@@ -35,8 +35,8 @@ public class MyReceiver implements Receiver {
         this.prepaymentService = prepaymentService;
         this.networkService = networkService;
 
-        MyReceiverForServer receiver = new MyReceiverForServer();
-        new Thread(receiver).start();
+        DvmServerCreator dvmServer = new DvmServerCreator();
+        new Thread(dvmServer).start();
     }
 
     @Override
