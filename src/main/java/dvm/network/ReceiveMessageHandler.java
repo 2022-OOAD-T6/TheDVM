@@ -4,6 +4,7 @@ import GsonConverter.Deserializer;
 import GsonConverter.Serializer;
 import Model.Message;
 import dvm.service.ItemService;
+import dvm.service.NetworkService;
 import dvm.service.PrepaymentService;
 
 import java.io.BufferedReader;

@@ -3,7 +3,7 @@ package dvm.controller;
 import Model.Message;
 import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
-import dvm.network.NetworkService;
+import dvm.service.NetworkService;
 import dvm.domain.Response;
 import dvm.service.CardService;
 import dvm.service.ItemService;
