@@ -3,6 +3,7 @@ package dvm.network;
 import DVM_Server.DVMServer;
 import Model.Message;
 import dvm.service.ItemService;
+import dvm.service.NetworkService;
 import dvm.service.PrepaymentService;
 
 import java.util.Vector;
@@ -10,9 +11,9 @@ import java.util.logging.Logger;
 
 import static dvm.network.MessageType.*;
 
-public class MyReceiverHandler implements Runnable {
+public class MyReceiver implements Receiver {
 
-    int consumed = 0;
+    private int consumed = 0;
     private MessageType waitingMessageType;
 
     private final Vector<Message> responseMessages;
@@ -25,21 +26,22 @@ public class MyReceiverHandler implements Runnable {
     private final static Logger logger = Logger.getGlobal();
 
 
-    public MyReceiverHandler(ItemService itemService, PrepaymentService prepaymentService,
-                             NetworkService networkService) {
+    public MyReceiver(ItemService itemService, PrepaymentService prepaymentService,
+                      NetworkService networkService) {
 
         this.waitingMessageType = MessageType.NONE;
         this.responseMessages = new Vector<>();
         this.itemService = itemService;
         this.prepaymentService = prepaymentService;
         this.networkService = networkService;
+
+        MyReceiverForServer receiver = new MyReceiverForServer();
+        new Thread(receiver).start();
     }
 
     @Override
     public void run() {
-        logger.info("MyReceiverHandler running");
         while (true) {
-//            logger.info("메시지큐 크기: " + DVMServer.msgList.size());
             if (DVMServer.msgList.size() > consumed) {
                 Message message = DVMServer.msgList.get(consumed);
                 logger.info("읽은 메시지: " + message.getMsgDescription());
@@ -95,6 +97,7 @@ public class MyReceiverHandler implements Runnable {
         }
     }
 
+    @Override
     public void changeWaitingMessageType(MessageType messageType) {
         this.waitingMessageType = messageType;
         if(messageType == MessageType.NONE){
@@ -104,10 +107,12 @@ public class MyReceiverHandler implements Runnable {
         }
     }
 
+    @Override
     public Vector<Message> getResponseMessages() {
         return responseMessages;
     }
 
+    @Override
     public void clearResponseMessages() {
         responseMessages.clear();
     }

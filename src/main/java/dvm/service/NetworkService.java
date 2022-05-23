@@ -1,8 +1,7 @@
-package dvm.network;
+package dvm.service;
 
 import Model.Message;
-import dvm.service.ItemService;
-import dvm.service.PrepaymentService;
+import dvm.network.*;
 
 import java.util.*;
 import java.util.logging.Logger;

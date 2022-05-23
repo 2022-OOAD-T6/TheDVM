@@ -1,19 +1,18 @@
 package dvm.network;
 
-import DVM_Server.DVMServer;
 import Model.Message;
 import dvm.service.ItemService;
+import dvm.service.NetworkService;
 import dvm.service.PrepaymentService;
 
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 import java.util.Vector;
 
 /**
  *
  */
-public class Receiver implements Runnable {
+public class ReceiverImpl implements Receiver {
 
     private static final int port = 8080; // 항상 8080
 
@@ -27,7 +26,7 @@ public class Receiver implements Runnable {
 
     private MessageType waitingMessageType;
 
-    public Receiver(ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
+    public ReceiverImpl(ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
         this.itemService = itemService;
         this.prepaymentService = prepaymentService;
         this.networkService = networkService;
@@ -48,6 +47,7 @@ public class Receiver implements Runnable {
         }
     }
 
+    @Override
     public void changeWaitingMessageType(MessageType messageType) {
         this.waitingMessageType = messageType;
         if(messageType == MessageType.NONE){
@@ -57,10 +57,12 @@ public class Receiver implements Runnable {
         }
     }
 
+    @Override
     public Vector<Message> getResponseMessages() {
         return responseMessages;
     }
 
+    @Override
     public void clearResponseMessages() {
         responseMessages.clear();
     }
