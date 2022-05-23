@@ -109,6 +109,10 @@ public class AppConfig {
                 MessageFactory.setCurrentY(currentY);
                 Sender.initDvmsNetworkInfo(ids, ips);
             }
+            System.out.println("-----------------현재 네트워크 정보-------------------");
+            MessageFactory.printCurrentInfo();
+            Sender.printDvmsNetworkInfo();
+            System.out.println("--------------------------------------------------");
             networkService = new NetworkService(itemService(), prepaymentService());
         }
         return networkService;

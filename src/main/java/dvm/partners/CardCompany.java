@@ -20,9 +20,11 @@ public class CardCompany {
         registeredCards.put("02444444",8000);
 
         // 디버깅 위해 카드 번호 로그 남김
+        System.out.println("----------------현재 등록된 카드 정보------------------");
         for (String cardNum : registeredCards.keySet()) {
             System.out.println("카드번호: " + cardNum+" | 잔고: "+registeredCards.get(cardNum));
         }
+        System.out.println("--------------------------------------------------");
     }
 
     private final HashMap<String,Integer> registeredCards = new HashMap<>();

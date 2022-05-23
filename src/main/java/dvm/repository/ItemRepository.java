@@ -59,6 +59,18 @@ public class ItemRepository {
     }
 
     /**
+     * 디버깅용 - 현재 stock 상태 출력
+     */
+    private void printCurrentStock() {
+        System.out.println("-------------------현재 재고 정보--------------------");
+        for (String s : stock.keySet()) {
+            System.out.println("item code: "+s+" | count: "+stock.get(s));
+        }
+        System.out.println("--------------------------------------------------");
+    }
+
+
+    /**
      * 우리 자판기에 있는 음료 수량 리턴
      * key가 없으면 return 0
      */

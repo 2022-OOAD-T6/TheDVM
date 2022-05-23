@@ -117,4 +117,10 @@ public class MessageFactory {
             }
         });
     }
+
+    public static void printCurrentInfo(){
+        System.out.println("현재 id: "+currentId);
+        System.out.println("현재 x: "+currentX);
+        System.out.println("현재 y: "+currentY);
+    }
 }
