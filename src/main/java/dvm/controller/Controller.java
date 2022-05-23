@@ -68,7 +68,7 @@ public class Controller {
         }
         networkService.sendSaleRequestMessage(itemCode, quantity);
         try{
-            Thread.sleep(3000);
+            Thread.sleep(5000);
             Message message = networkService.getSaleResponseMessage(itemCode);
             if (message == null) {
                 logger.warning("받은 SaleResponseMessage가 없습니다.");
