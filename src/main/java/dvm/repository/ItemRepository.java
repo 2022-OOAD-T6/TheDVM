@@ -90,7 +90,7 @@ public class ItemRepository {
     /**
      * 우리가 팔고있는 아이템 키값 리턴?
      */
-    public List<Item> findOurItems() {
+    public List<Item> findMyItems() {
         ArrayList<Item> ourItems = new ArrayList<>();
 
         for (String key : stock.keySet()) {

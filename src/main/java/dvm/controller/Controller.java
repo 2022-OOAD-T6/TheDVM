@@ -33,8 +33,8 @@ public class Controller {
         return new Response<>(true, ITEMS_OK, items);
     }
 
-    public Response<List<Item>> getOurItems() {
-        List<Item> items = itemService.getOurItems();
+    public Response<List<Item>> getMyItems() {
+        List<Item> items = itemService.getMyItems();
         return new Response<>(true, ITEMS_OK, items);
     }
 
