@@ -137,24 +137,20 @@ public class MenuPanel extends JPanel {
      * 인증코드, 카드입력 버튼 이벤트 처리
      */
     private void makeEvent() {
-        minusBtn.addActionListener(new ActionListener() {               //마이너스 버튼 이벤트처리
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (userItemIndex != -1 && userItemQuantity > 0) {
-                    userItemQuantity--;
-                    countLb.setText(userItemQuantity + "개");
-                    priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
-                }
+        //마이너스 버튼 이벤트처리
+        minusBtn.addActionListener(actionEvent -> {
+            if (userItemIndex != -1 && userItemQuantity > 0) {
+                userItemQuantity--;
+                countLb.setText(userItemQuantity + "개");
+                priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
             }
         });
-        plusBtn.addActionListener(new ActionListener() {                //플러스 버튼 이벤트처리
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (userItemIndex != -1 && userItemQuantity < 999) {
-                    userItemQuantity++;
-                    countLb.setText(userItemQuantity + "개");
-                    priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
-                }
+        //플러스 버튼 이벤트처리
+        plusBtn.addActionListener(actionEvent -> {
+            if (userItemIndex != -1 && userItemQuantity < 999) {
+                userItemQuantity++;
+                countLb.setText(userItemQuantity + "개");
+                priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
             }
         });
         //결제버튼다이얼로그

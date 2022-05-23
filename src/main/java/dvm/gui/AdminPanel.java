@@ -138,7 +138,7 @@ public class AdminPanel extends JPanel {
                 String itemCode = myItems.get(userSelectionIndex).getItemCode();
                 Response<String> updateResponse = controller.updateStock(itemCode, userSelectionQuantity);
                 if (updateResponse.isSuccess()) {
-                    JOptionPane.showMessageDialog(null, "재고를 추가에 성공했습니다.");
+                    JOptionPane.showMessageDialog(null, "재고 추가에 성공했습니다.");
                     updateStockStatus();
                 } else {
                     JOptionPane.showMessageDialog(null, "재고 추가에 실패했습니다.");

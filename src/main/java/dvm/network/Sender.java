@@ -27,7 +27,7 @@ public class Sender {
 
         // dvmsNetworkInfo.put("Team2", "192.168.67.7");
         // dvmsNetworkInfo.put("Team3", "192.168.67.7");
-        // dvmsNetworkInfo.put("Team4", "192.168.67.7");
+         dvmsNetworkInfo.put("Team4", "192.168.67.39");
         // dvmsNetworkInfo.put("Team5", "192.168.67.7");
         //dvmsNetworkInfo.put("Team6", "127.0.0.1"); // Our dvm
     }
