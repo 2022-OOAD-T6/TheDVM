@@ -1,6 +1,5 @@
 package dvm.network;
 
-import DVM_Server.DVMServer;
 import GsonConverter.Deserializer;
 import GsonConverter.Serializer;
 import Model.Message;
@@ -19,9 +18,11 @@ import static dvm.network.MessageType.*;
  *
  */
 public class ReceiveMessageHandler implements Runnable {
-    private MessageType waitingMessageType;
+    private final Socket socket;
 
-    private static final Vector<Message> responseMessages = new Vector<>();;
+    private final MessageType waitingMessageType;
+
+    private final Vector<Message> responseMessages;
 
     private final ItemService itemService;
 
@@ -32,46 +33,30 @@ public class ReceiveMessageHandler implements Runnable {
     private static final Deserializer deserializer = new Deserializer();
     private static final Serializer serializer = new Serializer(); // for log
     private final static Logger logger = Logger.getGlobal();
-    private DVMServer dvmServer;
 
-    private int lastSize = 0;
-
-    public ReceiveMessageHandler(ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService, DVMServer dvmServer) {
+    public ReceiveMessageHandler(Socket socket, MessageType waitingMessageType, Vector<Message> responseMessages, ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
+        this.socket = socket;
+        this.waitingMessageType = waitingMessageType;
+        this.responseMessages = responseMessages;
         this.itemService = itemService;
         this.prepaymentService = prepaymentService;
         this.networkService = networkService;
-        this.dvmServer = dvmServer;
-        waitingMessageType = NONE;
     }
 
     @Override
     public void run() {
         try {
-            // BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            // String request;
-            // while ((request = in.readLine()) != null) {
-            //     Message message = deserializer.json2Message(request);
-            //     System.out.println("메세지 받음 | from "+ message.getSrcId() + " | "+message.getMsgType() + " | " + request);
-            //     if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
-            //         responseMessages.add(message);
-            //         logger.info(waitingMessageType + " type 메세지 추가 from "+message.getSrcId());
-            //     } else {
-            //         handleReceivedMessage(message);
-            //     }
-            // }
-            while(true){
-                while(DVMServer.msgList.size() > lastSize){
-                    System.out.println("wow..");
-                    Message message = DVMServer.msgList.get(lastSize);
-                    lastSize++;
-                    if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
-                        responseMessages.add(message);
-                        logger.info(waitingMessageType + " type 메세지 추가 from "+message.getSrcId());
-                    } else {
-                        handleReceivedMessage(message);
-                    }
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String request;
+            while ((request = in.readLine()) != null) {
+                Message message = deserializer.json2Message(request);
+                System.out.println("메세지 받음 | from "+ message.getSrcId() + " | "+message.getMsgType() + " | " + request);
+                if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
+                    responseMessages.add(message);
+                    logger.info(waitingMessageType + " type 메세지 추가 from "+message.getSrcId());
+                } else {
+                    handleReceivedMessage(message);
                 }
-                Thread.yield();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -112,23 +97,6 @@ public class ReceiveMessageHandler implements Runnable {
     private void responseSaleRequest(String dstId, String itemCode, int itemNum) {
         if (itemService.isEnough(itemCode, itemNum)) {
             networkService.sendSaleResponseMessage(dstId, itemCode);
-        }
-    }
-
-    public Vector<Message> getResponseMessages() {
-        return responseMessages;
-    }
-
-    public void clearResponseMessages() {
-        responseMessages.clear();
-    }
-
-    public void changeWaitingMessageType(MessageType messageType) {
-        this.waitingMessageType = messageType;
-        if(messageType == MessageType.NONE){
-            System.out.println("receiver 상태 수정 | 기다리는 메세지가 없습니다. ");
-        }else{
-            System.out.println("receiver 상태 수정 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
         }
     }
 }
