@@ -73,6 +73,8 @@ public class MenuPanel extends JPanel {
      */
     private void showInput() {
 
+        codeBtn.setBackground(Color.blue);
+        codeBtn.setForeground(Color.white);
         codeBtn.addActionListener(new ActionListener() {                                                             //인증코드다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -87,6 +89,8 @@ public class MenuPanel extends JPanel {
                 }
             }
         });
+        cardBtn.setBackground(Color.blue);
+        cardBtn.setForeground(Color.white);
         cardBtn.addActionListener(new ActionListener() {                //카드번호다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) { // 카드 넣고 빼기 번갈아가면서
@@ -123,6 +127,7 @@ public class MenuPanel extends JPanel {
         JPanel countPanel = new JPanel();
         countPanel.add(selectedItemLb);
         countPanel.add(minusBtn);
+        minusBtn.setBackground(Color.lightGray);
         minusBtn.addActionListener(new ActionListener() {               //마이너스 버튼 이벤트처리
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -136,6 +141,7 @@ public class MenuPanel extends JPanel {
 
         countPanel.add(countLb);
         countPanel.add(plusBtn);
+        plusBtn.setBackground(Color.lightGray);
         plusBtn.addActionListener(new ActionListener() {                //플러스 버튼 이벤트처리
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -149,6 +155,8 @@ public class MenuPanel extends JPanel {
 
         countPanel.add(priceLb);
 
+        payBtn.setBackground(Color.blue);
+        payBtn.setForeground(Color.white);
         payBtn.addActionListener(new ActionListener() {                 //결제버튼다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -231,7 +239,10 @@ public class MenuPanel extends JPanel {
                 itemsPanel[i] = new JPanel();
                 itemsPanel[i].setLayout(new GridLayout(2, 1));
                 itemsBtn[i] = new JButton(item.getName());
-                pricesLb[i] = new JLabel(String.valueOf(item.getPrice()));
+                itemsBtn[i].setBackground(Color.darkGray);                  //배경색
+                itemsBtn[i].setForeground(Color.white);                     //글자색
+                itemsBtn[i].setBorderPainted(false);
+                pricesLb[i] = new JLabel(String.valueOf(item.getPrice())+"원");
                 pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
                 itemsPanel[i].add(itemsBtn[i]);
                 itemsPanel[i].add(pricesLb[i]);
