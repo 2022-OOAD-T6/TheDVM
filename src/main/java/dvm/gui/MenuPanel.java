@@ -20,7 +20,7 @@ import static dvm.domain.ResponseType.*;
 public class MenuPanel extends JPanel {
 
     Controller controller;
-    int userItemCode = -1;            //유저 선택 음료코드 -> List<Item> allItems 기반 인덱스
+    int userItemIndex = -1;            //유저 선택 음료코드 -> List<Item> allItems 기반 인덱스
     int userItemQuantity = 0;         //유저 선택 음료개수
 
     String userCardNum;
@@ -118,10 +118,10 @@ public class MenuPanel extends JPanel {
         minusBtn.addActionListener(new ActionListener() {               //마이너스 버튼 이벤트처리
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (userItemCode != -1 && userItemQuantity > 0) {
+                if (userItemIndex != -1 && userItemQuantity > 0) {
                     userItemQuantity--;
                     countLb.setText(userItemQuantity + "개");
-                    priceLb.setText(userItemQuantity * allItems.get(userItemCode).getPrice() + "원");
+                    priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
                 }
             }
         });
@@ -131,10 +131,10 @@ public class MenuPanel extends JPanel {
         plusBtn.addActionListener(new ActionListener() {                //플러스 버튼 이벤트처리
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                if (userItemCode != -1 && userItemQuantity < 999) {
+                if (userItemIndex != -1 && userItemQuantity < 999) {
                     userItemQuantity++;
                     countLb.setText(userItemQuantity + "개");
-                    priceLb.setText(userItemQuantity * allItems.get(userItemCode).getPrice() + "원");
+                    priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
                 }
             }
         });
@@ -145,25 +145,37 @@ public class MenuPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (userItemQuantity != 0) {
-                    Response<Message> selectItemRes = controller.selectItem(allItems.get(userItemCode).getItemCode(), userItemQuantity);
+                    Response<Message> selectItemRes = controller.selectItem(allItems.get(userItemIndex).getItemCode(), userItemQuantity);
                     if (selectItemRes.isSuccess()) {
-                        int paymentAnswer = JOptionPane.showConfirmDialog(null, "음료: " + allItems.get(userItemCode).getName() + "\n개수: " + userItemQuantity + "개\n"
-                                + "금액: " + priceLb.getText(), "결제를 진행하시겠습니까?", JOptionPane.YES_NO_OPTION);
-                        if (paymentAnswer == JOptionPane.YES_OPTION) {
-                            // 결제 프로세스
-                            Response<String> reqPaymentRes = controller.requestPayment(allItems.get(userItemCode).getItemCode(), userItemQuantity);
-                            if (reqPaymentRes.isSuccess()) {
-                                JOptionPane.showMessageDialog(null, "성공적으로 결제되었습니다. 감사합니다.");
-                            } else if (reqPaymentRes.getResponseType() == PAYMENT_FAIL) { // 잔액 부족
-                                JOptionPane.showMessageDialog(null, "잔액이 부족합니다.");
-                            } else if (reqPaymentRes.getResponseType() == NOT_ENOUGH_STOCK) { // 재고가 충분하지 않음 -> 선결제 여부 묻기
-                                JOptionPane.showMessageDialog(null, "재고가 충분하지 않습니다. 다시 시도해주세요.", "재고 부족", JOptionPane.YES_NO_OPTION);
+                        if (selectItemRes.getResponseType() == SELECTION_OK) {
+                            int paymentAnswer = JOptionPane.showConfirmDialog(null, "음료: " + allItems.get(userItemIndex).getName() + "\n개수: " + userItemQuantity + "개\n"
+                                    + "금액: " + priceLb.getText(), "결제를 진행하시겠습니까?", JOptionPane.YES_NO_OPTION);
+                            if (paymentAnswer == JOptionPane.YES_OPTION) {
+                                // 결제 프로세스
+                                doPayment(userItemIndex, userItemQuantity);
+                                initSelectedInfo();
                             }
-                            initSelectedInfo();
+                        } else if (selectItemRes.getResponseType() == RESPONSE_OK) {
+                            Message message = selectItemRes.getResult();
+                            if (message != null) {
+                                // 재고 보유 DVM 있음 -> 선결제 프로세스
+                                int prepaymentAnswer = JOptionPane.showConfirmDialog(null, "현재 " + message.getSrcId() + " 자판기에 재고가 있습니다.\n"
+                                        + "해당 자판기의 위치는 (" + message.getMsgDescription().getDvmXCoord() + ", " + message.getMsgDescription().getDvmYCoord() + ")입니다.\n"
+                                        + "선결제 하시겠습니까?");
+                                if (prepaymentAnswer == JOptionPane.YES_OPTION) {
+                                    // 결제 프로세스
+                                    doPrepayment(message.getSrcId(), message.getMsgDescription().getItemCode(), userItemQuantity);
+                                }
+                            } else {
+                                JOptionPane.showMessageDialog(null, "죄송합니다. 현재 해당 음료를 보유한 자판기가 없습니다. 빠른 시일 내로 구비하도록 하겠습니다.");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "죄송합니다. 현재 해당 음료를 보유한 자판기가 없습니다. 빠른 시일 내로 구비하도록 하겠습니다.");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "현재 자판기에 재고가 부족합니다.. 다른 자판기의 재고를 탐색중입니다. 잠시만 기다려주세요.");
+                        JOptionPane.showMessageDialog(null, "죄송합니다. 현재 해당 음료를 보유한 자판기가 없습니다. 빠른 시일 내로 구비하도록 하겠습니다.");
                     }
+                    initSelectedInfo();
                 }
             }
         });
@@ -171,6 +183,28 @@ public class MenuPanel extends JPanel {
         selectPanel.add(countPanel);
         selectPanel.add(payBtn);
         selectPanel.setVisible(false);
+    }
+
+
+    private void doPayment(int itemIdx, int quantity) {
+        Response<String> reqPaymentRes = controller.requestPayment(allItems.get(itemIdx).getItemCode(), quantity);
+        if (reqPaymentRes.isSuccess()) {
+            JOptionPane.showMessageDialog(null, "성공적으로 결제되었습니다. 감사합니다.");
+        } else if (reqPaymentRes.getResponseType() == PAYMENT_FAIL) { // 잔액 부족
+            JOptionPane.showMessageDialog(null, "잔액이 부족합니다.");
+        } else if (reqPaymentRes.getResponseType() == NOT_ENOUGH_STOCK) { // 재고가 충분하지 않음 -> 선결제 여부 묻기
+            JOptionPane.showMessageDialog(null, "재고가 충분하지 않습니다. 다시 시도해주세요.", "재고 부족", JOptionPane.YES_NO_OPTION);
+        }
+    }
+
+    private void doPrepayment(String dstDvmId, String itemCode, int quantity) {
+        JOptionPane.showMessageDialog(null, "선결제 요청 중입니다.. 잠시만 기다려주세요.");
+        Response<String> reqPreResponse = controller.requestPrepayment(dstDvmId, itemCode, quantity);
+        if (reqPreResponse.isSuccess()) {
+            JOptionPane.showMessageDialog(null, "성공적으로 결제되었습니다. 감사합니다. 선결제 인증코드는 " + reqPreResponse.getResult() + "입니다. " + dstDvmId + " 자판기에서 입력해주세요. 감사합니다.");
+        } else {
+            JOptionPane.showMessageDialog(null, "죄송합니다. 재고의 변화가 있어 결제를 실패했습니다. 다시 시도해주세요.");
+        }
     }
 
     /**
@@ -199,8 +233,8 @@ public class MenuPanel extends JPanel {
                 itemsBtn[i].addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent actionEvent) {
-                        if(userCardNum != null){
-                            if (userItemCode != finalI) {
+                        if (userCardNum != null) {
+                            if (userItemIndex != finalI) {
                                 updateSelectedItem(finalI);
                             }
                         }
@@ -212,7 +246,7 @@ public class MenuPanel extends JPanel {
 
     private void updateSelectedItem(int itemIndex) {
         initSelectedInfo();
-        userItemCode = itemIndex;
+        userItemIndex = itemIndex;
         selectedItemLb.setText(allItems.get(itemIndex).getName());
     }
 
@@ -225,8 +259,8 @@ public class MenuPanel extends JPanel {
         infoLb.setVisible(true);
     }
 
-    private void initSelectedInfo(){
-        userItemCode = -1;
+    private void initSelectedInfo() {
+        userItemIndex = -1;
         selectedItemLb.setText("");
         priceLb.setText("0원");
         countLb.setText("0개");

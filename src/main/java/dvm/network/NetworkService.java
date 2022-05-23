@@ -54,21 +54,26 @@ public class NetworkService {
         sender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
     }
 
-    public Message getSaleResponseMessage() {
+    public Message getSaleResponseMessage(String itemCode) {
         Vector<Message> saleResponseMessages = getMessages(SALE_RESPONSE);
         clearResponseMessages();
         if(saleResponseMessages.isEmpty()){
             return null;
         }else{
-            return saleResponseMessages.get(0);
+            for (Message saleResponseMessage : saleResponseMessages) {
+                if(saleResponseMessage.getMsgDescription().getItemCode().equals(itemCode)){
+                    return saleResponseMessage;
+                }
+            }
+            return null;
         }
     }
 
-    public Message getStockResponseMessageFrom(String srcId) {
+    public Message getStockResponseMessageFrom(String srcId, String itemCode, int quantity) {
         Vector<Message> stockResponseMessages = getMessages(STOCK_RESPONSE);
         clearResponseMessages();
         for(Message message : stockResponseMessages){
-            if(message.getSrcId().equals(srcId)){
+            if(message.getSrcId().equals(srcId) && message.getMsgDescription().getItemCode().equals(itemCode) && message.getMsgDescription().getItemNum() >= quantity){
                 return message;
             }
         }

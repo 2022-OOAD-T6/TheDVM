@@ -49,7 +49,7 @@ public class ItemRepository {
         stock.put("04", 2);
         stock.put("05", 2);
         stock.put("06", 2);
-        stock.put("07", 2);
+        stock.put("10", 10);
     }
 
     /**

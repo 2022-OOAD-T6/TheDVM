@@ -66,20 +66,19 @@ public class Controller {
         if (result) {
             return new Response<>(true, SELECTION_OK);
         }
-
         networkService.sendSaleRequestMessage(itemCode, quantity);
-        try {
+        try{
             Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        Message message = networkService.getSaleResponseMessage();
-        if (message == null) {
-            logger.warning("받은 SaleResponseMessage가 없습니다.");
+            Message message = networkService.getSaleResponseMessage(itemCode);
+            if (message == null) {
+                logger.warning("받은 SaleResponseMessage가 없습니다.");
+                return new Response<>(false, NO_RESPONSE_MESSAGE);
+            }
+            logger.info("받은 SaleResponseMessage | from " + message.getSrcId() + " | 보유 수량: " + message.getMsgDescription().getItemNum());
+            return new Response<>(true, RESPONSE_OK, message);
+        }catch(Exception e){
             return new Response<>(false, NO_RESPONSE_MESSAGE);
         }
-        logger.info("받은 SaleResponseMessage | from " + message.getSrcId() + " | 보유 수량: " + message.getMsgDescription().getItemNum());
-        return new Response<>(false, RESPONSE_OK, message);
     }
 
     public Response<String> requestPayment(String itemCode, int quantity) {
@@ -99,12 +98,12 @@ public class Controller {
     public Response<String> requestPrepayment(String dstDvmId, String itemCode, int quantity) {
         networkService.sendStockRequestMessage(itemCode, quantity);
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
-        Message message = networkService.getStockResponseMessageFrom(dstDvmId);
+        Message message = networkService.getStockResponseMessageFrom(dstDvmId, itemCode, quantity);
         if (message == null) {
             logger.warning("받은 StockResponseMessage가 없습니다.");
             return new Response<>(false, NO_RESPONSE_MESSAGE);

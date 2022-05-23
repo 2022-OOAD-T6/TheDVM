@@ -1,9 +1,5 @@
 package dvm;
 
-import DVM_Client.DVMClient;
-import GsonConverter.Deserializer;
-import GsonConverter.Serializer;
-import Model.Message;
 import dvm.network.NetworkService;
 import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
@@ -11,8 +7,6 @@ import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
 import java.util.Random;
-
-import static Model.Message.*;
 
 public class NetworkMain {
     public static void main(String[] args) throws InterruptedException {

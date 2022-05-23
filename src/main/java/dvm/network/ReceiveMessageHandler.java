@@ -67,7 +67,7 @@ public class ReceiveMessageHandler implements Runnable {
         switch (MessageType.json2MessageType(message.getMsgType())) {
             case STOCK_REQUEST:
                 System.out.println(message.getSrcId() + "로부터 받은 " + STOCK_REQUEST.getTypeName() + " 처리");
-                responseStockRequest(message.getSrcId(), message.getMsgDescription().getItemCode());
+                responseStockRequest(message.getSrcId(), message.getMsgDescription().getItemCode(), message.getMsgDescription().getItemNum());
                 break;
             case STOCK_RESPONSE:
                 logger.warning(message.getSrcId() + "로부터 받은 " + STOCK_RESPONSE.getTypeName() + " 무시함. " + waitingMessageType.getTypeName() + "을 기다리는 중입니다.");
@@ -88,9 +88,10 @@ public class ReceiveMessageHandler implements Runnable {
         }
     }
 
-    private void responseStockRequest(String dstId, String itemCode) {
-        int count = itemService.getItemCount(itemCode);
-        networkService.sendStockResponseMessage(dstId, itemCode, count);
+    private void responseStockRequest(String dstId, String itemCode, int itemNum) {
+        if(itemService.isEnough(itemCode, itemNum)){
+            networkService.sendStockResponseMessage(dstId, itemCode, itemNum);
+        }
     }
 
     private void responseSaleRequest(String dstId, String itemCode, int itemNum) {
