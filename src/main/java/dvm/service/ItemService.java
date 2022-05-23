@@ -49,8 +49,8 @@ public class ItemService {
     /**
      * 우리 재고키값 리턴
      */
-    public List<Item> getOurItems() {
-        return itemRepository.findOurItems();
+    public List<Item> getMyItems() {
+        return itemRepository.findMyItems();
     }
 
     /**
