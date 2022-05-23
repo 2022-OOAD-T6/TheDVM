@@ -1,5 +1,6 @@
 package dvm.network;
 
+import GsonConverter.Serializer;
 import Model.Message;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
@@ -22,6 +23,7 @@ public class NetworkService {
     private final MyReceiverHandler myReceiverHandler;
     private String currentId;
     private final Logger logger = Logger.getGlobal();
+    private final Serializer serializer = new Serializer();
 
     /*public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
         //this.sender = new Sender();
@@ -114,6 +116,13 @@ public class NetworkService {
     private Vector<Message> getMessages(MessageType messageType){
         myReceiverHandler.changeWaitingMessageType(NONE);
         Vector<Message> messages = myReceiverHandler.getResponseMessages();
+        logger.info("----------저장된 메세지------------");
+        for (Message message : messages) {
+            System.out.println(serializer.message2Json(message));
+        }
+        System.out.println("--------------------------------");
+
+
         Vector<Message> responseMessage = new Vector<>();
         for (Message message : messages) {
             if (message.getMsgType().equals(messageType.getTypeName())) {
