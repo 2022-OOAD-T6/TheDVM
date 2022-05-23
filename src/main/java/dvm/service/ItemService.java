@@ -4,6 +4,7 @@ import dvm.domain.Item;
 import dvm.repository.ItemRepository;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * 20220517 MJY
@@ -21,8 +22,7 @@ public class ItemService {
      * 아니면 false
      */
     public boolean isEnough(String itemCode, int quantity) {
-        // TODO implement here
-        System.out.println("확인 요청 수량: "+quantity+" | 현재 재고: "+itemRepository.count(itemCode));
+        Logger.getGlobal().info("확인 요청 수량: "+quantity+" | 현재 재고: "+itemRepository.count(itemCode));
         return itemRepository.count(itemCode) >= quantity;
     }
 
@@ -31,7 +31,6 @@ public class ItemService {
      * 여기서 Item 객체 필요?
      */
     public int getItemPrice(String itemCode) {
-        // TODO implement here
         Item item = itemRepository.findItem(itemCode);
         if(item == null){
             return -1;
@@ -58,13 +57,13 @@ public class ItemService {
      * 음료 재고 수량 빼기
      */
     public boolean updateStock(String itemCode, int quantity) {
-        // TODO implement here
-        if(itemRepository.count(itemCode)+quantity >= 0 &&
+        if (itemRepository.count(itemCode)+quantity >= 0 &&
                 itemRepository.count(itemCode)+quantity <= 999){
             itemRepository.update(itemCode, quantity);
             return true;
-        }else
+        } else {
             return false;
+        }
     }
 
     /**
@@ -72,7 +71,6 @@ public class ItemService {
      * 음료 수량 리턴
      */
     public int getItemCount(String itemCode) {
-        // TODO implement here
         return itemRepository.count(itemCode);
     }
 
