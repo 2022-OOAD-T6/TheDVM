@@ -10,7 +10,8 @@ import java.net.Socket;
 import java.util.Vector;
 
 /**
- *
+ * Receiver 구현 클래스
+ * DvmServer 라이브러리 없이 서버를 직접 구현한 버전
  */
 public class ReceiverImpl implements Receiver {
 

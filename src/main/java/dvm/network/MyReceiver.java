@@ -11,6 +11,10 @@ import java.util.logging.Logger;
 
 import static dvm.network.MessageType.*;
 
+/**
+ * Receiver 구현 클래스
+ * DvmServer 라이브러리 사용하는 버전
+ */
 public class MyReceiver implements Receiver {
 
     private int consumed = 0;
