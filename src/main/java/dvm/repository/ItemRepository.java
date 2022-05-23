@@ -15,32 +15,32 @@ import java.util.logging.Logger;
 public class ItemRepository {
 
     private final Logger logger = Logger.getGlobal();
-    private final List<Item> items;// 모든 음료 20개
+    private final List<Item> items = new ArrayList<>(
+            Arrays.asList(new Item("01", "콜라", 1000),
+                    new Item("02", "사이다", 2000),
+                    new Item("03", "녹차", 3000),
+                    new Item("04", "홍차", 100),
+                    new Item("05", "밀크티", 100),
+                    new Item("06", "탄산수", 100),
+                    new Item("07", "보리차", 100),
+                    new Item("08", "캔커피", 100),
+                    new Item("09", "물", 1500),
+                    new Item("10", "에너지드링크", 100),
+                    new Item("11", "바닷물", 100),
+                    new Item("12", "식혜", 100),
+                    new Item("13", "아이스티", 100),
+                    new Item("14", "딸기주스", 100),
+                    new Item("15", "오렌지주스", 100),
+                    new Item("16", "포도주스", 100),
+                    new Item("17", "이온음료", 100),
+                    new Item("18", "아메리카노", 100),
+                    new Item("19", "핫초코", 100),
+                    new Item("20", "카페라떼", 100)
+            )
+    );// 모든 음료 20개
     private final ConcurrentHashMap<String, Integer> stock;// 우리 자판기 음료 7개
 
     public ItemRepository() {
-        items = new ArrayList<>(20);
-        items.add(new Item("01", "콜라", 1000));
-        items.add(new Item("02", "사이다", 2000));
-        items.add(new Item("03", "녹차", 3000));
-        items.add(new Item("04", "홍차", 100));
-        items.add(new Item("05", "밀크티", 100));
-        items.add(new Item("06", "탄산수", 100));
-        items.add(new Item("07", "보리차", 100));
-        items.add(new Item("08", "캔커피", 100));
-        items.add(new Item("09", "물", 1500));
-        items.add(new Item("10", "에너지드링크", 100));
-        items.add(new Item("11", "바닷물", 100));
-        items.add(new Item("12", "식혜", 100));
-        items.add(new Item("13", "아이스티", 100));
-        items.add(new Item("14", "딸기주스", 100));
-        items.add(new Item("15", "오렌지주스", 100));
-        items.add(new Item("16", "포도주스", 100));
-        items.add(new Item("17", "이온음료", 100));
-        items.add(new Item("18", "아메리카노", 100));
-        items.add(new Item("19", "핫초코", 100));
-        items.add(new Item("20", "카페라떼", 100));
-
         stock = new ConcurrentHashMap<>(7);
         // 임시 배정
         stock.put("01", 2);
@@ -50,6 +50,12 @@ public class ItemRepository {
         stock.put("05", 2);
         stock.put("06", 2);
         stock.put("10", 10);
+        printCurrentStock();
+    }
+
+    public ItemRepository(ConcurrentHashMap<String, Integer> stock) {
+        this.stock = stock;
+        printCurrentStock();
     }
 
     /**
@@ -59,9 +65,9 @@ public class ItemRepository {
     public int count(String itemCode) {
         // TODO implement here
 //        System.out.println(stock.get(findItem(itemCode)));
-        if (stock.get(itemCode) != null){
+        if (stock.get(itemCode) != null) {
             return stock.get(itemCode);
-        }else{
+        } else {
             return 0;
         }
     }
