@@ -22,8 +22,6 @@ public class AppConfig {
     private static CardService cardService;
     private static NetworkService networkService;
 
-    static Logger logger = Logger.getGlobal();
-
     public static Controller controller() {
         if (controller == null) {
             controller = new Controller(networkService(), itemService(), prepaymentService(), cardService());
