@@ -95,7 +95,7 @@ public class MainFrame extends JFrame {
     public static void main(String[] args) {
         ItemService itemService = new ItemService(new ItemRepository());
         PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
-        new MainFrame(new Controller(new NetworkService("Team6", 10, 10, itemService, prepaymentService), itemService,
+        new MainFrame(new Controller(new NetworkService(itemService, prepaymentService), itemService,
                 prepaymentService, new CardService(new CardCompany())));
     }
 }
