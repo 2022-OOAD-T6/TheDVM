@@ -44,7 +44,6 @@ public class MyReceiver implements Receiver {
         while (true) {
             if (DVMServer.msgList.size() > consumed) {
                 Message message = DVMServer.msgList.get(consumed);
-                logger.info("읽은 메시지: " + message.getMsgDescription());
 
                 if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
                     responseMessages.add(message);
