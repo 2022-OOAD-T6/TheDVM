@@ -37,30 +37,26 @@ public class Sender implements  Runnable{
 
     public void send(Message message) {
         try {
-            if(message.getDstID().equals("0")){
+            if (message.getDstID().equals("0")) {
                 for (String teamId : dvmsNetworkInfo.keySet()) {
-                    System.out.println("전송 중: " + teamId);
-                    if(teamId.equals(message.getSrcId())) continue;
+                    logger.info("전송 시도 | to " + teamId);
+                    if (teamId.equals(message.getSrcId())) continue;
                     String dstIp = dvmsNetworkInfo.get(teamId);
                     String jsonMessage = serializer.message2Json(message);
                     DVMClient client = new DVMClient(dstIp, jsonMessage);
                     client.run();
-                    System.out.println("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
+                    logger.info("메세지 전달 완료 | to " + teamId + " | " + message.getMsgType() + " | ");
                 }
-            }else {
+            } else {
                 String dstIp = dvmsNetworkInfo.get(message.getDstID());
                 String jsonMessage = serializer.message2Json(message);
                 DVMClient client = new DVMClient(dstIp, jsonMessage);
                 client.run();
-                System.out.println("메세지 전달 완료 | to " + message.getDstID()+ " | "+message.getMsgType()+" | ");
+                logger.info("메세지 전달 완료 | to " + message.getDstID() + " | " + message.getMsgType() + " | ");
             }
         } catch (Exception e) {
-            logger.warning("전송 불가 | " + e.getMessage() + "|" + message.getSrcId() + " to " + message.getDstID());
+            logger.warning("메세지 전송 불가 | " + e.getMessage() + " | from " + message.getSrcId() + " to " + message.getDstID());
         }
-    }
-
-    public String getNetworkInfo(String id) {
-        return dvmsNetworkInfo.get(id);
     }
 
     @Override

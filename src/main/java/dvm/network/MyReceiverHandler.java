@@ -42,7 +42,7 @@ public class MyReceiverHandler implements Runnable {
 //            logger.info("메시지큐 크기: " + DVMServer.msgList.size());
             if (DVMServer.msgList.size() > consumed) {
                 Message message = DVMServer.msgList.get(consumed);
-                logger.info("읽은 메시지: " + message.getMsgDescription());
+                logger.info("메세지 받음 | from " + message.getSrcId());
 
                 if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
                     responseMessages.add(message);
@@ -61,18 +61,18 @@ public class MyReceiverHandler implements Runnable {
     private void handleReceivedMessage(Message message) {
         switch (MessageType.json2MessageType(message.getMsgType())) {
             case STOCK_REQUEST:
-                System.out.println(message.getSrcId() + "로부터 받은 " + STOCK_REQUEST.getTypeName() + " 처리");
+                logger.info(message.getSrcId() + "로부터 받은 " + STOCK_REQUEST.getTypeName() + " 처리");
                 responseStockRequest(message.getSrcId(), message.getMsgDescription().getItemCode(), message.getMsgDescription().getItemNum());
                 break;
             case STOCK_RESPONSE:
                 logger.warning(message.getSrcId() + "로부터 받은 " + STOCK_RESPONSE.getTypeName() + " 무시함. " + waitingMessageType.getTypeName() + "을 기다리는 중입니다.");
                 break;
             case PREPAYMENT_CHECK:
-                System.out.println(message.getSrcId() + "로부터 받은 " + PREPAYMENT_CHECK.getTypeName() + " 처리");
+                logger.info(message.getSrcId() + "로부터 받은 " + PREPAYMENT_CHECK.getTypeName() + " 처리");
                 prepaymentService.savePrepaymentInfo(itemService, message.getMsgDescription().getAuthCode(),  message.getMsgDescription().getItemCode(),  message.getMsgDescription().getItemNum());
                 break;
             case SALE_REQUEST:
-                System.out.println(message.getSrcId() + "로부터 받은 " + SALE_REQUEST.getTypeName() + " 처리");
+                logger.info(message.getSrcId() + "로부터 받은 " + SALE_REQUEST.getTypeName() + " 처리");
                 responseSaleRequest(message.getSrcId(), message.getMsgDescription().getItemCode(), message.getMsgDescription().getItemNum());
                 break;
             case SALE_RESPONSE:
@@ -98,9 +98,9 @@ public class MyReceiverHandler implements Runnable {
     public void changeWaitingMessageType(MessageType messageType) {
         this.waitingMessageType = messageType;
         if(messageType == MessageType.NONE){
-            System.out.println("receiver 상태 수정 | 기다리는 메세지가 없습니다. ");
+            logger.info("receiver 상태 수정됨 | 이제 기다리는 메세지가 없습니다.");
         }else{
-            System.out.println("receiver 상태 수정 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
+            logger.info("receiver 상태 수정됨 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
         }
     }
 

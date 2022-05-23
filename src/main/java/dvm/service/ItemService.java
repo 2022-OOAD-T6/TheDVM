@@ -4,6 +4,7 @@ import dvm.domain.Item;
 import dvm.repository.ItemRepository;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * 20220517 MJY
@@ -22,7 +23,7 @@ public class ItemService {
      */
     public boolean isEnough(String itemCode, int quantity) {
         // TODO implement here
-        System.out.println("확인 요청 수량: "+quantity+" | 현재 재고: "+itemRepository.count(itemCode));
+        Logger.getGlobal().info("확인 요청 수량: "+quantity+" | 현재 재고: "+itemRepository.count(itemCode));
         return itemRepository.count(itemCode) >= quantity;
     }
 
