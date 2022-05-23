@@ -9,6 +9,7 @@ import java.util.List;
 import Model.Message;
 import dvm.controller.Controller;
 import dvm.domain.Item;
+import dvm.domain.PrepaymentInfo;
 import dvm.domain.Response;
 
 import static dvm.domain.ResponseType.*;
@@ -72,11 +73,18 @@ public class MenuPanel extends JPanel {
      */
     private void showInput() {
 
-        codeBtn.addActionListener(new ActionListener() {                //인증코드다이얼로그
+        codeBtn.addActionListener(new ActionListener() {                                                             //인증코드다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");
-                //ctr.enterVerificationCode(userCode);
+                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                  //userCode에 인증코드 저장
+                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);                      //인증코드에 해당하는 prepaymentInfo 받아오기
+                PrepaymentInfo preInfo = response.getResult();
+                String prepaymentItemCode = preInfo.getItemCode();                                                   //prepaymentInfo에 맞는 item타입 만들기
+                int prepaymentItemQuantity = preInfo.getQuantity();
+                Response paymentResponse = controller.requestPayment(prepaymentItemCode,prepaymentItemQuantity);     //결제 요청
+                if(paymentResponse.isSuccess()){
+                    controller.updateStock(prepaymentItemCode,prepaymentItemQuantity);                               //재고 업데이트
+                }
             }
         });
         cardBtn.addActionListener(new ActionListener() {                //카드번호다이얼로그
