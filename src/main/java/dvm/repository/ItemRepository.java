@@ -3,6 +3,8 @@ package dvm.repository;
 import dvm.domain.Item;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
@@ -83,6 +85,18 @@ public class ItemRepository {
      */
     public List<Item> findAllItems() {
         return items;
+    }
+
+    /**
+     * 우리가 팔고있는 아이템 키값 리턴?
+     */
+    public List<Item> findOurItems() {
+        ArrayList<Item> ourItems = new ArrayList<>();
+
+        for (String key : stock.keySet()) {
+            ourItems.add(findItem(key));
+        }
+        return ourItems;
     }
 
     /**
