@@ -37,7 +37,7 @@ class PrepaymentServiceTest {
         String vCode = "vCode2";
         String iCode = "02";
         int quantity = 10;
-        boolean valid = true;
+        boolean valid = false;
 
         prepaymentService.savePrepaymentInfo(itemService, vCode, iCode, quantity);
         PrepaymentInfo saveInfo = prepaymentService.getPrepaymentInfo(vCode);

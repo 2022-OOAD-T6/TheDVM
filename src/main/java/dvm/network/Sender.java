@@ -22,12 +22,14 @@ public class Sender {
     private final static Logger logger = Logger.getGlobal();
 
     public Sender() {
-        dvmsNetworkInfo.put("Team1", "127.0.0.1");
-        dvmsNetworkInfo.put("Team2", "127.0.0.1");
-        dvmsNetworkInfo.put("Team3", "127.0.0.1");
-        dvmsNetworkInfo.put("Team4", "127.0.0.1");
-        dvmsNetworkInfo.put("Team5", "127.0.0.1");
-        dvmsNetworkInfo.put("Team6", "127.0.0.1"); // Our dvm
+        //dvmsNetworkInfo.put("Team1", "192.168.67.7");
+        dvmsNetworkInfo.put("4", "192.168.67.7");
+
+        // dvmsNetworkInfo.put("Team2", "192.168.67.7");
+        // dvmsNetworkInfo.put("Team3", "192.168.67.7");
+        // dvmsNetworkInfo.put("Team4", "192.168.67.7");
+        // dvmsNetworkInfo.put("Team5", "192.168.67.7");
+        //dvmsNetworkInfo.put("Team6", "127.0.0.1"); // Our dvm
     }
 
     public void send(Message message) {
