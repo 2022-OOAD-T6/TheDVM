@@ -75,18 +75,16 @@ public class MenuPanel extends JPanel {
 
 //        codeBtn.setBackground(Color.blue);
 //        codeBtn.setForeground(Color.white);
-        codeBtn.addActionListener(new ActionListener() {                                                             //인증코드다이얼로그
+        codeBtn.addActionListener(new ActionListener() {                                                            //인증코드다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                  //userCode에 인증코드 저장
-                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);                      //인증코드에 해당하는 prepaymentInfo 받아오기
+                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                 //userCode에 인증코드 저장
+                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);                     //인증코드에 해당하는 prepaymentInfo 받아오기
                 PrepaymentInfo preInfo = response.getResult();
-                String prepaymentItemCode = preInfo.getItemCode();                                                   //prepaymentInfo에 맞는 item타입 만들기
+                String prepaymentItemCode = preInfo.getItemCode();                                                  //prepaymentInfo에 맞는 item타입 만들기
                 int prepaymentItemQuantity = preInfo.getQuantity();
-                Response paymentResponse = controller.requestPayment(prepaymentItemCode,prepaymentItemQuantity);     //결제 요청
-                if(paymentResponse.isSuccess()){
-                    controller.updateStock(prepaymentItemCode,prepaymentItemQuantity);                               //재고 업데이트
-                }
+//                controller.updateStock(prepaymentItemCode,prepaymentItemQuantity);                                  //재고 업데이트
+                System.out.println(prepaymentItemCode+"를"+prepaymentItemQuantity+"만큼"+"제공 완료");
             }
         });
 //        cardBtn.setBackground(Color.blue);
@@ -206,6 +204,7 @@ public class MenuPanel extends JPanel {
         Response<String> reqPaymentRes = controller.requestPayment(allItems.get(itemIdx).getItemCode(), quantity);
         if (reqPaymentRes.isSuccess()) {
             JOptionPane.showMessageDialog(null, "성공적으로 결제되었습니다. 감사합니다.");
+//            controller.updateStock(allItems.get(itemIdx).getItemCode(), quantity);
         } else if (reqPaymentRes.getResponseType() == PAYMENT_FAIL) { // 잔액 부족
             JOptionPane.showMessageDialog(null, "잔액이 부족합니다.");
         } else if (reqPaymentRes.getResponseType() == NOT_ENOUGH_STOCK) { // 재고가 충분하지 않음 -> 선결제 여부 묻기

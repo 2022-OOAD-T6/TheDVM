@@ -22,6 +22,7 @@ public class NetworkService {
     public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
         this.sender = new Sender();
         this.receiver = new Receiver(itemService, prepaymentService, this);
+        currentId="Team3";
 
         MessageFactory.setCurrentId(currentId);
         MessageFactory.setCurrentX(currentX);
