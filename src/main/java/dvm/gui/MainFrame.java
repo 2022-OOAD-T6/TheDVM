@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import dvm.controller.Controller;
 import dvm.network.NetworkService;
 import dvm.partners.CardCompany;
@@ -14,7 +15,7 @@ import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
 public class MainFrame extends JFrame {
-    Container contentPane= getContentPane();
+    Container contentPane = getContentPane();
     CardLayout cards = new CardLayout();
     JPanel cardPanel = new JPanel(cards);
     JPanel menuPanel;
@@ -25,20 +26,31 @@ public class MainFrame extends JFrame {
     JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
     JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
 
+    boolean menu ;
     private Controller controller;
 
-    public MainFrame(Controller controller){
+    public MainFrame(Controller controller) {
         this.controller = controller;
-        menuPanel = new MenuPanel(controller);// 메뉴있는 화면
-        adminPanel = new AdminPanel(controller);// 관리자 화면
-
+        menu=true;
         setTitle("DVM6");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-//        Container contentPane = getContentPane();
-
         setting();
         showBottom();
+        makeEvent();
+
+        contentPane.add(cardPanel);
+        setSize(600, 450);
+        setVisible(true);
+    }
+
+//    boolean isMenu(){
+//        return !menu;
+//    }
+    /**
+     * 관리자 버튼 이벤트 처리
+     */
+    private void makeEvent() {
         adminBtn.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -47,21 +59,23 @@ public class MainFrame extends JFrame {
 //                contentPane.add(topPanel2);
 //                validate();
 //                repaint();
+//                setting();
+
                 cards.next(cardPanel);
             }
         });
-        contentPane.add(cardPanel);
-        setSize(600, 450);
-        setVisible(true);
     }
+
 
     private void setting() {
-        cardPanel.add("1",menuPanel);
-        cardPanel.add("2",adminPanel);
+        menuPanel = new MenuPanel(controller);// 메뉴있는 화면
+        cardPanel.add("1", menuPanel);
+        adminPanel = new AdminPanel(controller);// 관리자 화면
+        cardPanel.add("2", adminPanel);
 
         add(bottomPanel, BorderLayout.SOUTH);
-
     }
+
     /**
      * SOUTH
      * 관라자 버튼, 배출구 라벨
@@ -70,6 +84,7 @@ public class MainFrame extends JFrame {
         bottomPanel.add(adminBtn);
         bottomPanel.add(itemLb);
     }
+
     public static void main(String[] args) {
         ItemService itemService = new ItemService(new ItemRepository());
         PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());

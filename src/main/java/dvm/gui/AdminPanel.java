@@ -17,7 +17,7 @@ public class AdminPanel extends JPanel {
     JPanel menu = new JPanel();// 아이템 7개 panel을 담고 있는 panel
     JPanel[] itemsPanel = new JPanel[7]; // 내 자판기의 음료와 가격을 갖고 있는 panel
     JPanel subAddPanel = new JPanel(); // 재고 넣기, 빼기 panel
-    JPanel stockPanel = new JPanel(); // 전체 재고 확인 panel
+    public JPanel stockPanel = new JPanel(); // 전체 재고 확인 panel
     JButton[] itemsBtn = new JButton[7];// 내 음료 버튼
     JLabel[] pricesLb = new JLabel[7];
     String[] items = {"콜라", "사이다", "녹차", "홍차", "밀크티", "탄산수", "보리차"};
@@ -86,6 +86,25 @@ public class AdminPanel extends JPanel {
     }
 
     /**
+     * NORTH
+     * 메뉴 생성하기
+     */
+    private void showMenu() {
+        menu.setLayout(new GridLayout(1, 7));
+        for (int i = 0; i < 7; i++) {
+            itemsPanel[i] = new JPanel(new GridLayout(2, 1));
+            itemsBtn[i] = new JButton(myItems.get(i).getName());
+            int finalI = i;
+            itemsBtn[i].addActionListener(actionEvent -> {
+                userSelectionIndex = finalI;
+                selectedItem.setText(myItems.get(finalI).getName());
+            });
+            itemsPanel[i].add(itemsBtn[i]);
+            menu.add(itemsPanel[i]);
+        }
+    }
+
+    /**
      * 플러스 마이너스 이벤트 처리
      */
     private void makeEvent() {
@@ -136,25 +155,6 @@ public class AdminPanel extends JPanel {
         stockPanel.removeAll();
         showStock();
         repaint();
-    }
-
-    /**
-     * NORTH
-     * 메뉴 생성하기
-     */
-    private void showMenu() {
-        menu.setLayout(new GridLayout(1, 7));
-        for (int i = 0; i < 7; i++) {
-            itemsPanel[i] = new JPanel(new GridLayout(2, 1));
-            itemsBtn[i] = new JButton(myItems.get(i).getName());
-            int finalI = i;
-            itemsBtn[i].addActionListener(actionEvent -> {
-                userSelectionIndex = finalI;
-                selectedItem.setText(myItems.get(finalI).getName());
-            });
-            itemsPanel[i].add(itemsBtn[i]);
-            menu.add(itemsPanel[i]);
-        }
     }
 
     /**
