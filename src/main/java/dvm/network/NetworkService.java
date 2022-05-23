@@ -16,14 +16,18 @@ public class NetworkService {
 
     //private final Sender sender;
 
-    private final Receiver receiver;
+    // 임시로 지워봄
+//    private final Receiver receiver;
+    private final MyReceiver receiver;
+    private final MyReceiverHandler myReceiverHandler;
+    private String currentId;
     private final Logger logger = Logger.getGlobal();
 
-    public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
+    /*public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
         //this.sender = new Sender();
         this.receiver = new Receiver(itemService, prepaymentService, this);
 
-        currentId = "Team1";
+        currentId = "Team4";
         MessageFactory.setCurrentId(currentId);
         MessageFactory.setCurrentX(currentX);
         MessageFactory.setCurrentY(currentY);
@@ -31,10 +35,25 @@ public class NetworkService {
         Thread serverThread = new Thread(receiver);
         serverThread.start();
         logger.info("Run thread");
+    }*/
+
+    public NetworkService(String currentId, int currentX, int currentY, ItemService itemService, PrepaymentService prepaymentService) {
+        logger.info("network service start");
+        this.receiver = new MyReceiver();
+        new Thread(this.receiver).start();
+        logger.info("network service fin");
+
+        this.currentId = "Team4";
+        MessageFactory.setCurrentId(this.currentId);
+        MessageFactory.setCurrentX(currentX);
+        MessageFactory.setCurrentY(currentY);
+
+        this.myReceiverHandler = new MyReceiverHandler(itemService, prepaymentService, this);
+        new Thread(this.myReceiverHandler).start();
     }
 
     public void sendStockRequestMessage(String itemCode, int quantity) {
-        receiver.changeWaitingMessageType(STOCK_RESPONSE);
+        myReceiverHandler.changeWaitingMessageType(STOCK_RESPONSE);
         Sender responseSender = new Sender(MessageFactory.createStockRequestMessage(itemCode, quantity));
         new Thread(responseSender).start();
         //responseSender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
@@ -53,7 +72,7 @@ public class NetworkService {
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
-        receiver.changeWaitingMessageType(SALE_RESPONSE);
+        myReceiverHandler.changeWaitingMessageType(SALE_RESPONSE);
         Sender responseSender = new Sender(MessageFactory.createSaleRequestMessage(itemCode, quantity));
         new Thread(responseSender).start();
         //responseSender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
@@ -92,8 +111,8 @@ public class NetworkService {
     }
 
     private Vector<Message> getMessages(MessageType messageType){
-        receiver.changeWaitingMessageType(NONE);
-        Vector<Message> messages = receiver.getResponseMessages();
+        myReceiverHandler.changeWaitingMessageType(NONE);
+        Vector<Message> messages = myReceiverHandler.getResponseMessages();
         Vector<Message> responseMessage = new Vector<>();
         for (Message message : messages) {
             if (message.getMsgType().equals(messageType.getTypeName())) {
@@ -105,10 +124,10 @@ public class NetworkService {
     }
 
     public void changeWaitingMessageType(MessageType messageType){
-        receiver.changeWaitingMessageType(messageType);
+        myReceiverHandler.changeWaitingMessageType(messageType);
     }
 
     private void clearResponseMessages() {
-        receiver.clearResponseMessages();
+        myReceiverHandler.clearResponseMessages();
     }
 }
