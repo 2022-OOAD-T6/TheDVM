@@ -1,7 +1,7 @@
 package dvm.config;
 
 import dvm.controller.Controller;
-import dvm.network.NetworkService;
+import dvm.service.NetworkService;
 import dvm.partners.CardCompany;
 import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
@@ -22,15 +22,9 @@ public class AppConfig {
     private static CardService cardService;
     private static NetworkService networkService;
 
-    static Logger logger = Logger.getGlobal();
-
     public static Controller controller() {
         if (controller == null) {
-            logger.info("Config Controller start");
-
             controller = new Controller(networkService(), itemService(), prepaymentService(), cardService());
-
-            logger.info("Config Controller finish");
         }
         return controller;
     }

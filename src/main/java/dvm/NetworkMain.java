@@ -1,6 +1,6 @@
 package dvm;
 
-import dvm.network.NetworkService;
+import dvm.service.NetworkService;
 import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
 import dvm.service.ItemService;

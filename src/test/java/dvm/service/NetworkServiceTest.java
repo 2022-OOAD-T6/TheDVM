@@ -1,15 +1,14 @@
-package dvm.network;
+package dvm.service;
 
 import GsonConverter.Serializer;
 import Model.Message;
+import dvm.network.MessageFactory;
+import dvm.network.MessageType;
 import dvm.repository.ItemRepository;
 import dvm.repository.PrepaymentRepository;
-import dvm.service.ItemService;
-import dvm.service.PrepaymentService;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class NetworkServiceTest {
 

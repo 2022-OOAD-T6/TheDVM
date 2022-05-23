@@ -4,6 +4,7 @@ import GsonConverter.Deserializer;
 import GsonConverter.Serializer;
 import Model.Message;
 import dvm.service.ItemService;
+import dvm.service.NetworkService;
 import dvm.service.PrepaymentService;
 
 import java.io.BufferedReader;
@@ -15,7 +16,8 @@ import java.util.logging.Logger;
 import static dvm.network.MessageType.*;
 
 /**
- *
+ * 수신 메시지 핸들링 클래스
+ * 리시버를 ReceiverImpl 클래스로 사용하는 경우에만 쓰이는 클래스
  */
 public class ReceiveMessageHandler implements Runnable {
     private final Socket socket;
