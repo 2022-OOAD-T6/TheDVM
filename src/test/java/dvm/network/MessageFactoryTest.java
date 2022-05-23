@@ -130,4 +130,98 @@ class MessageFactoryTest {
         assertThat(messages.get(3).getSrcId()).isEqualTo("Team5");
         assertThat(messages.get(4).getSrcId()).isEqualTo("Team1");
     }
+
+    @Test
+    void sortMessages2(){
+        MessageFactory.setCurrentId("Team6");
+        MessageFactory.setCurrentX(10);
+        MessageFactory.setCurrentY(15);
+
+        Vector<Message> messages = new Vector<>();
+
+        Message m1 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m1.setSrcId("Team5");
+        m1.getMsgDescription().setDvmXCoord(35);
+        m1.getMsgDescription().setDvmYCoord(35);
+        messages.add(m1);
+
+        Message m2 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m2.setSrcId("Team4");
+        m2.getMsgDescription().setDvmXCoord(30);
+        m2.getMsgDescription().setDvmYCoord(30);
+        messages.add(m2);
+
+        Message m3 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m3.setSrcId("Team3");
+        m3.getMsgDescription().setDvmXCoord(25);
+        m3.getMsgDescription().setDvmYCoord(25);
+        messages.add(m3);
+
+        Message m4 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m4.setSrcId("Team2");
+        m4.getMsgDescription().setDvmXCoord(20);
+        m4.getMsgDescription().setDvmYCoord(20);
+        messages.add(m4);
+
+        Message m5 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m5.setSrcId("Team1");
+        m5.getMsgDescription().setDvmXCoord(15);
+        m5.getMsgDescription().setDvmYCoord(15);
+        messages.add(m5);
+
+        MessageFactory.sortMessages(messages);
+
+        assertThat(messages.get(0).getSrcId()).isEqualTo("Team1");
+        assertThat(messages.get(1).getSrcId()).isEqualTo("Team2");
+        assertThat(messages.get(2).getSrcId()).isEqualTo("Team3");
+        assertThat(messages.get(3).getSrcId()).isEqualTo("Team4");
+        assertThat(messages.get(4).getSrcId()).isEqualTo("Team5");
+    }
+
+    @Test
+    void sortMessages3(){
+        MessageFactory.setCurrentId("Team6");
+        MessageFactory.setCurrentX(10);
+        MessageFactory.setCurrentY(15);
+
+        Vector<Message> messages = new Vector<>();
+
+        Message m1 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m1.setSrcId("Team5");
+        m1.getMsgDescription().setDvmXCoord(15);
+        m1.getMsgDescription().setDvmYCoord(15);
+        messages.add(m1);
+
+        Message m2 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m2.setSrcId("Team4");
+        m2.getMsgDescription().setDvmXCoord(15);
+        m2.getMsgDescription().setDvmYCoord(15);
+        messages.add(m2);
+
+        Message m3 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m3.setSrcId("Team3");
+        m3.getMsgDescription().setDvmXCoord(15);
+        m3.getMsgDescription().setDvmYCoord(15);
+        messages.add(m3);
+
+        Message m4 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m4.setSrcId("Team2");
+        m4.getMsgDescription().setDvmXCoord(15);
+        m4.getMsgDescription().setDvmYCoord(15);
+        messages.add(m4);
+
+        Message m5 = MessageFactory.createSaleResponseMessage("Team6", "05");
+        m5.setSrcId("Team1");
+        m5.getMsgDescription().setDvmXCoord(15);
+        m5.getMsgDescription().setDvmYCoord(15);
+        messages.add(m5);
+
+        MessageFactory.sortMessages(messages);
+
+        assertThat(messages.get(0).getSrcId()).isEqualTo("Team1");
+        assertThat(messages.get(1).getSrcId()).isEqualTo("Team2");
+        assertThat(messages.get(2).getSrcId()).isEqualTo("Team3");
+        assertThat(messages.get(3).getSrcId()).isEqualTo("Team4");
+        assertThat(messages.get(4).getSrcId()).isEqualTo("Team5");
+    }
 }
