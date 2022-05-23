@@ -42,6 +42,7 @@ public class NetworkService {
 
         // 리시버 구현체는 여기서 선택
         this.receiver = new MyReceiver(itemService, prepaymentService, this);
+//        this.receiver = new ReceiverImpl(itemService, prepaymentService, this);
         new Thread(this.receiver).start();
     }
 
