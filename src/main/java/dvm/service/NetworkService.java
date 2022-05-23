@@ -9,7 +9,7 @@ import java.util.logging.Logger;
 import static dvm.network.MessageType.*;
 
 /**
- *
+ * 네트워크 서비스 클래스
  */
 public class NetworkService {
 
@@ -40,6 +40,7 @@ public class NetworkService {
         MessageFactory.setCurrentX(currentX);
         MessageFactory.setCurrentY(currentY);
 
+        // 리시버 구현체는 여기서 선택
         this.receiver = new MyReceiver(itemService, prepaymentService, this);
         new Thread(this.receiver).start();
     }
