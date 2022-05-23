@@ -47,6 +47,13 @@ public class ItemService {
     }
 
     /**
+     * 우리 재고키값 리턴
+     */
+    public List<Item> getOurItems() {
+        return itemRepository.findOurItems();
+    }
+
+    /**
      * 정상적으로 결제 후 수행 가능
      * 음료 재고 수량 빼기
      */
