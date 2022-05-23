@@ -28,9 +28,10 @@ public class Sender implements  Runnable{
         //dvmsNetworkInfo.put("Team2", "192.168.67.7");
         //dvmsNetworkInfo.put("Team3", "192.168.64.1");
 
+        dvmsNetworkInfo.put("Team1", "192.168.66.43");
         //dvmsNetworkInfo.put("Team2", "192.168.64.202");
         dvmsNetworkInfo.put("Team3", "192.168.64.242");
-        dvmsNetworkInfo.put("Team4", "192.168.67.39");
+//        dvmsNetworkInfo.put("Team4", "192.168.67.39");
         this.message = message;
         // dvmsNetworkInfo.put("Team5", "192.168.67.7");
         //dvmsNetworkInfo.put("Team6", "127.0.0.1"); // Our dvm
@@ -40,6 +41,7 @@ public class Sender implements  Runnable{
         try {
             if(message.getDstID().equals("0")){
                 for (String teamId : dvmsNetworkInfo.keySet()) {
+                    System.out.println("전송 중: " + teamId);
                     if(teamId.equals(message.getSrcId())) continue;
                     String dstIp = dvmsNetworkInfo.get(teamId);
                     String jsonMessage = serializer.message2Json(message);
