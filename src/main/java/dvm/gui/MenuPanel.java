@@ -191,9 +191,17 @@ public class MenuPanel extends JPanel {
         });
         //인증코드다이얼로그
         // 미완성
-        codeBtn.addActionListener(actionEvent -> {
-            String userCode = JOptionPane.showInputDialog("인증코드를 입력하세요");
-            //ctr.enterVerificationCode(userCode);
+        codeBtn.addActionListener(new ActionListener() {                                                            //인증코드다이얼로그
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                 //userCode에 인증코드 저장
+                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);                     //인증코드에 해당하는 prepaymentInfo 받아오기
+                PrepaymentInfo preInfo = response.getResult();
+                String prepaymentItemCode = preInfo.getItemCode();                                                  //prepaymentInfo에 맞는 item타입 만들기
+                int prepaymentItemQuantity = preInfo.getQuantity();
+//                controller.updateStock(prepaymentItemCode,prepaymentItemQuantity);                                  //재고 업데이트
+                System.out.println(prepaymentItemCode+"를"+prepaymentItemQuantity+"만큼"+"제공 완료");
+            }
         });
         //카드번호다이얼로그
         cardBtn.addActionListener(actionEvent -> { // 카드 넣고 빼기 번갈아가면서
