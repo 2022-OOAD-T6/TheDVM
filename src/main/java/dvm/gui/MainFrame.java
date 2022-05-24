@@ -26,7 +26,7 @@ public class MainFrame extends JFrame {
     JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
     JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
 
-    boolean menu ;
+    boolean menu ;//지금 menuPanel이 보이는가
     private Controller controller;
 
     public MainFrame(Controller controller) {
@@ -44,9 +44,6 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-//    boolean isMenu(){
-//        return !menu;
-//    }
     /**
      * 관리자 버튼 이벤트 처리
      */
@@ -55,12 +52,21 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-//                contentPane.removeAll();
-//                contentPane.add(topPanel2);
-//                validate();
-//                repaint();
-//                setting();
-
+//                for (Component component : cardPanel.getComponents()) {
+//                    System.out.println(component.getName());
+//                }
+//                System.out.println(cardPanel.getComponentCount());
+                if(menu){// 현재 menuPanel이 보이는가
+                    menu=false;
+                    cardPanel.remove(cardPanel.getComponent(1));
+                    adminPanel = new AdminPanel(controller);// 관리자 화면
+                    adminPanel.setName("admin");
+                    cardPanel.add("2", adminPanel);
+//                    cards.show(cardPanel,"2");
+                }else{// 현재 adminPanel이 보이는가
+                    menu=true;
+//                    cards.show(cardPanel,"1");
+                }
                 cards.next(cardPanel);
             }
         });
@@ -70,14 +76,15 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);        //가운데 설정
         setResizable(false);                //사이즈 고정
         setVisible(true);                   //보이게
-
     }
 
 
     private void setting() {
         menuPanel = new MenuPanel(controller);// 메뉴있는 화면
+        menuPanel.setName("menu");
         cardPanel.add("1", menuPanel);
         adminPanel = new AdminPanel(controller);// 관리자 화면
+        adminPanel.setName("admin");
         cardPanel.add("2", adminPanel);
 
         add(bottomPanel, BorderLayout.SOUTH);
