@@ -113,7 +113,7 @@ public class MenuPanel extends JPanel {
 //                itemsBtn[i].setBackground(Color.darkGray);                  //배경색
 //                itemsBtn[i].setForeground(Color.white);                     //글자색
 //                itemsBtn[i].setBorderPainted(false);
-                pricesLb[i] = new JLabel(String.valueOf(item.getPrice())+"원");
+                pricesLb[i] = new JLabel(String.valueOf(item.getPrice()) + "원");
                 pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
                 itemsPanel[i].add(itemsBtn[i]);
                 itemsPanel[i].add(pricesLb[i]);
@@ -190,17 +190,24 @@ public class MenuPanel extends JPanel {
             }
         });
         //인증코드다이얼로그
-        // 미완성
-        codeBtn.addActionListener(new ActionListener() {                                                            //인증코드다이얼로그
+        codeBtn.addActionListener(new ActionListener() {                                                                //인증코드다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                 //userCode에 인증코드 저장
-                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);                     //인증코드에 해당하는 prepaymentInfo 받아오기
-                PrepaymentInfo preInfo = response.getResult();
-                String prepaymentItemCode = preInfo.getItemCode();                                                  //prepaymentInfo에 맞는 item타입 만들기
-                int prepaymentItemQuantity = preInfo.getQuantity();
-//                controller.updateStock(prepaymentItemCode,prepaymentItemQuantity);                                  //재고 업데이트
-                System.out.println(prepaymentItemCode+"를"+prepaymentItemQuantity+"만큼"+"제공 완료");
+                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                     //userCode에 인증코드 저장
+                if (userCode == null) return;
+                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);                         //인증코드에 해당하는 prepaymentInfo 받아오기
+                if (response.isSuccess()) {
+                    PrepaymentInfo preInfo = response.getResult();
+                    String prepaymentItemCode = preInfo.getItemCode();                                                  //prepaymentInfo에 맞는 item타입 만들기
+                    int prepaymentItemQuantity = preInfo.getQuantity();
+                    System.out.println(prepaymentItemCode + "번 음료를" + prepaymentItemQuantity + "개 만큼 " + "제공 완료");
+                } else if (response.getResponseType() == NOT_EXIST_CODE) {
+//                    System.out.println("존재하지 않는 인증번호입니다.");
+                    JOptionPane.showMessageDialog(null, "존재하지 않는 인증번호입니다.");
+                } else {
+//                    System.out.println("잘못된 선결제 인증번호입니다.");
+                    JOptionPane.showMessageDialog(null, "잘못된 선결제 인증번호입니다.");
+                }
             }
         });
         //카드번호다이얼로그
@@ -222,6 +229,7 @@ public class MenuPanel extends JPanel {
         });
 
     }
+
     private void doPayment(String itemCode, int qty) {
         Response<String> reqPaymentRes = controller.requestPayment(itemCode, qty);
         if (reqPaymentRes.isSuccess()) {
@@ -257,12 +265,14 @@ public class MenuPanel extends JPanel {
         selectPanel.setVisible(false);
         infoLb.setVisible(true);
     }
+
     private void registerCard(String cardNum) {
         this.userCardNum = cardNum;
         cardBtn.setText("카드 제거");
         selectPanel.setVisible(true);
         infoLb.setVisible(false);
     }
+
     private void initSelectedInfo() {
         userItemIndex = -1;
         selectedItemLb.setText("");
