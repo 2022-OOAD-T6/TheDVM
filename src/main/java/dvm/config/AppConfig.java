@@ -96,7 +96,8 @@ public class AppConfig {
                 MessageFactory.setCurrentId(p.getProperty("current.id"));
                 MessageFactory.setCurrentX(Integer.parseInt(p.getProperty("current.x")));
                 MessageFactory.setCurrentY(Integer.parseInt(p.getProperty("current.y")));
-                Sender.initDvmsNetworkInfo(p.getProperty("other.id").split(","), p.getProperty("other.ip").split(","));
+                Sender.initDvmsNetworkInfo(p.getProperty("other.id").replace(" ", "").split(","),
+                        p.getProperty("other.ip").replace(" ", "").split(","));
             }catch (Exception e) {
                 e.printStackTrace();
                 String currentId = "Team6";
