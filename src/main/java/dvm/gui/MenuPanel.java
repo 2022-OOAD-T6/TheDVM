@@ -200,6 +200,8 @@ public class MenuPanel extends JPanel {
                     PrepaymentInfo preInfo = response.getResult();
                     String prepaymentItemCode = preInfo.getItemCode();                                                  //prepaymentInfo에 맞는 item타입 만들기
                     int prepaymentItemQuantity = preInfo.getQuantity();
+                    JOptionPane.showMessageDialog(null, prepaymentItemCode + "번 음료를" +
+                            prepaymentItemQuantity + "개 만큼 " + "제공 완료");
                     System.out.println(prepaymentItemCode + "번 음료를" + prepaymentItemQuantity + "개 만큼 " + "제공 완료");
                 } else if (response.getResponseType() == NOT_EXIST_CODE) {
 //                    System.out.println("존재하지 않는 인증번호입니다.");
