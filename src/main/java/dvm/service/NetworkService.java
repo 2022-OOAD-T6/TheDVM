@@ -55,11 +55,11 @@ public class NetworkService {
     public Message getSaleResponseMessage(String itemCode) {
         Vector<Message> saleResponseMessages = getMessages(SALE_RESPONSE);
         clearResponseMessages();
-        if(saleResponseMessages.isEmpty()){
+        if (saleResponseMessages.isEmpty()) {
             return null;
-        }else{
+        } else {
             for (Message saleResponseMessage : saleResponseMessages) {
-                if(saleResponseMessage.getMsgDescription().getItemCode().equals(itemCode)){
+                if (saleResponseMessage.getMsgDescription().getItemCode().equals(itemCode)) {
                     return saleResponseMessage;
                 }
             }
@@ -70,15 +70,15 @@ public class NetworkService {
     public Message getStockResponseMessageFrom(String srcId, String itemCode, int quantity) {
         Vector<Message> stockResponseMessages = getMessages(STOCK_RESPONSE);
         clearResponseMessages();
-        for(Message message : stockResponseMessages){
-            if(message.getSrcId().equals(srcId) && message.getMsgDescription().getItemCode().equals(itemCode) && message.getMsgDescription().getItemNum() >= quantity){
+        for (Message message : stockResponseMessages) {
+            if (message.getSrcId().equals(srcId) && message.getMsgDescription().getItemCode().equals(itemCode) && message.getMsgDescription().getItemNum() >= quantity) {
                 return message;
             }
         }
         return null;
     }
 
-    private Vector<Message> getMessages(MessageType messageType){
+    private Vector<Message> getMessages(MessageType messageType) {
         receiver.changeWaitingMessageType(NONE);
         Vector<Message> messages = receiver.getResponseMessages();
         logger.info("----------저장된 메세지------------");
@@ -97,7 +97,7 @@ public class NetworkService {
         return responseMessage;
     }
 
-    public void changeWaitingMessageType(MessageType messageType){
+    public void changeWaitingMessageType(MessageType messageType) {
         receiver.changeWaitingMessageType(messageType);
     }
 

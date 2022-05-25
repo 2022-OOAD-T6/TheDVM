@@ -27,7 +27,7 @@ public class MenuPanel extends JPanel {
     String userCardNum;
 
     JPanel menu = new JPanel();// 아이템 20개 panel을 담고 있는 panel
-    JPanel itemsPanel[] = new JPanel[20];// 음료와 가격을 갖고 있는 panel
+    JPanel[] itemsPanel = new JPanel[20];// 음료와 가격을 갖고 있는 panel
     JPanel selectPanel = new JPanel(); // 음료 종류와 개수를 선택하고 결제하기를 담고 있는 panel
     JPanel inputPanel = new JPanel(); // 인증코드나 카드번호 입력을 담고 있는 panel
 
@@ -113,7 +113,7 @@ public class MenuPanel extends JPanel {
 //                itemsBtn[i].setBackground(Color.darkGray);                  //배경색
 //                itemsBtn[i].setForeground(Color.white);                     //글자색
 //                itemsBtn[i].setBorderPainted(false);
-                pricesLb[i] = new JLabel(String.valueOf(item.getPrice()) + "원");
+                pricesLb[i] = new JLabel(item.getPrice() + "원");
                 pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
                 itemsPanel[i].add(itemsBtn[i]);
                 itemsPanel[i].add(pricesLb[i]);

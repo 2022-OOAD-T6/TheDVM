@@ -13,7 +13,7 @@ public class MessageFactory {
     private static int currentX = 5;
     private static int currentY = 5;
 
-    private MessageFactory(){
+    private MessageFactory() {
 
     }
 
@@ -29,7 +29,7 @@ public class MessageFactory {
         MessageFactory.currentY = currentY;
     }
 
-    public static Message createStockRequestMessage(String itemCode, int quantity){
+    public static Message createStockRequestMessage(String itemCode, int quantity) {
         Message message = new Message();
         message.setSrcId(currentId);
         message.setDstID("0");
@@ -41,7 +41,7 @@ public class MessageFactory {
         return message;
     }
 
-    public static Message createStockResponseMessage(String dstId, String itemCode, int quantity){
+    public static Message createStockResponseMessage(String dstId, String itemCode, int quantity) {
         Message message = new Message();
         message.setSrcId(currentId);
         message.setDstID(dstId);
@@ -55,7 +55,7 @@ public class MessageFactory {
         return message;
     }
 
-    public static Message createPrepaymentCheckMessage(String dstId, String itemCode, int quantity, String verificationCode){
+    public static Message createPrepaymentCheckMessage(String dstId, String itemCode, int quantity, String verificationCode) {
         Message message = new Message();
         message.setSrcId(currentId);
         message.setDstID(dstId);
@@ -68,7 +68,7 @@ public class MessageFactory {
         return message;
     }
 
-    public static Message createSaleRequestMessage(String itemCode, int quantity){
+    public static Message createSaleRequestMessage(String itemCode, int quantity) {
         Message message = new Message();
         message.setSrcId(currentId);
         message.setDstID("0");
@@ -80,7 +80,7 @@ public class MessageFactory {
         return message;
     }
 
-    public static Message createSaleResponseMessage(String dstId, String itemCode){
+    public static Message createSaleResponseMessage(String dstId, String itemCode) {
         Message message = new Message();
         message.setSrcId(currentId);
         message.setDstID(dstId);
@@ -94,7 +94,7 @@ public class MessageFactory {
     }
 
     // 좌표 대로 정렬
-    public static void sortMessages(Vector<Message> messages){
+    public static void sortMessages(Vector<Message> messages) {
         messages.sort(new Comparator<Message>() {
             @Override
             public int compare(Message o1, Message o2) {
@@ -118,9 +118,9 @@ public class MessageFactory {
         });
     }
 
-    public static void printCurrentInfo(){
-        System.out.println("현재 id: "+currentId);
-        System.out.println("현재 x: "+currentX);
-        System.out.println("현재 y: "+currentY);
+    public static void printCurrentInfo() {
+        System.out.println("현재 id: " + currentId);
+        System.out.println("현재 x: " + currentX);
+        System.out.println("현재 y: " + currentY);
     }
 }

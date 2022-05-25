@@ -19,9 +19,7 @@ public class AdminPanel extends JPanel {
     JPanel subAddPanel = new JPanel(); // 재고 넣기, 빼기 panel
     public JPanel stockPanel = new JPanel(); // 전체 재고 확인 panel
     JButton[] itemsBtn = new JButton[7];// 내 음료 버튼
-    JLabel[] pricesLb = new JLabel[7];
-    String[] items = {"콜라", "사이다", "녹차", "홍차", "밀크티", "탄산수", "보리차"};
-    String[] counts = {"100", "100", "100", "100", "100", "100", "100"};
+
     JButton minusBtn = new JButton("-");
     JButton plusBtn = new JButton("+");
     JLabel countLb = new JLabel("0개");

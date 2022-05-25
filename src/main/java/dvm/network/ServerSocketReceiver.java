@@ -37,7 +37,7 @@ public class ServerSocketReceiver implements Receiver {
 
     @Override
     public void run() {
-        while(true){
+        while (true) {
             try (ServerSocket serverSocket = new ServerSocket(port)) {
                 Socket socket = serverSocket.accept();
                 ReceiveMessageHandler handler = new ReceiveMessageHandler(socket, waitingMessageType, responseMessages, itemService, prepaymentService, networkService);
@@ -51,9 +51,9 @@ public class ServerSocketReceiver implements Receiver {
     @Override
     public void changeWaitingMessageType(MessageType messageType) {
         this.waitingMessageType = messageType;
-        if(messageType == MessageType.NONE){
+        if (messageType == MessageType.NONE) {
             System.out.println("receiver 상태 수정 | 기다리는 메세지가 없습니다. ");
-        }else{
+        } else {
             System.out.println("receiver 상태 수정 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
         }
     }

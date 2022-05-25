@@ -8,9 +8,9 @@ public class Response<T> {
     /**
      * 요청 성공 여부
      */
-    private boolean isSuccess;
+    private final boolean isSuccess;
 
-    private ResponseType responseType;
+    private final ResponseType responseType;
 
     /**
      * 결과 객체 리턴해야할 때 리턴

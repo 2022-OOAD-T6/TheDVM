@@ -35,17 +35,17 @@ public class AppConfig {
 
     private static ItemRepository itemRepository() {
         if (itemRepository == null) {
-            try{
-                // resoureces에 properities/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
+            try {
+                // resources에 properties/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
                 Properties p = new Properties();
                 p.load(new FileReader("src/main/resources/properties/stock.properties"));
                 ConcurrentHashMap<String, Integer> stock = new ConcurrentHashMap<>();
                 for (Object o : p.keySet()) {
                     String key = (String) o;
-                    stock.put((String)key, Integer.parseInt(p.getProperty(key)));
+                    stock.put((String) key, Integer.parseInt(p.getProperty(key)));
                 }
                 itemRepository = new ItemRepository(stock);
-            }catch (Exception e) {
+            } catch (Exception e) {
                 itemRepository = new ItemRepository();
             }
         }
@@ -89,8 +89,8 @@ public class AppConfig {
 
     private static NetworkService networkService() {
         if (networkService == null) {
-            try{
-                // resoureces에 properities/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
+            try {
+                // resources에 properties/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
                 Properties p = new Properties();
                 p.load(new FileReader("src/main/resources/properties/network.properties"));
                 MessageFactory.setCurrentId(p.getProperty("current.id"));
@@ -98,7 +98,7 @@ public class AppConfig {
                 MessageFactory.setCurrentY(Integer.parseInt(p.getProperty("current.y")));
                 Sender.initDvmsNetworkInfo(p.getProperty("other.id").replace(" ", "").split(","),
                         p.getProperty("other.ip").replace(" ", "").split(","));
-            }catch (Exception e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 String currentId = "Team6";
                 int currentX = 30;

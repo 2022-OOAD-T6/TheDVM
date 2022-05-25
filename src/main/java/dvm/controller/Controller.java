@@ -67,7 +67,7 @@ public class Controller {
             return new Response<>(true, SELECTION_OK);
         }
         networkService.sendSaleRequestMessage(itemCode, quantity);
-        try{
+        try {
             Thread.sleep(5000);
             Message message = networkService.getSaleResponseMessage(itemCode);
             if (message == null) {
@@ -76,7 +76,7 @@ public class Controller {
             }
             logger.info("Controller | SaleResponseMessage 받음 | from " + message.getSrcId() + " | 보유 수량: " + message.getMsgDescription().getItemNum());
             return new Response<>(true, RESPONSE_OK, message);
-        }catch(Exception e){
+        } catch (Exception e) {
             return new Response<>(false, NO_RESPONSE_MESSAGE);
         }
     }

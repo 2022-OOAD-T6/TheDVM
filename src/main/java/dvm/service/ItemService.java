@@ -22,7 +22,7 @@ public class ItemService {
      * 아니면 false
      */
     public boolean isEnough(String itemCode, int quantity) {
-        Logger.getGlobal().info("확인 요청 수량: "+quantity+" | 현재 재고: "+itemRepository.count(itemCode));
+        Logger.getGlobal().info("확인 요청 수량: " + quantity + " | 현재 재고: " + itemRepository.count(itemCode));
         return itemRepository.count(itemCode) >= quantity;
     }
 
@@ -32,7 +32,7 @@ public class ItemService {
      */
     public int getItemPrice(String itemCode) {
         Item item = itemRepository.findItem(itemCode);
-        if(item == null){
+        if (item == null) {
             return -1;
         }
         return item.getPrice();
@@ -57,8 +57,8 @@ public class ItemService {
      * 음료 재고 수량 빼기
      */
     public boolean updateStock(String itemCode, int quantity) {
-        if (itemRepository.count(itemCode)+quantity >= 0 &&
-                itemRepository.count(itemCode)+quantity <= 999){
+        if (itemRepository.count(itemCode) + quantity >= 0 &&
+                itemRepository.count(itemCode) + quantity <= 999) {
             itemRepository.update(itemCode, quantity);
             return true;
         } else {

@@ -74,7 +74,7 @@ public class NettyReceiver implements Receiver {
                 break;
             case PREPAYMENT_CHECK:
                 System.out.println(message.getSrcId() + "로부터 받은 " + PREPAYMENT_CHECK.getTypeName() + " 처리");
-                prepaymentService.savePrepaymentInfo(itemService, message.getMsgDescription().getAuthCode(),  message.getMsgDescription().getItemCode(),  message.getMsgDescription().getItemNum());
+                prepaymentService.savePrepaymentInfo(itemService, message.getMsgDescription().getAuthCode(), message.getMsgDescription().getItemCode(), message.getMsgDescription().getItemNum());
                 break;
             case SALE_REQUEST:
                 System.out.println(message.getSrcId() + "로부터 받은 " + SALE_REQUEST.getTypeName() + " 처리");
@@ -89,7 +89,7 @@ public class NettyReceiver implements Receiver {
     }
 
     private void responseStockRequest(String dstId, String itemCode, int itemNum) {
-        if(itemService.isEnough(itemCode, itemNum)){
+        if (itemService.isEnough(itemCode, itemNum)) {
             networkService.sendStockResponseMessage(dstId, itemCode, itemNum);
         }
     }
@@ -103,9 +103,9 @@ public class NettyReceiver implements Receiver {
     @Override
     public void changeWaitingMessageType(MessageType messageType) {
         this.waitingMessageType = messageType;
-        if(messageType == MessageType.NONE){
+        if (messageType == MessageType.NONE) {
             System.out.println("receiver 상태 수정 | 기다리는 메세지가 없습니다. ");
-        }else{
+        } else {
             System.out.println("receiver 상태 수정 | " + waitingMessageType.getTypeName() + "을 기다리는 중");
         }
     }

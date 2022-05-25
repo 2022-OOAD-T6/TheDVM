@@ -4,17 +4,14 @@ import dvm.domain.Item;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 /**
  * 20220517 MJY
  */
 public class ItemRepository {
 
-    private final Logger logger = Logger.getGlobal();
     private final List<Item> items = new ArrayList<>(
             Arrays.asList(new Item("01", "콜라", 1000),
                     new Item("02", "사이다", 2000),
@@ -64,7 +61,7 @@ public class ItemRepository {
     private void printCurrentStock() {
         System.out.println("-------------------현재 재고 정보--------------------");
         for (String s : stock.keySet()) {
-            System.out.println("item code: "+s+" | count: "+stock.get(s));
+            System.out.println("item code: " + s + " | count: " + stock.get(s));
         }
         System.out.println("--------------------------------------------------");
     }

@@ -10,9 +10,9 @@ public class Item {
     private final int price; //음료가격
 
     public Item(String itemCode, String name, int price) {
-        this.itemCode=itemCode;
-        this.name=name;
-        this.price=price;
+        this.itemCode = itemCode;
+        this.name = name;
+        this.price = price;
     }
 
     public String getItemCode() {

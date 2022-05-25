@@ -60,9 +60,9 @@ public class Sender implements Runnable {
         }
     }
 
-    public static void printDvmsNetworkInfo(){
+    public static void printDvmsNetworkInfo() {
         for (String s : dvmsNetworkInfo.keySet()) {
-            System.out.println("team id: "+s+" | "+dvmsNetworkInfo.get(s));
+            System.out.println("team id: " + s + " | " + dvmsNetworkInfo.get(s));
         }
     }
 }

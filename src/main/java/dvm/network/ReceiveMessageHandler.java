@@ -1,7 +1,6 @@
 package dvm.network;
 
 import GsonConverter.Deserializer;
-import GsonConverter.Serializer;
 import Model.Message;
 import dvm.service.ItemService;
 import dvm.service.NetworkService;
@@ -33,7 +32,6 @@ public class ReceiveMessageHandler implements Runnable {
     private final NetworkService networkService;
 
     private static final Deserializer deserializer = new Deserializer();
-    private static final Serializer serializer = new Serializer(); // for log
     private final static Logger logger = Logger.getGlobal();
 
     public ReceiveMessageHandler(Socket socket, MessageType waitingMessageType, Vector<Message> responseMessages, ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
@@ -52,10 +50,10 @@ public class ReceiveMessageHandler implements Runnable {
             String request;
             while ((request = in.readLine()) != null) {
                 Message message = deserializer.json2Message(request);
-                System.out.println("메세지 받음 | from "+ message.getSrcId() + " | "+message.getMsgType() + " | " + request);
+                System.out.println("메세지 받음 | from " + message.getSrcId() + " | " + message.getMsgType() + " | " + request);
                 if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
                     responseMessages.add(message);
-                    logger.info(waitingMessageType + " type 메세지 추가 from "+message.getSrcId());
+                    logger.info(waitingMessageType + " type 메세지 추가 from " + message.getSrcId());
                 } else {
                     handleReceivedMessage(message);
                 }
@@ -76,7 +74,7 @@ public class ReceiveMessageHandler implements Runnable {
                 break;
             case PREPAYMENT_CHECK:
                 System.out.println(message.getSrcId() + "로부터 받은 " + PREPAYMENT_CHECK.getTypeName() + " 처리");
-                prepaymentService.savePrepaymentInfo(itemService, message.getMsgDescription().getAuthCode(),  message.getMsgDescription().getItemCode(),  message.getMsgDescription().getItemNum());
+                prepaymentService.savePrepaymentInfo(itemService, message.getMsgDescription().getAuthCode(), message.getMsgDescription().getItemCode(), message.getMsgDescription().getItemNum());
                 break;
             case SALE_REQUEST:
                 System.out.println(message.getSrcId() + "로부터 받은 " + SALE_REQUEST.getTypeName() + " 처리");
@@ -91,7 +89,7 @@ public class ReceiveMessageHandler implements Runnable {
     }
 
     private void responseStockRequest(String dstId, String itemCode, int itemNum) {
-        if(itemService.isEnough(itemCode, itemNum)){
+        if (itemService.isEnough(itemCode, itemNum)) {
             networkService.sendStockResponseMessage(dstId, itemCode, itemNum);
         }
     }

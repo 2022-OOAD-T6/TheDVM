@@ -44,19 +44,20 @@ public enum MessageType {
         }
     }
 
-    public static MessageType json2MessageType(String type){
-        if(type.equals("StockCheckRequest")){
-            return STOCK_REQUEST;
-        }else if(type.equals("StockCheckResponse")){
-            return STOCK_RESPONSE;
-        }else if(type.equals("PrepaymentCheck")){
-            return PREPAYMENT_CHECK;
-        }else if(type.equals("SalesCheckRequest")){
-            return SALE_REQUEST;
-        }else if (type.equals("SalesCheckResponse")){
-            return SALE_RESPONSE;
-        }else{
-            return NONE;
+    public static MessageType json2MessageType(String type) {
+        switch (type) {
+            case "StockCheckRequest":
+                return STOCK_REQUEST;
+            case "StockCheckResponse":
+                return STOCK_RESPONSE;
+            case "PrepaymentCheck":
+                return PREPAYMENT_CHECK;
+            case "SalesCheckRequest":
+                return SALE_REQUEST;
+            case "SalesCheckResponse":
+                return SALE_RESPONSE;
+            default:
+                return NONE;
         }
     }
 }

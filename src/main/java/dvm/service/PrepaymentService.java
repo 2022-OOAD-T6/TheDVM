@@ -1,6 +1,5 @@
 package dvm.service;
 
-import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
 import dvm.repository.PrepaymentRepository;
 
