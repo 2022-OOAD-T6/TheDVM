@@ -32,20 +32,16 @@ public class Sender implements Runnable {
                     logger.info("전송 시도 | to " + teamId);
                     if (teamId.equals(message.getSrcId())) continue;
                     String dstIp = dvmsNetworkInfo.get(teamId);
-                    String jsonMessage = serializer.message2Json(message);
-                    DVMClient client = new DVMClient(dstIp, jsonMessage);
-                    client.run();
-                    logger.info("메세지 전달 완료 | to " + teamId + " | " + message.getMsgType() + " | ");
+                    DvmClientRunner dvmClientRunner = new DvmClientRunner(dstIp, message);
+                    new Thread(dvmClientRunner).start();
                 }
             } else {
                 String dstIp = dvmsNetworkInfo.get(message.getDstID());
-                String jsonMessage = serializer.message2Json(message);
-                DVMClient client = new DVMClient(dstIp, jsonMessage);
-                client.run();
-                logger.info("메세지 전달 완료 | to " + message.getDstID() + " | " + message.getMsgType() + " | ");
+                DvmClientRunner dvmClientRunner = new DvmClientRunner(dstIp, message);
+                new Thread(dvmClientRunner).start();
             }
         } catch (Exception e) {
-            logger.warning("메세지 전송 불가 | " + e.getMessage() + " | from " + message.getSrcId() + " to " + message.getDstID());
+            e.printStackTrace();
         }
     }
 

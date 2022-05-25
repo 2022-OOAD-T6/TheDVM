@@ -28,28 +28,28 @@ public class NetworkService {
     public void sendStockRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(STOCK_RESPONSE);
         Sender responseSender = new Sender(MessageFactory.createStockRequestMessage(itemCode, quantity));
-        new Thread(responseSender).start();
+        responseSender.run();
     }
 
     public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
         Sender responseSender = new Sender(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
-        new Thread(responseSender).start();
+        responseSender.run();
     }
 
     public void sendPrepaymentInfoMessage(String dstId, String itemCode, int quantity, String verificationCode) {
         Sender responseSender = new Sender(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
-        new Thread(responseSender).start();
+        responseSender.run();
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(SALE_RESPONSE);
         Sender responseSender = new Sender(MessageFactory.createSaleRequestMessage(itemCode, quantity));
-        new Thread(responseSender).start();
+        responseSender.run();
     }
 
     public void sendSaleResponseMessage(String dstId, String itemCode) {
         Sender responseSender = new Sender(MessageFactory.createSaleResponseMessage(dstId, itemCode));
-        new Thread(responseSender).start();
+        responseSender.run();
     }
 
     public Message getSaleResponseMessage(String itemCode) {
