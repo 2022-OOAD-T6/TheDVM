@@ -13,7 +13,7 @@ import java.util.Vector;
  * Receiver 구현 클래스
  * DvmServer 라이브러리 없이 서버를 직접 구현한 버전
  */
-public class ReceiverImpl implements Receiver {
+public class ServerSocketReceiver implements Receiver {
 
     private static final int port = 8080; // 항상 8080
 
@@ -27,7 +27,7 @@ public class ReceiverImpl implements Receiver {
 
     private MessageType waitingMessageType;
 
-    public ReceiverImpl(ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
+    public ServerSocketReceiver(ItemService itemService, PrepaymentService prepaymentService, NetworkService networkService) {
         this.itemService = itemService;
         this.prepaymentService = prepaymentService;
         this.networkService = networkService;
