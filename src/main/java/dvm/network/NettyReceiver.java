@@ -15,7 +15,7 @@ import static dvm.network.MessageType.*;
  * Receiver 구현 클래스
  * DvmServer 라이브러리 사용하는 버전
  */
-public class MyReceiver implements Receiver {
+public class NettyReceiver implements Receiver {
 
     private int consumed = 0;
     private MessageType waitingMessageType;
@@ -30,8 +30,8 @@ public class MyReceiver implements Receiver {
     private final static Logger logger = Logger.getGlobal();
 
 
-    public MyReceiver(ItemService itemService, PrepaymentService prepaymentService,
-                      NetworkService networkService) {
+    public NettyReceiver(ItemService itemService, PrepaymentService prepaymentService,
+                         NetworkService networkService) {
 
         this.waitingMessageType = MessageType.NONE;
         this.responseMessages = new Vector<>();
