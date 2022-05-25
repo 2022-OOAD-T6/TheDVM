@@ -28,31 +28,15 @@ public class Response<T> {
         this.responseType = responseType;
     }
 
-    public Response(boolean isSuccess){
-        this.isSuccess = isSuccess;
-    }
-
     public boolean isSuccess() {
         return isSuccess;
-    }
-
-    public void setSuccess(boolean success) {
-        isSuccess = success;
     }
 
     public ResponseType getResponseType() {
         return responseType;
     }
 
-    public void setResponseType(ResponseType responseType) {
-        this.responseType = responseType;
-    }
-
     public T getResult() {
         return result;
-    }
-
-    public void setResult(T result) {
-        this.result = result;
     }
 }

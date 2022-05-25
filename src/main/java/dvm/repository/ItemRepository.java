@@ -75,8 +75,6 @@ public class ItemRepository {
      * key가 없으면 return 0
      */
     public int count(String itemCode) {
-        // TODO implement here
-//        System.out.println(stock.get(findItem(itemCode)));
         if (stock.get(itemCode) != null) {
             return stock.get(itemCode);
         } else {
@@ -89,7 +87,6 @@ public class ItemRepository {
      * 없으면 return null
      */
     public Item findItem(String itemCode) {
-        // TODO implement here
         for (Item item : items) {
             if (item.getItemCode().equals(itemCode)) {
                 return item;
@@ -122,8 +119,6 @@ public class ItemRepository {
      * 결제한 음료 수량만큼 재고 빼기
      */
     public void update(String itemCode, int quantity) {
-        // TODO implement here
-//        Item item = findItem(itemCode);
         int oldQty = stock.get(itemCode);
         stock.put(itemCode, oldQty + quantity);
     }
