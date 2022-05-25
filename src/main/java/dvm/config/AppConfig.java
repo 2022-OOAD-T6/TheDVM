@@ -33,7 +33,7 @@ public class AppConfig {
         return controller;
     }
 
-    private static ItemRepository itemRepository() {
+    public static ItemRepository itemRepository() {
         if (itemRepository == null) {
             try {
                 // resources에 properties/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
@@ -52,42 +52,42 @@ public class AppConfig {
         return itemRepository;
     }
 
-    private static PrepaymentRepository prepaymentRepository() {
+    public static PrepaymentRepository prepaymentRepository() {
         if (prepaymentRepository == null) {
             prepaymentRepository = new PrepaymentRepository();
         }
         return prepaymentRepository;
     }
 
-    private static ItemService itemService() {
+    public static ItemService itemService() {
         if (itemService == null) {
             itemService = new ItemService(itemRepository());
         }
         return itemService;
     }
 
-    private static PrepaymentService prepaymentService() {
+    public static PrepaymentService prepaymentService() {
         if (prepaymentService == null) {
             prepaymentService = new PrepaymentService(prepaymentRepository());
         }
         return prepaymentService;
     }
 
-    private static CardCompany cardCompany() {
+    public static CardCompany cardCompany() {
         if (cardCompany == null) {
             cardCompany = new CardCompany();
         }
         return cardCompany;
     }
 
-    private static CardService cardService() {
+    public static CardService cardService() {
         if (cardService == null) {
             cardService = new CardService(cardCompany());
         }
         return cardService;
     }
 
-    private static NetworkService networkService() {
+    public static NetworkService networkService() {
         if (networkService == null) {
             try {
                 // resources에 properties/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
