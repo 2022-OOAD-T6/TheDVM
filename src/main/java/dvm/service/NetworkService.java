@@ -15,41 +15,39 @@ import static dvm.network.MessageType.*;
 public class NetworkService {
 
     private final Receiver receiver;
+
+    private final Sender sender;
     private final Logger logger = Logger.getGlobal();
     private final Serializer serializer = new Serializer();
 
     public NetworkService(ItemService itemService, PrepaymentService prepaymentService) {
         // 리시버 구현체는 여기서 선택
         this.receiver = new NettyReceiver(itemService, prepaymentService, this);
+        this.sender = new Sender();
 //        this.receiver = new ServerSocketReceiver(itemService, prepaymentService, this);
         new Thread(this.receiver).start();
     }
 
     public void sendStockRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(STOCK_RESPONSE);
-        Sender responseSender = new Sender(MessageFactory.createStockRequestMessage(itemCode, quantity));
-        responseSender.run();
+        sender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
     }
 
     public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
-        Sender responseSender = new Sender(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
-        responseSender.run();
+        sender.send(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
     }
 
     public void sendPrepaymentInfoMessage(String dstId, String itemCode, int quantity, String verificationCode) {
-        Sender responseSender = new Sender(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
-        responseSender.run();
+        sender.send(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
         receiver.changeWaitingMessageType(SALE_RESPONSE);
-        Sender responseSender = new Sender(MessageFactory.createSaleRequestMessage(itemCode, quantity));
-        responseSender.run();
+        sender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
     }
 
     public void sendSaleResponseMessage(String dstId, String itemCode) {
-        Sender responseSender = new Sender(MessageFactory.createSaleResponseMessage(dstId, itemCode));
-        responseSender.run();
+        sender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
     }
 
     public Message getSaleResponseMessage(String itemCode) {
@@ -85,7 +83,7 @@ public class NetworkService {
         for (Message message : messages) {
             System.out.println(serializer.message2Json(message));
         }
-        System.out.println("--------------------------------");
+        logger.info("--------------------------------");
 
         Vector<Message> responseMessage = new Vector<>();
         for (Message message : messages) {

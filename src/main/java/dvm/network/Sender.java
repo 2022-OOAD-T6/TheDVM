@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 /**
  *
  */
-public class Sender implements Runnable {
+public class Sender {
 
     private static final HashMap<String, String> dvmsNetworkInfo = new HashMap<>();
 
@@ -18,12 +18,6 @@ public class Sender implements Runnable {
     private final Serializer serializer = new Serializer();
 
     private final static Logger logger = Logger.getGlobal();
-
-    private final Message message;
-
-    public Sender(Message message) {
-        this.message = message;
-    }
 
     public void send(Message message) {
         try {
@@ -43,11 +37,6 @@ public class Sender implements Runnable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public void run() {
-        send(message);
     }
 
     public static void initDvmsNetworkInfo(String[] ids, String[] ips) {
