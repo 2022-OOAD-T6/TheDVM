@@ -4,6 +4,7 @@ import dvm.domain.PrepaymentInfo;
 import dvm.repository.PrepaymentRepository;
 
 import java.util.Random;
+import java.util.logging.Logger;
 
 /**
  * 선결제 정보 서비스 클래스
@@ -33,8 +34,10 @@ public class PrepaymentService {
         boolean result = itemService.isEnough(itemCode, quantity);
         if (result) {
             itemService.updateStock(itemCode, -quantity);
+            Logger.getGlobal().info("선결제 정보 저장 완료 | "+verificationCode+" | "+itemCode+" / "+quantity+"개 / 정상적 선결제");
             prepaymentRepository.save(verificationCode, new PrepaymentInfo(itemCode, quantity, true));
         } else {
+            Logger.getGlobal().warning("선결제 정보 저장 완료 | "+verificationCode+" | "+itemCode+" / "+quantity+"개 / 잘못된 선결제");
             prepaymentRepository.save(verificationCode, new PrepaymentInfo(itemCode, quantity, false));
         }
     }
