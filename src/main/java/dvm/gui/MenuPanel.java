@@ -11,6 +11,7 @@ import dvm.controller.Controller;
 import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
 import dvm.domain.Response;
+import dvm.domain.ResponseType;
 
 import static dvm.domain.ResponseType.*;
 
@@ -249,7 +250,15 @@ public class MenuPanel extends JPanel {
         if (reqPreResponse.isSuccess()) {
             JOptionPane.showMessageDialog(null, "성공적으로 결제되었습니다. 감사합니다. 선결제 인증코드는 " + reqPreResponse.getResult() + "입니다. " + dstDvmId + " 자판기에서 입력해주세요. 감사합니다.");
         } else {
-            JOptionPane.showMessageDialog(null, "죄송합니다. 재고의 변화가 있어 결제를 실패했습니다. 다시 시도해주세요.");
+            switch (reqPreResponse.getResponseType()) {
+                case NO_RESPONSE_MESSAGE:
+                case NOT_ENOUGH_STOCK:
+                    JOptionPane.showMessageDialog(null, "죄송합니다. 재고의 변화가 있어 결제를 실패했습니다. 다시 시도해주세요.");
+                    break;
+                case PREPAYMENT_FAIL:
+                    JOptionPane.showMessageDialog(null, "잔액이 부족합니다.");
+                    break;
+            }
         }
     }
 

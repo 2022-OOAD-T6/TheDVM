@@ -22,9 +22,9 @@ public class NetworkService {
 
     public NetworkService(ItemService itemService, PrepaymentService prepaymentService) {
         // 리시버 구현체는 여기서 선택
-        this.receiver = new NettyReceiver(itemService, prepaymentService, this);
+//        this.receiver = new NettyReceiver(itemService, prepaymentService, this);
         this.sender = new Sender();
-//        this.receiver = new ServerSocketReceiver(itemService, prepaymentService, this);
+        this.receiver = new ServerSocketReceiver(itemService, prepaymentService, this);
         new Thread(this.receiver).start();
     }
 
