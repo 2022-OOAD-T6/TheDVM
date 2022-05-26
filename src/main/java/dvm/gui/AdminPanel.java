@@ -26,7 +26,7 @@ public class AdminPanel extends JPanel {
     JButton subBtn = new JButton("SUB");// 빼기 버튼
     JButton addBtn = new JButton("ADD");// 넣기 버튼
 
-    int userSelectionIndex;
+    int userSelectionIndex = -1;
     int userSelectionQuantity;
     JPanel[] typePanel;
     JLabel selectedItem = new JLabel();
