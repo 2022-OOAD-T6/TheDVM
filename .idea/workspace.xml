@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="OOAD-DVM-T6.main:jar" />
+    </artifacts-to-build>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d174a89b-127d-40ad-bc23-167effab20a8" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/properties/network.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/properties/network.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/properties/stock.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/properties/stock.properties" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <projects_view>
+          <tree_state>
+            <expand />
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="29TRzCfl1zPtzRlkOxfQhIjATNQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/jamjoa/Documents/OOAD-DVM-T6/out/artifacts/OOAD_DVM_T6_main_jar&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.26666668&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/out/artifacts/OOAD_DVM_T6_main_jar" />
+      <recent name="$PROJECT_DIR$/out/artifacts/OOAD_DVM_T6_jar2" />
+      <recent name="$PROJECT_DIR$/build/libs" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/out/artifacts/OOAD_DVM_T6_jar2" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="dvm.network" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dvm.Main" />
+      <module name="OOAD-DVM-T6.main" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dvm.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OOAD-DVM-T6.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dvm.network.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dvm.network" />
+      <option name="MAIN_CLASS_NAME" value="dvm.network.MessageFactoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MessageFactoryTest.sortMessages3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OOAD-DVM-T6.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dvm.network.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dvm.network" />
+      <option name="MAIN_CLASS_NAME" value="dvm.network.MessageFactoryTest" />
+      <option name="METHOD_NAME" value="sortMessages3" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NetworkServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OOAD-DVM-T6.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dvm.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dvm.service" />
+      <option name="MAIN_CLASS_NAME" value="dvm.service.NetworkServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NetworkServiceTest.getResponseMessage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OOAD-DVM-T6.test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dvm.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="dvm.service" />
+      <option name="MAIN_CLASS_NAME" value="dvm.service.NetworkServiceTest" />
+      <option name="METHOD_NAME" value="getResponseMessage" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.NetworkServiceTest.getResponseMessage" />
+        <item itemvalue="JUnit.NetworkServiceTest" />
+        <item itemvalue="JUnit.MessageFactoryTest" />
+        <item itemvalue="JUnit.MessageFactoryTest.sortMessages3" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d174a89b-127d-40ad-bc23-167effab20a8" name="Changes" comment="" />
+      <created>1653135349256</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1653135349256</updated>
+      <workItem from="1653150530394" duration="1619000" />
+      <workItem from="1653184168987" duration="1522000" />
+      <workItem from="1653186083245" duration="2163000" />
+      <workItem from="1653206481811" duration="32386000" />
+      <workItem from="1653297980769" duration="1212000" />
+      <workItem from="1653311576718" duration="6429000" />
+      <workItem from="1653319872248" duration="288000" />
+      <workItem from="1653359313735" duration="6143000" />
+      <workItem from="1653368677140" duration="726000" />
+      <workItem from="1653373566148" duration="478000" />
+      <workItem from="1653480239681" duration="16796000" />
+      <workItem from="1653541506395" duration="8405000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/OOAD_DVM_T6$MainFrame.ic" NAME="MainFrame 커버리지 결과" MODIFIED="1652880936731" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>dvm.gui.*</FILTER>
+    </SUITE>
+  </component>
+</project>
