@@ -190,25 +190,24 @@ public class MenuPanel extends JPanel {
             }
         });
         //인증코드다이얼로그
-        codeButton.addActionListener(new ActionListener() {                                                                //인증코드다이얼로그
+        codeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                     //userCode에 인증코드 저장
+                String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");
                 if (userCode == null) return;
-                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);                         //인증코드에 해당하는 prepaymentInfo 받아오기
-                if (response.isSuccess()) {
+                Response<PrepaymentInfo> response = controller.enterVerificationCode(userCode);
+                if (!response.isSuccess())
+                    if (response.getResponseType()==NOT_EXIST_CODE)
+                        JOptionPane.showMessageDialog(null, "존재하지 않는 인증번호입니다.");
+                    else
+                        JOptionPane.showMessageDialog(null, "잘못된 선결제 인증번호입니다.");
+                else {
                     PrepaymentInfo preInfo = response.getResult();
-                    String prepaymentItemCode = preInfo.getItemCode();                                                  //prepaymentInfo에 맞는 item타입 만들기
+                    String prepaymentItemCode = preInfo.getItemCode();
                     int prepaymentItemQuantity = preInfo.getQuantity();
                     JOptionPane.showMessageDialog(null, prepaymentItemCode + "번 음료를" +
                             prepaymentItemQuantity + "개 만큼 " + "제공 완료");
                     System.out.println(prepaymentItemCode + "번 음료를" + prepaymentItemQuantity + "개 만큼 " + "제공 완료");
-                } else if (response.getResponseType() == NOT_EXIST_CODE) {
-//                    System.out.println("존재하지 않는 인증번호입니다.");
-                    JOptionPane.showMessageDialog(null, "존재하지 않는 인증번호입니다.");
-                } else {
-//                    System.out.println("잘못된 선결제 인증번호입니다.");
-                    JOptionPane.showMessageDialog(null, "잘못된 선결제 인증번호입니다.");
                 }
             }
         });
