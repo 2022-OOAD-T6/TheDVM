@@ -3,6 +3,7 @@ package dvm.gui;
 import dvm.controller.Controller;
 import dvm.domain.Item;
 import dvm.domain.Response;
+import dvm.util.Observer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * 관리자 화면
  */
-public class AdminPanel extends JPanel {
+public class AdminPanel extends JPanel implements Observer {
 
     Controller controller;
     JPanel menu = new JPanel();// 아이템 7개 panel을 담고 있는 panel
@@ -137,7 +138,7 @@ public class AdminPanel extends JPanel {
                 Response<String> updateResponse = controller.updateStock(itemCode, userSelectionQuantity);
                 if (updateResponse.isSuccess()) {
                     JOptionPane.showMessageDialog(null, "재고 추가에 성공했습니다.");
-                    updateStockStatus();
+//                    updateStockStatus();
                 } else {
                     JOptionPane.showMessageDialog(null, "재고 추가에 실패했습니다.");
                 }
@@ -163,5 +164,10 @@ public class AdminPanel extends JPanel {
         userSelectionQuantity = 0;
         selectedItem.setText("");
         countLb.setText("0개");
+    }
+
+    @Override
+    public void updateObserver(String itemCode, int quantity) {
+        updateStockStatus();
     }
 }
