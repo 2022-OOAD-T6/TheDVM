@@ -23,8 +23,8 @@ public class MainFrame extends JFrame {
     JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
 
 
-    JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
-    JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
+    JButton adminButton = new JButton("ADMIN"); // 관라자 버튼
+    JLabel itemLabel = new JLabel("배출구"); // 배출구 라벨, 일단 임시
 
     boolean menu;//지금 menuPanel이 보이는가
     private final Controller controller;
@@ -48,7 +48,7 @@ public class MainFrame extends JFrame {
      * 관리자 버튼 이벤트 처리
      */
     private void makeEvent() {
-        adminBtn.addMouseListener(new MouseAdapter() {
+        adminButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
@@ -91,8 +91,8 @@ public class MainFrame extends JFrame {
      * 관라자 버튼, 배출구 라벨
      */
     private void showBottom() {
-        bottomPanel.add(adminBtn);
-        bottomPanel.add(itemLb);
+        bottomPanel.add(adminButton);
+        bottomPanel.add(itemLabel);
     }
 
     public static void main(String[] args) {

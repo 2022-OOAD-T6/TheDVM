@@ -18,13 +18,13 @@ public class AdminPanel extends JPanel {
     JPanel[] itemsPanel = new JPanel[7]; // 내 자판기의 음료와 가격을 갖고 있는 panel
     JPanel subAddPanel = new JPanel(); // 재고 넣기, 빼기 panel
     public JPanel stockPanel = new JPanel(); // 전체 재고 확인 panel
-    JButton[] itemsBtn = new JButton[7];// 내 음료 버튼
+    JButton[] itemsButton = new JButton[7];// 내 음료 버튼
 
-    JButton minusBtn = new JButton("-");
-    JButton plusBtn = new JButton("+");
-    JLabel countLb = new JLabel("0개");
-    JButton subBtn = new JButton("SUB");// 빼기 버튼
-    JButton addBtn = new JButton("ADD");// 넣기 버튼
+    JButton minusButton = new JButton("-");
+    JButton plusButton = new JButton("+");
+    JLabel countLabel = new JLabel("0개");
+    JButton subtractButton = new JButton("SUB");// 빼기 버튼
+    JButton addButton = new JButton("ADD");// 넣기 버튼
 
     int userSelectionIndex;
     int userSelectionQuantity;
@@ -76,11 +76,11 @@ public class AdminPanel extends JPanel {
      */
     private void showSubAdd() {
         subAddPanel.add(selectedItem);
-        subAddPanel.add(minusBtn);
-        subAddPanel.add(countLb);
-        subAddPanel.add(plusBtn);
-        subAddPanel.add(subBtn);
-        subAddPanel.add(addBtn);
+        subAddPanel.add(minusButton);
+        subAddPanel.add(countLabel);
+        subAddPanel.add(plusButton);
+        subAddPanel.add(subtractButton);
+        subAddPanel.add(addButton);
     }
 
     /**
@@ -91,13 +91,13 @@ public class AdminPanel extends JPanel {
         menu.setLayout(new GridLayout(1, 7));
         for (int i = 0; i < 7; i++) {
             itemsPanel[i] = new JPanel(new GridLayout(2, 1));
-            itemsBtn[i] = new JButton(myItems.get(i).getName());
+            itemsButton[i] = new JButton(myItems.get(i).getName());
             int finalI = i;
-            itemsBtn[i].addActionListener(actionEvent -> {
+            itemsButton[i].addActionListener(actionEvent -> {
                 userSelectionIndex = finalI;
                 selectedItem.setText(myItems.get(finalI).getName());
             });
-            itemsPanel[i].add(itemsBtn[i]);
+            itemsPanel[i].add(itemsButton[i]);
             menu.add(itemsPanel[i]);
         }
     }
@@ -106,19 +106,19 @@ public class AdminPanel extends JPanel {
      * 플러스 마이너스 이벤트 처리
      */
     private void makeEvent() {
-        minusBtn.addActionListener(actionEvent -> {
+        minusButton.addActionListener(actionEvent -> {
             if (userSelectionIndex != -1 && userSelectionQuantity > 0) {
                 userSelectionQuantity--;
-                countLb.setText(userSelectionQuantity + "개");
+                countLabel.setText(userSelectionQuantity + "개");
             }
         });
-        plusBtn.addActionListener(actionEvent -> {
+        plusButton.addActionListener(actionEvent -> {
             if (userSelectionIndex != -1 && userSelectionQuantity < 999) {
                 userSelectionQuantity++;
-                countLb.setText(userSelectionQuantity + "개");
+                countLabel.setText(userSelectionQuantity + "개");
             }
         });
-        subBtn.addActionListener(actionEvent -> {
+        subtractButton.addActionListener(actionEvent -> {
             if (userSelectionIndex != -1 && userSelectionQuantity > 0) {
                 String itemCode = myItems.get(userSelectionIndex).getItemCode();
                 Response<String> updateResponse = controller.updateStock(itemCode, -userSelectionQuantity);
@@ -131,7 +131,7 @@ public class AdminPanel extends JPanel {
                 initSelectedInfo();
             }
         });
-        addBtn.addActionListener(actionEvent -> {
+        addButton.addActionListener(actionEvent -> {
             if (userSelectionIndex != -1 && userSelectionQuantity > 0) {
                 String itemCode = myItems.get(userSelectionIndex).getItemCode();
                 Response<String> updateResponse = controller.updateStock(itemCode, userSelectionQuantity);
@@ -162,6 +162,6 @@ public class AdminPanel extends JPanel {
         userSelectionIndex = -1;
         userSelectionQuantity = 0;
         selectedItem.setText("");
-        countLb.setText("0개");
+        countLabel.setText("0개");
     }
 }

@@ -24,28 +24,28 @@ public class MenuPanel extends JPanel {
     int userItemIndex = -1;            //유저 선택 음료코드 -> List<Item> allItems 기반 인덱스
     int userItemQuantity = 0;         //유저 선택 음료개수
 
-    String userCardNum;
+    String userCardNumber;
 
     JPanel menu = new JPanel();// 아이템 20개 panel을 담고 있는 panel
     JPanel[] itemsPanel = new JPanel[20];// 음료와 가격을 갖고 있는 panel
     JPanel selectPanel = new JPanel(); // 음료 종류와 개수를 선택하고 결제하기를 담고 있는 panel
     JPanel inputPanel = new JPanel(); // 인증코드나 카드번호 입력을 담고 있는 panel
 
-    JButton[] itemsBtn = new JButton[20]; // 음료 20개 버튼
-    JLabel[] pricesLb = new JLabel[20];// 가격 20개 라벨
+    JButton[] itemsButton = new JButton[20]; // 음료 20개 버튼
+    JLabel[] pricesLabel = new JLabel[20];// 가격 20개 라벨
 
     List<Item> allItems; // 메뉴선택에 음료와 가격을 보여주기 위한 리스트
 
-    JButton minusBtn = new JButton("-");// 빼기 버튼
-    JButton plusBtn = new JButton("+");// 넣기 버튼
-    JLabel countLb = new JLabel("0개");// 총 개수 라벨
-    JLabel priceLb = new JLabel("0원");// 총 가격 라벨
-    JLabel selectedItemLb = new JLabel("");
+    JButton minusButton = new JButton("-");// 빼기 버튼
+    JButton plusButton = new JButton("+");// 넣기 버튼
+    JLabel countLabel = new JLabel("0개");// 총 개수 라벨
+    JLabel priceLabel = new JLabel("0원");// 총 가격 라벨
+    JLabel selectedItemLabel = new JLabel("");
 
-    JLabel infoLb = new JLabel("카드를 먼저 입력해주세요."); // 카드 넣기 전 안내 문구
-    JButton payBtn = new JButton("결제하기");// 결제하기 버튼 -> dialog
-    JButton codeBtn = new JButton("인증코드");// 인증코드 버튼 -> dialog
-    JButton cardBtn = new JButton("카드 입력");// 카드번호 버튼 -> dialog
+    JLabel infoLabel = new JLabel("카드를 먼저 입력해주세요."); // 카드 넣기 전 안내 문구
+    JButton payButton = new JButton("결제하기");// 결제하기 버튼 -> dialog
+    JButton codeButton = new JButton("인증코드");// 인증코드 버튼 -> dialog
+    JButton cardButton = new JButton("카드 입력");// 카드번호 버튼 -> dialog
 
 
     MenuPanel(Controller controller) {
@@ -69,9 +69,9 @@ public class MenuPanel extends JPanel {
      * 인증코드 버튼, 카드번호 버튼
      */
     private void showInput() {
-        inputPanel.add(infoLb);
-        inputPanel.add(codeBtn);
-        inputPanel.add(cardBtn);
+        inputPanel.add(infoLabel);
+        inputPanel.add(codeButton);
+        inputPanel.add(cardButton);
         selectPanel.add(inputPanel);
     }
 
@@ -83,14 +83,14 @@ public class MenuPanel extends JPanel {
     private void showSelect() {
         selectPanel.setLayout(new GridLayout(3, 1));
         JPanel countPanel = new JPanel();
-        countPanel.add(selectedItemLb);
-        countPanel.add(minusBtn);
-        countPanel.add(countLb);
-        countPanel.add(plusBtn);
-        countPanel.add(priceLb);
+        countPanel.add(selectedItemLabel);
+        countPanel.add(minusButton);
+        countPanel.add(countLabel);
+        countPanel.add(plusButton);
+        countPanel.add(priceLabel);
 
         selectPanel.add(countPanel);
-        selectPanel.add(payBtn);
+        selectPanel.add(payButton);
         selectPanel.setVisible(false);
     }
 
@@ -109,19 +109,19 @@ public class MenuPanel extends JPanel {
                 Item item = allItems.get(i);
                 itemsPanel[i] = new JPanel();
                 itemsPanel[i].setLayout(new GridLayout(2, 1));
-                itemsBtn[i] = new JButton(item.getName());
+                itemsButton[i] = new JButton(item.getName());
 //                itemsBtn[i].setBackground(Color.darkGray);                  //배경색
 //                itemsBtn[i].setForeground(Color.white);                     //글자색
 //                itemsBtn[i].setBorderPainted(false);
-                pricesLb[i] = new JLabel(item.getPrice() + "원");
-                pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
-                itemsPanel[i].add(itemsBtn[i]);
-                itemsPanel[i].add(pricesLb[i]);
+                pricesLabel[i] = new JLabel(item.getPrice() + "원");
+                pricesLabel[i].setHorizontalAlignment(JLabel.CENTER);
+                itemsPanel[i].add(itemsButton[i]);
+                itemsPanel[i].add(pricesLabel[i]);
                 menu.add(itemsPanel[i]);
 
                 int selectedIdx = i;
-                itemsBtn[i].addActionListener(actionEvent -> {
-                    if (userCardNum != null) {
+                itemsButton[i].addActionListener(actionEvent -> {
+                    if (userCardNumber != null) {
                         if (userItemIndex != selectedIdx) {
                             updateSelectedItem(selectedIdx);
                         }
@@ -138,29 +138,29 @@ public class MenuPanel extends JPanel {
      */
     private void makeEvent() {
         //마이너스 버튼 이벤트처리
-        minusBtn.addActionListener(actionEvent -> {
+        minusButton.addActionListener(actionEvent -> {
             if (userItemIndex != -1 && userItemQuantity > 0) {
                 userItemQuantity--;
-                countLb.setText(userItemQuantity + "개");
-                priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
+                countLabel.setText(userItemQuantity + "개");
+                priceLabel.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
             }
         });
         //플러스 버튼 이벤트처리
-        plusBtn.addActionListener(actionEvent -> {
+        plusButton.addActionListener(actionEvent -> {
             if (userItemIndex != -1 && userItemQuantity < 999) {
                 userItemQuantity++;
-                countLb.setText(userItemQuantity + "개");
-                priceLb.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
+                countLabel.setText(userItemQuantity + "개");
+                priceLabel.setText(userItemQuantity * allItems.get(userItemIndex).getPrice() + "원");
             }
         });
         //결제버튼다이얼로그
-        payBtn.addActionListener(actionEvent -> {
+        payButton.addActionListener(actionEvent -> {
             if (userItemQuantity != 0) {
                 Response<Message> selectItemRes = controller.selectItem(allItems.get(userItemIndex).getItemCode(), userItemQuantity);
                 if (selectItemRes.isSuccess()) {
                     if (selectItemRes.getResponseType() == SELECTION_OK) {
                         int paymentAnswer = JOptionPane.showConfirmDialog(null, "음료: " + allItems.get(userItemIndex).getName() + "\n개수: " + userItemQuantity + "개\n"
-                                + "금액: " + priceLb.getText(), "결제를 진행하시겠습니까?", JOptionPane.YES_NO_OPTION);
+                                + "금액: " + priceLabel.getText(), "결제를 진행하시겠습니까?", JOptionPane.YES_NO_OPTION);
                         if (paymentAnswer == JOptionPane.YES_OPTION) {
                             // 결제 프로세스
                             doPayment(allItems.get(userItemIndex).getItemCode(), userItemQuantity);
@@ -190,7 +190,7 @@ public class MenuPanel extends JPanel {
             }
         });
         //인증코드다이얼로그
-        codeBtn.addActionListener(new ActionListener() {                                                                //인증코드다이얼로그
+        codeButton.addActionListener(new ActionListener() {                                                                //인증코드다이얼로그
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 String userCode = JOptionPane.showInputDialog("인증번호를 입력하세요");                                     //userCode에 인증코드 저장
@@ -213,8 +213,8 @@ public class MenuPanel extends JPanel {
             }
         });
         //카드번호다이얼로그
-        cardBtn.addActionListener(actionEvent -> { // 카드 넣고 빼기 번갈아가면서
-            if (userCardNum == null) {
+        cardButton.addActionListener(actionEvent -> { // 카드 넣고 빼기 번갈아가면서
+            if (userCardNumber == null) {
                 String inputNum = JOptionPane.showInputDialog("카드번호를 입력하세요");
                 if (inputNum == null) return;
                 Response<String> enterCardNumRes = controller.enterCardNumber(inputNum);
@@ -256,30 +256,30 @@ public class MenuPanel extends JPanel {
     private void updateSelectedItem(int itemIndex) {
         initSelectedInfo();
         userItemIndex = itemIndex;
-        selectedItemLb.setText(allItems.get(itemIndex).getName());
+        selectedItemLabel.setText(allItems.get(itemIndex).getName());
     }
 
     // 저장된 카드 제거 + 결제 버튼 안보이게, 각종 가격들 다시 초기화
     private void removeCard() {
         initSelectedInfo();
-        userCardNum = null;
-        cardBtn.setText("카드 입력");
+        userCardNumber = null;
+        cardButton.setText("카드 입력");
         selectPanel.setVisible(false);
-        infoLb.setVisible(true);
+        infoLabel.setVisible(true);
     }
 
     private void registerCard(String cardNum) {
-        this.userCardNum = cardNum;
-        cardBtn.setText("카드 제거");
+        this.userCardNumber = cardNum;
+        cardButton.setText("카드 제거");
         selectPanel.setVisible(true);
-        infoLb.setVisible(false);
+        infoLabel.setVisible(false);
     }
 
     private void initSelectedInfo() {
         userItemIndex = -1;
-        selectedItemLb.setText("");
-        priceLb.setText("0원");
-        countLb.setText("0개");
+        selectedItemLabel.setText("");
+        priceLabel.setText("0원");
+        countLabel.setText("0개");
         userItemQuantity = 0;
     }
 }
