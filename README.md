@@ -38,7 +38,7 @@ public class Message {
     }
 }
 ```
-## 2. Server
+## 4. Server
 - 클라 -> 서버에게 메세지를 보내면, 서버는 Statc ObservableList에 Message타입 객체를 저장
 - OvservableList 에는 리스너를 달아줄 수 있음
   - 이 리스너가 새로운 메세지를 수신할 때 마다 적절히 핸들링 하도록 구현   
