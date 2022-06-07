@@ -39,9 +39,8 @@ public class Message {
 }
 ```
 ## 2. Server
-- 클라 -> 서버에게 메세지를 보내면, 서버는 Statc ArrayList에 Message타입 객체를 저장
-- 따라서 가장 마지막 인덱스에서 최신 메세지를 얻을 수 있음
-  - 무한 루프를 도는 쓰레드를 만들어서 서버의 ArrayList에 접근해서 계속 최신화
+- 클라 -> 서버에게 메세지를 보내면, 서버는 Statc ObservableList에 Message타입 객체를 저장
+  - 이 리스트에 새로운 메세지가 수신될 때 마다 메세지 핸들링을 하는 리스너를 달아줌
     ```java
     // 서버용 쓰레드 하나 만들어서 사용
     static class Thread1 extends Thread {
@@ -56,16 +55,24 @@ public class Message {
         }  
     }
     ```
-- 서버의 static ArrayList에 접근해야함 -> `Server.msgList`
+- 리스너는 서버의 static ObservableLis에 접근함 -> `Server.observableList`
   ```java
-  public static 무언가 어떤 우리의 함수() {
-    if (server.msgList.size() > 0) {
-        /* 메세지 읽어서 잘 사용... */
-    } else {
-        /* 메세지 리스트 비어있음... */
+  // 리스너 구현
+  class MyListener implements messageListChangeListener {
+  
+    @override
+    void onChanged() {
+      while(change.next()) {
+        if (change.wasAdded()) {
+            message = server.observableList.get();
+            /* 메세지 읽어서 잘 사용... */
+        }     
+      }
     }
+  
   }
   ```
+  
 ## 그 외
-- 포트는 8080 고정
+- dvm_network 라이브러리 정책에 따라 포트는 8080으로 고정되어있음
 
