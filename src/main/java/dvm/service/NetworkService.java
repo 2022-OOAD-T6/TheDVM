@@ -33,12 +33,12 @@ public class NetworkService {
         sender.send(MessageFactory.createStockRequestMessage(itemCode, quantity));
     }
 
-    public void sendStockResponseMessage(String dstId, String itemCode, int quantity) {
-        sender.send(MessageFactory.createStockResponseMessage(dstId, itemCode, quantity));
+    public void sendStockResponseMessage(String destinationDvmId, String itemCode, int quantity) {
+        sender.send(MessageFactory.createStockResponseMessage(destinationDvmId, itemCode, quantity));
     }
 
-    public void sendPrepaymentInfoMessage(String dstId, String itemCode, int quantity, String verificationCode) {
-        sender.send(MessageFactory.createPrepaymentCheckMessage(dstId, itemCode, quantity, verificationCode));
+    public void sendPrepaymentInfoMessage(String destinationDvmId, String itemCode, int quantity, String verificationCode) {
+        sender.send(MessageFactory.createPrepaymentCheckMessage(destinationDvmId, itemCode, quantity, verificationCode));
     }
 
     public void sendSaleRequestMessage(String itemCode, int quantity) {
@@ -46,8 +46,8 @@ public class NetworkService {
         sender.send(MessageFactory.createSaleRequestMessage(itemCode, quantity));
     }
 
-    public void sendSaleResponseMessage(String dstId, String itemCode) {
-        sender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
+    public void sendSaleResponseMessage(String destinationDvmId, String itemCode) {
+        sender.send(MessageFactory.createSaleResponseMessage(destinationDvmId, itemCode));
     }
 
     public Message getSaleResponseMessage(String itemCode) {
@@ -65,11 +65,11 @@ public class NetworkService {
         }
     }
 
-    public Message getStockResponseMessageFrom(String srcId, String itemCode, int quantity) {
+    public Message getStockResponseMessageFrom(String sourceDvmId, String itemCode, int quantity) {
         Vector<Message> stockResponseMessages = getMessages(STOCK_RESPONSE);
         clearResponseMessages();
         for (Message message : stockResponseMessages) {
-            if (message.getSrcId().equals(srcId) && message.getMsgDescription().getItemCode().equals(itemCode) && message.getMsgDescription().getItemNum() >= quantity) {
+            if (message.getSrcId().equals(sourceDvmId) && message.getMsgDescription().getItemCode().equals(itemCode) && message.getMsgDescription().getItemNum() >= quantity) {
                 return message;
             }
         }

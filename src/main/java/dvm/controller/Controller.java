@@ -42,8 +42,8 @@ public class Controller {
         return new Response<>(true, ITEMS_OK, itemService.getItemCount(itemCode));
     }
 
-    public Response<String> enterCardNum(String cardNum) {
-        boolean result = cardService.saveCardNum(cardNum);
+    public Response<String> enterCardNumber(String cardNumber) {
+        boolean result = cardService.saveCardNumber(cardNumber);
         if (result) {
             return new Response<>(true, CARD_OK);
         }
@@ -51,13 +51,13 @@ public class Controller {
     }
 
     public Response<PrepaymentInfo> enterVerificationCode(String verificationCode) {
-        PrepaymentInfo info = prepaymentService.getPrepaymentInfo(verificationCode);
-        if (info == null) {
+        PrepaymentInfo information = prepaymentService.getPrepaymentInfo(verificationCode);
+        if (information == null) {
             return new Response<>(false, NOT_EXIST_CODE);
-        } else if (!info.isValid()) {
+        } else if (!information.isValid()) {
             return new Response<>(false, INVALID_PREPAYMENT);
         }
-        return new Response<>(true, CODE_OK, info);
+        return new Response<>(true, CODE_OK, information);
     }
 
 

@@ -217,7 +217,7 @@ public class MenuPanel extends JPanel {
             if (userCardNum == null) {
                 String inputNum = JOptionPane.showInputDialog("카드번호를 입력하세요");
                 if (inputNum == null) return;
-                Response<String> enterCardNumRes = controller.enterCardNum(inputNum);
+                Response<String> enterCardNumRes = controller.enterCardNumber(inputNum);
                 if (enterCardNumRes.isSuccess()) {
                     registerCard(inputNum);
                     JOptionPane.showMessageDialog(null, "환영합니다.");

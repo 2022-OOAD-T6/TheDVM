@@ -9,13 +9,13 @@ public class CardService {
         this.cardCompany = cardCompany;
     }
 
-    private String curCardNum;
+    private String currentCardNumber;
 
     private final CardCompany cardCompany;
 
-    public boolean saveCardNum(String cardNum) {
-        if (cardCompany.isValid(cardNum)) {
-            this.curCardNum = cardNum;
+    public boolean saveCardNumber(String cardNumber) {
+        if (cardCompany.isValid(cardNumber)) {
+            this.currentCardNumber = cardNumber;
             return true;
         } else {
             return false;
@@ -24,7 +24,7 @@ public class CardService {
 
     public boolean pay(int price) {
         // TODO implement here
-        if (cardCompany.pay(this.curCardNum, price)) {
+        if (cardCompany.pay(this.currentCardNumber, price)) {
             return true;
         } else
             return false;

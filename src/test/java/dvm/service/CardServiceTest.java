@@ -13,15 +13,15 @@ class CardServiceTest {
     CardCompany cardCompany = new CardCompany();
     @Test
     void saveCardNum() {
-        boolean result1 = cardService.saveCardNum(myNum);
+        boolean result1 = cardService.saveCardNumber(myNum);
         assertThat(result1).isTrue();
-        boolean result2 = cardService.saveCardNum("000099");
+        boolean result2 = cardService.saveCardNumber("000099");
         assertThat(result2).isFalse();
     }
 
     @Test
     void pay() {
-        cardService.saveCardNum(myNum);
+        cardService.saveCardNumber(myNum);
         assertTrue(cardService.pay(1000));
         assertThat(cardService.pay(9999)).isFalse();
     }

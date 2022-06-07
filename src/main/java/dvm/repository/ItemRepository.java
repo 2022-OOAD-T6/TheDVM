@@ -116,8 +116,8 @@ public class ItemRepository {
      * 결제한 음료 수량만큼 재고 빼기
      */
     public void update(String itemCode, int quantity) {
-        int oldQty = stock.get(itemCode);
-        stock.put(itemCode, oldQty + quantity);
+        int previousQuantity = stock.get(itemCode);
+        stock.put(itemCode, previousQuantity + quantity);
     }
 
 }
