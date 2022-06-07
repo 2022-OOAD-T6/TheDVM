@@ -39,8 +39,9 @@ public class NettyReceiver implements Receiver {
         this.prepaymentService = prepaymentService;
         this.networkService = networkService;
 
-        DvmServerCreator dvmServer = new DvmServerCreator();
-        new Thread(dvmServer).start();
+        DVMServer server = new DVMServer();
+        DvmServerRunner serverRunner = new DvmServerRunner(server);
+        new Thread(serverRunner).start();
     }
 
     @Override
