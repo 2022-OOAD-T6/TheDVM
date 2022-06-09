@@ -1,13 +1,13 @@
 package dvm.repository;
 
 import dvm.domain.Item;
-import dvm.gui.AdminPanel;
 import dvm.util.Observer;
 import dvm.util.Subject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -87,37 +87,29 @@ public class ItemRepository implements Subject {
     }
 
     /**
-     * itemCode로 Item 객체 리턴
-     * 없으면 return null
+     * itemCode로 Item 객체 탐색
+     * Optional로 감싸서 리턴
      */
-    public Item findItem(String itemCode) {
-        for (Item item : items) {
-            if (item.getItemCode().equals(itemCode)) {
-                return item;
-            }
-        }
-        return null;
+    public Optional<Item> findItem(String itemCode) {
+        return items.stream()
+                .filter(item -> item.getItemCode().equals(itemCode))
+                .findAny();
     }
 
     /**
-     * 모든 아이템 리턴
+     * 모든 아이템 정보 리스트에 담아 리턴
      */
     public List<Item> findAllItems() {
-        return items;
+        return new ArrayList<>(items);
     }
 
     /**
-     * 우리가 팔고있는 아이템 리스트로 변환 후 리턴
+     * 우리가 팔고있는 아이템을 새로운 리스트에 담아 리턴
      */
     public List<Item> findMyItems() {
         ArrayList<Item> ourItems = new ArrayList<>();
-
-        /*for (String key : stock.keySet()) {
-            ourItems.add(findItem(key));
-        }*/
-
         stock.keySet()
-                .forEach(key -> ourItems.add(findItem(key)));
+                .forEach(key -> findItem(key).ifPresent(ourItems::add));
 
         return ourItems;
     }
