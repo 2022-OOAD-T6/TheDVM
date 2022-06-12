@@ -28,7 +28,6 @@ public class PrepaymentService {
 
     /**
      * 선결제 정보 저장
-     * 수정사항: 정상적인 선결제인지 지정하는 isValid 파라미터 추가
      */
     public void savePrepaymentInfo(ItemService itemService, String verificationCode, String itemCode, int quantity) {
         boolean result = itemService.isEnough(itemCode, quantity);
