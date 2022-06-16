@@ -10,6 +10,7 @@ import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import static dvm.domain.ResponseType.*;
@@ -51,13 +52,16 @@ public class Controller {
     }
 
     public Response<PrepaymentInfo> enterVerificationCode(String verificationCode) {
-        PrepaymentInfo info = prepaymentService.getPrepaymentInfo(verificationCode);
-        if (info == null) {
+        try {
+            PrepaymentInfo info = prepaymentService.getPrepaymentInfo(verificationCode);
+            if (info.isValid()) {
+                return new Response<>(true, CODE_OK, info);
+            } else {
+                return new Response<>(false, INVALID_PREPAYMENT);
+            }
+        } catch (IllegalArgumentException e) {
             return new Response<>(false, NOT_EXIST_CODE);
-        } else if (!info.isValid()) {
-            return new Response<>(false, INVALID_PREPAYMENT);
         }
-        return new Response<>(true, CODE_OK, info);
     }
 
 

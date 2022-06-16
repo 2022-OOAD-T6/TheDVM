@@ -2,6 +2,7 @@ package dvm.repository;
 
 import dvm.domain.PrepaymentInfo;
 
+import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -17,13 +18,14 @@ public class PrepaymentRepository {
 
     /**
      * 인증코드와 일치하는 음료 정보 리턴
+     * Optional로 감싸서 리턴
      */
-    public PrepaymentInfo getPrepaymentInfo(String verificationCode) {
+    public Optional<PrepaymentInfo> getPrepaymentInfo(String verificationCode) {
         PrepaymentInfo info = savedPrepayments.get(verificationCode);
         if (info != null) {
             savedPrepayments.remove(verificationCode);
         }
-        return info;
+        return Optional.ofNullable(info);
     }
 
     /**
