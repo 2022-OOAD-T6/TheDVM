@@ -31,11 +31,9 @@ public class ItemService {
      * 여기서 Item 객체 필요?
      */
     public int getItemPrice(String itemCode) {
-        Item item = itemRepository.findItem(itemCode);
-        if (item == null) {
-            return -1;
-        }
-        return item.getPrice();
+        return itemRepository.findItem(itemCode)
+                .orElseThrow(() -> new IllegalArgumentException("wrong item code"))
+                .getPrice();
     }
 
     /**
