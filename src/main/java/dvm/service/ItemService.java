@@ -30,7 +30,7 @@ public class ItemService {
      * 음료 가격 리턴
      * 여기서 Item 객체 필요?
      */
-    public int getItemPrice(String itemCode) {
+    public int getItemPrice(String itemCode) throws IllegalArgumentException {
         return itemRepository.findItem(itemCode)
                 .orElseThrow(() -> new IllegalArgumentException("wrong item code"))
                 .getPrice();
