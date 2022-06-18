@@ -10,14 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d174a89b-127d-40ad-bc23-167effab20a8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/config/AppConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/ReceiveMessageHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/ReceiveMessageHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/dvm/service/PrepaymentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dvm/service/PrepaymentServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/MessageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/MessageFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -201,7 +197,7 @@
       <workItem from="1653480239681" duration="16796000" />
       <workItem from="1653541506395" duration="8405000" />
       <workItem from="1655543157739" duration="2131000" />
-      <workItem from="1655545818791" duration="3970000" />
+      <workItem from="1655545818791" duration="7589000" />
     </task>
     <servers />
   </component>
