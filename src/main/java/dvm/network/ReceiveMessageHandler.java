@@ -9,6 +9,7 @@ import dvm.service.PrepaymentService;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.Vector;
 import java.util.logging.Logger;
 
@@ -45,8 +46,7 @@ public class ReceiveMessageHandler implements Runnable {
 
     @Override
     public void run() {
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        try (BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream(), StandardCharsets.UTF_8))) {
             String request;
             while ((request = in.readLine()) != null) {
                 Message message = deserializer.json2Message(request);
