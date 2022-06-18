@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-import dvm.config.AppConfig;
 import dvm.controller.Controller;
 import dvm.service.NetworkService;
 import dvm.partners.CardCompany;
@@ -17,23 +16,18 @@ import dvm.service.PrepaymentService;
 import dvm.util.Observer;
 
 public class MainFrame extends JFrame {
-    Container contentPane = getContentPane();
-    CardLayout cards = new CardLayout();
-    JPanel cardPanel = new JPanel(cards);
-    JPanel menuPanel;
-    JPanel adminPanel;
-    JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
+    private final Container contentPane = getContentPane();
+    private final CardLayout cards = new CardLayout();
+    private final JPanel cardPanel = new JPanel(cards);
+    private JPanel adminPanel;
+    private final JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
 
-
-    JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
-    JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
-
-    boolean menu;//지금 menuPanel이 보이는가
+    private final JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
+    private final JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
     private final Controller controller;
 
     public MainFrame(Controller controller) {
         this.controller = controller;
-        menu = true;
         setTitle("DVM6");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -68,7 +62,7 @@ public class MainFrame extends JFrame {
 
 
     private void setting() {
-        menuPanel = new MenuPanel(controller);// 메뉴있는 화면
+        JPanel menuPanel = new MenuPanel(controller);// 메뉴있는 화면
         menuPanel.setName("menu");
         cardPanel.add("1", menuPanel);
         adminPanel = new AdminPanel(controller);// 관리자 화면
@@ -93,6 +87,9 @@ public class MainFrame extends JFrame {
     }
 
 
+    /**
+     * GUI 테스팅 용 메인 클래스
+     */
     public static void main(String[] args) {
         ItemService itemService = new ItemService(ItemRepository.getInstance());
         PrepaymentService prepaymentService = new PrepaymentService(PrepaymentRepository.getInstance());
