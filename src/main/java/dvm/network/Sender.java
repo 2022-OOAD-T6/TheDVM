@@ -5,6 +5,7 @@ import GsonConverter.Serializer;
 import Model.Message;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -22,10 +23,11 @@ public class Sender {
     public void send(Message message) {
         try {
             if (message.getDstID().equals("0")) {
-                for (String teamId : dvmsNetworkInfo.keySet()) {
+                for (Map.Entry<String, String> dvmNetworkInfo : dvmsNetworkInfo.entrySet()) {
+                    String teamId = dvmNetworkInfo.getKey();
+                    String dstIp = dvmNetworkInfo.getValue();
                     logger.info("전송 시도 | to " + teamId);
                     if (teamId.equals(message.getSrcId())) continue;
-                    String dstIp = dvmsNetworkInfo.get(teamId);
                     DvmClientRunner dvmClientRunner = new DvmClientRunner(dstIp, message);
                     new Thread(dvmClientRunner).start();
                 }
@@ -46,8 +48,8 @@ public class Sender {
     }
 
     public static void printDvmsNetworkInfo() {
-        for (String s : dvmsNetworkInfo.keySet()) {
-            System.out.println("team id: " + s + " | " + dvmsNetworkInfo.get(s));
+        for (Map.Entry<String, String> dvmNetworkInfo : dvmsNetworkInfo.entrySet()) {
+            logger.info("team id: " + dvmNetworkInfo.getKey() + " | " + dvmNetworkInfo.getValue());
         }
     }
 }
