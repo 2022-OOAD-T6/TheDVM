@@ -252,6 +252,8 @@ public class MenuPanel extends JPanel {
                 case PREPAYMENT_FAIL:
                     JOptionPane.showMessageDialog(null, "잔액이 부족합니다.");
                     break;
+                default:
+                    break;
             }
         }
     }
