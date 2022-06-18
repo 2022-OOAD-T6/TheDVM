@@ -10,11 +10,18 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class PrepaymentRepository {
 
-    private final ConcurrentHashMap<String, PrepaymentInfo> savedPrepayments;
+    private final ConcurrentHashMap<String, PrepaymentInfo> savedPrepayments  = new ConcurrentHashMap<>();
 
-    public PrepaymentRepository() {
-        savedPrepayments = new ConcurrentHashMap<>();
+    private PrepaymentRepository() {}
+
+    private static class PrepaymentRepositoryHelper{
+        private static final PrepaymentRepository prepaymentRepository = new PrepaymentRepository();
     }
+
+    public static PrepaymentRepository getInstance(){
+        return PrepaymentRepositoryHelper.prepaymentRepository;
+    }
+
 
     /**
      * 인증코드와 일치하는 음료 정보 리턴

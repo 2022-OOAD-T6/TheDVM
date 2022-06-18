@@ -10,9 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PrepaymentServiceTest {
 
-    PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
+    PrepaymentService prepaymentService = new PrepaymentService(PrepaymentRepository.getInstance());
 
-    ItemService itemService = new ItemService(new ItemRepository());
+    ItemService itemService = new ItemService(ItemRepository.getInstance());
 
     @Test
     void getPrepaymentInfo() {
