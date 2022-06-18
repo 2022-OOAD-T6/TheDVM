@@ -2,7 +2,6 @@ package dvm;
 
 import dvm.config.AppConfig;
 import dvm.controller.Controller;
-import dvm.gui.AdminPanel;
 import dvm.gui.MainFrame;
 import dvm.repository.ItemRepository;
 

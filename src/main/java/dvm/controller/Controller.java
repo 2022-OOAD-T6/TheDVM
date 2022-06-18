@@ -10,7 +10,6 @@ import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.logging.Logger;
 
 import static dvm.domain.ResponseType.*;

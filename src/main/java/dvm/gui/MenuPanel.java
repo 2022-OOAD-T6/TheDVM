@@ -11,7 +11,6 @@ import dvm.controller.Controller;
 import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
 import dvm.domain.Response;
-import dvm.domain.ResponseType;
 
 import static dvm.domain.ResponseType.*;
 

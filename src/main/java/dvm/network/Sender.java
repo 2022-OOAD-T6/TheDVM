@@ -1,6 +1,5 @@
 package dvm.network;
 
-import DVM_Client.DVMClient;
 import GsonConverter.Serializer;
 import Model.Message;
 

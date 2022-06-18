@@ -1,7 +1,6 @@
 package dvm.config;
 
 import dvm.controller.Controller;
-import dvm.gui.AdminPanel;
 import dvm.network.MessageFactory;
 import dvm.network.Sender;
 import dvm.service.NetworkService;
