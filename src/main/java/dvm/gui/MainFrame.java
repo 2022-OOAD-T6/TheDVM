@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import dvm.config.AppConfig;
 import dvm.controller.Controller;
 import dvm.service.NetworkService;
 import dvm.partners.CardCompany;
@@ -39,6 +40,7 @@ public class MainFrame extends JFrame {
         setting();
         showBottom();
         makeEvent();
+        addObserver();
 
         contentPane.add(cardPanel);
         setSize(600, 450);
@@ -85,9 +87,11 @@ public class MainFrame extends JFrame {
         bottomPanel.add(itemLb);
     }
 
-    public Observer getAdminPanel() {
-        return (Observer) adminPanel;
-    }// new
+    private void addObserver() {
+        AppConfig.itemRepository()
+                .registerObserver((Observer) adminPanel);
+    }
+
 
     public static void main(String[] args) {
         ItemService itemService = new ItemService(new ItemRepository());
