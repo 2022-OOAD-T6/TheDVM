@@ -10,9 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * 20220517 MJY
- */
+
 public class ItemRepository implements Subject {
 
     private final List<Item> items = new ArrayList<>(
