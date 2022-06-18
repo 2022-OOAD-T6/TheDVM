@@ -10,9 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d174a89b-127d-40ad-bc23-167effab20a8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/properties/network.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/properties/network.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/properties/stock.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/properties/stock.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/gui/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/partners/CardCompany.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/partners/CardCompany.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/repository/PrepaymentRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/repository/PrepaymentRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dvm/service/ItemServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dvm/service/ItemServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dvm/service/NetworkServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dvm/service/NetworkServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/dvm/service/PrepaymentServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/dvm/service/PrepaymentServiceTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +58,9 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="29TRzCfl1zPtzRlkOxfQhIjATNQ" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -101,6 +110,14 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="All in OOAD-DVM-T6.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="OOAD-DVM-T6.test" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MessageFactoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OOAD-DVM-T6.test" />
       <extension name="coverage">
@@ -112,22 +129,6 @@
       <option name="PACKAGE_NAME" value="dvm.network" />
       <option name="MAIN_CLASS_NAME" value="dvm.network.MessageFactoryTest" />
       <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MessageFactoryTest.sortMessages3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="OOAD-DVM-T6.test" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="dvm.network.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="dvm.network" />
-      <option name="MAIN_CLASS_NAME" value="dvm.network.MessageFactoryTest" />
-      <option name="METHOD_NAME" value="sortMessages3" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -166,10 +167,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.All in OOAD-DVM-T6.test" />
         <item itemvalue="JUnit.NetworkServiceTest.getResponseMessage" />
         <item itemvalue="JUnit.NetworkServiceTest" />
         <item itemvalue="JUnit.MessageFactoryTest" />
-        <item itemvalue="JUnit.MessageFactoryTest.sortMessages3" />
       </list>
     </recent_temporary>
   </component>

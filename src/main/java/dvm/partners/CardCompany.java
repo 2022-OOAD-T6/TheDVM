@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 public class CardCompany {
     private final Logger logger = Logger.getGlobal();
 
+    private final HashMap<String, Integer> registeredCards = new HashMap<>();
+
     public CardCompany() {
         registeredCards.put("01711374", 1000);
         registeredCards.put("01814119", 2000);
@@ -27,10 +29,15 @@ public class CardCompany {
         System.out.println("--------------------------------------------------");
     }
 
-    private final HashMap<String, Integer> registeredCards = new HashMap<>();
+    private static class CardCompanyHelper{
+        private static final CardCompany cardCompany = new CardCompany();
+    }
+
+    public static CardCompany getInstance() {
+        return CardCompanyHelper.cardCompany;
+    }
 
     public boolean isValid(String cardNum) {
-        // TODO implement here
         //존재하는 카드일 경우
         return this.registeredCards.containsKey(cardNum);
     }
