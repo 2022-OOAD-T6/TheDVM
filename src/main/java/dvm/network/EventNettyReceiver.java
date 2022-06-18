@@ -1,6 +1,7 @@
 package dvm.network;
 
 import DVM_Server.DVMServer;
+import DVM_Server.messageListChangeListner;
 import Model.Message;
 import dvm.service.ItemService;
 import dvm.service.NetworkService;
@@ -11,57 +12,50 @@ import java.util.logging.Logger;
 
 import static dvm.network.MessageType.*;
 
-/**
- * Receiver 구현 클래스
- * DvmServer 라이브러리 사용하는 버전
- */
-public class NettyReceiver implements Receiver {
+public class EventNettyReceiver implements Receiver {
 
-    private int consumed = 0;
+    private int consumed;
     private MessageType waitingMessageType;
-
     private final Vector<Message> responseMessages;
-
     private final ItemService itemService;
-
     private final PrepaymentService prepaymentService;
-
     private final NetworkService networkService;
+    private final DVMServer server;
     private final static Logger logger = Logger.getGlobal();
 
 
-    public NettyReceiver(ItemService itemService, PrepaymentService prepaymentService,
-                         NetworkService networkService) {
-
-        this.waitingMessageType = MessageType.NONE;
+    public EventNettyReceiver(ItemService itemService,
+                              PrepaymentService prepaymentService, NetworkService networkService) {
+        this.consumed = 0;
         this.responseMessages = new Vector<>();
+        this.waitingMessageType = MessageType.NONE;
         this.itemService = itemService;
         this.prepaymentService = prepaymentService;
         this.networkService = networkService;
 
-        DVMServer server = new DVMServer();
-        DvmServerRunner serverRunner = new DvmServerRunner(server);
+        this.server = new DVMServer();
+        DvmServerRunner serverRunner = new DvmServerRunner(this.server);
         new Thread(serverRunner).start();
     }
 
     @Override
     public void run() {
-        while (true) {
-            if (DVMServer.msgList.size() > consumed) {
-                Message message = DVMServer.msgList.get(consumed);
+        server.setMessageListner((messageListChangeListner) change -> {
+            while (change.next()) {
+                if (change.wasAdded()) {
+                    Message message = DVMServer.observableList.get(consumed);
 
-                if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
-                    responseMessages.add(message);
-                    logger.info(waitingMessageType + " type 메세지 추가 from " + message.getSrcId());
-                } else {
-                    handleReceivedMessage(message);
+                    if (waitingMessageType == MessageType.json2MessageType(message.getMsgType())) {
+                        responseMessages.add(message);
+                        logger.info(waitingMessageType + " type 메세지 추가 from " + message.getSrcId());
+                    } else {
+                        handleReceivedMessage(message);
+                    }
+
+                    consumed++;
                 }
-
-                consumed++;
-            } else {
-                Thread.yield();
             }
-        }
+        });
     }
 
     private void handleReceivedMessage(Message message) {
@@ -120,4 +114,5 @@ public class NettyReceiver implements Receiver {
     public void clearResponseMessages() {
         responseMessages.clear();
     }
+
 }
