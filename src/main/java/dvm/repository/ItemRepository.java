@@ -13,9 +13,7 @@ import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.logging.Logger;
 
-/**
- * 20220517 MJY
- */
+
 public class ItemRepository implements Subject {
 
     private final List<Item> items = new ArrayList<>(

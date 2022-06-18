@@ -3,6 +3,7 @@ package dvm.gui;
 import dvm.controller.Controller;
 import dvm.domain.Item;
 import dvm.domain.Response;
+import dvm.util.Observer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.util.List;
 /**
  * 관리자 화면
  */
-public class AdminPanel extends JPanel {
+public class AdminPanel extends JPanel implements Observer {
 
     Controller controller;
     JPanel menu = new JPanel();// 아이템 7개 panel을 담고 있는 panel
@@ -92,10 +93,10 @@ public class AdminPanel extends JPanel {
         for (int i = 0; i < 7; i++) {
             itemsPanel[i] = new JPanel(new GridLayout(2, 1));
             itemsBtn[i] = new JButton(myItems.get(i).getName());
-            int finalI = i;
+            int finalIndex = i;
             itemsBtn[i].addActionListener(actionEvent -> {
-                userSelectionIndex = finalI;
-                selectedItem.setText(myItems.get(finalI).getName());
+                userSelectionIndex = finalIndex;
+                selectedItem.setText(myItems.get(finalIndex).getName());
             });
             itemsPanel[i].add(itemsBtn[i]);
             menu.add(itemsPanel[i]);
@@ -124,7 +125,6 @@ public class AdminPanel extends JPanel {
                 Response<String> updateResponse = controller.updateStock(itemCode, -userSelectionQuantity);
                 if (updateResponse.isSuccess()) {
                     JOptionPane.showMessageDialog(null, "재고 감소에 성공했습니다.");
-                    updateStockStatus();
                 } else {
                     JOptionPane.showMessageDialog(null, "재고 감소에 실패했습니다.");
                 }
@@ -137,22 +137,12 @@ public class AdminPanel extends JPanel {
                 Response<String> updateResponse = controller.updateStock(itemCode, userSelectionQuantity);
                 if (updateResponse.isSuccess()) {
                     JOptionPane.showMessageDialog(null, "재고 추가에 성공했습니다.");
-                    updateStockStatus();
                 } else {
                     JOptionPane.showMessageDialog(null, "재고 추가에 실패했습니다.");
                 }
                 initSelectedInfo();
             }
         });
-    }
-
-    /**
-     * 재고정보 업데이트
-     */
-    public void updateStockStatus() {
-        stockPanel.removeAll();
-        showStock();
-        repaint();
     }
 
     /**
@@ -164,4 +154,22 @@ public class AdminPanel extends JPanel {
         selectedItem.setText("");
         countLb.setText("0개");
     }
+
+    private void updateStockPanel(String itemCode, int quantity) {
+        for (int i = 0; i < 7; i++) {
+            if (itemCode.equals(myItems.get(i).getItemCode())) {
+                JLabel number = (JLabel) typePanel[i].getComponent(1);
+                number.setText(Integer.toString(quantity));
+                System.out.println(number.getText());
+                break;
+            }
+        }
+
+    }
+
+    @Override
+    public void updateObserver(String itemCode, int quantity) {
+        updateStockPanel(itemCode, quantity);
+    }// new
+
 }
