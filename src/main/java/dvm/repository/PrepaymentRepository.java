@@ -15,6 +15,8 @@ public class PrepaymentRepository {
         savedPrepayments = new ConcurrentHashMap<>();
     }
 
+
+
     /**
      * 인증코드와 일치하는 음료 정보 리턴
      */

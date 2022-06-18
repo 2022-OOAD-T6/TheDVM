@@ -2,10 +2,13 @@ package dvm.repository;
 
 import dvm.domain.Item;
 
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 /**
  * 20220517 MJY
@@ -37,23 +40,43 @@ public class ItemRepository {
     );// 모든 음료 20개
     private final ConcurrentHashMap<String, Integer> stock;// 우리 자판기 음료 7개
 
-    public ItemRepository() {
-        stock = new ConcurrentHashMap<>(7);
-        // 임시 배정
-        stock.put("01", 2);
-        stock.put("02", 2);
-        stock.put("03", 2);
-        stock.put("04", 2);
-        stock.put("05", 2);
-        stock.put("06", 2);
-        stock.put("10", 10);
+    private final Logger logger = Logger.getGlobal();
+
+    private ItemRepository() { // singleton 위해 생성자 접근 막음
+        stock = new ConcurrentHashMap<>();
+        try {
+            // resources에 properties/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
+            Properties p = new Properties();
+            p.load(new FileReader("src/main/resources/properties/stock.properties"));
+            if (p.size() != 7) {
+                logger.warning("자판기 음료 개수는 7개여야 합니다.");
+                throw new Exception();
+            }
+            for (Object o : p.keySet()) {
+                String key = (String) o;
+                stock.put((String) key, Integer.parseInt(p.getProperty(key)));
+            }
+        } catch (Exception e) {
+            logger.warning("stock.properties 이상. 기본 세팅으로 세팅합니다.");
+            stock.put("01", 2);
+            stock.put("02", 2);
+            stock.put("03", 2);
+            stock.put("04", 2);
+            stock.put("05", 2);
+            stock.put("06", 2);
+            stock.put("10", 10);
+        }
         printCurrentStock();
     }
 
-    public ItemRepository(ConcurrentHashMap<String, Integer> stock) {
-        this.stock = stock;
-        printCurrentStock();
+    private static class ItemRepositoryHelper {
+        private static final ItemRepository itemRepository = new ItemRepository();
     }
+
+    public static ItemRepository getInstance() {
+        return ItemRepositoryHelper.itemRepository;
+    }
+
 
     /**
      * 디버깅용 - 현재 stock 상태 출력

@@ -11,21 +11,21 @@ class ItemServiceTest {
 
     @Test
     void isEnough() {
-        ItemRepository ir = new ItemRepository();
+        ItemRepository ir = ItemRepository.getInstance();
         ItemService is = new ItemService(ir);
         assertEquals(is.isEnough(itemCode, qty), false);
     }
 
     @Test
     void getItemPrice() {
-        ItemRepository ir = new ItemRepository();
+        ItemRepository ir = ItemRepository.getInstance();
         ItemService is = new ItemService(ir);
         //assertEquals(is.getItemPrice(itemCode), 100);
     }
 
     @Test
     void updateStock() {
-        ItemRepository ir = new ItemRepository();
+        ItemRepository ir = ItemRepository.getInstance();
         ItemService is = new ItemService(ir);
         int oldQty = ir.count(itemCode);
         is.updateStock(itemCode, qty);

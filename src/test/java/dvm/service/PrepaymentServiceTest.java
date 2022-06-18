@@ -12,7 +12,7 @@ class PrepaymentServiceTest {
 
     PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
 
-    ItemService itemService = new ItemService(new ItemRepository());
+    ItemService itemService = new ItemService(ItemRepository.getInstance());
 
     @Test
     void getPrepaymentInfo() {
