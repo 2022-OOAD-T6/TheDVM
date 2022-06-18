@@ -53,17 +53,6 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
-//                if (menu) {// 현재 menuPanel이 보이는가
-//                    menu = false;
-//                    cardPanel.remove(cardPanel.getComponent(1));
-//                    adminPanel = new AdminPanel(controller);// 관리자 화면
-//                    adminPanel.setName("admin");
-//                    cardPanel.add("2", adminPanel);
-//                    repaint();
-//                } else {// 현재 adminPanel이 보이는가
-//                    menu = true;
-//                }
                 cards.next(cardPanel);
             }
         });

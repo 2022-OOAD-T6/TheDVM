@@ -33,7 +33,6 @@ public class AdminPanel extends JPanel implements Observer {
     JLabel selectedItem = new JLabel();
     List<Item> myItems;
 
-    int newItemCode, newQuantity;//new
     public AdminPanel(Controller controller) {
         this.controller = controller;
 
@@ -150,15 +149,6 @@ public class AdminPanel extends JPanel implements Observer {
     }
 
     /**
-     * 재고정보 업데이트
-     */
-    public void updateStockStatus() {
-        stockPanel.removeAll();
-        showStock();
-        repaint();
-    }
-
-    /**
      * 선택 초기화
      */
     public void initSelectedInfo() {
@@ -168,22 +158,24 @@ public class AdminPanel extends JPanel implements Observer {
         countLb.setText("0개");
     }
 
-    private void updateStockPanel(int itemCode, int quantity){
-//        if(itemCode == userSelectionIndex){
-            Component quantityComponent =typePanel[userSelectionIndex].getComponent(1);
-            JLabel number = (JLabel) quantityComponent;
-            number.setText(Integer.toString(quantity));
-            System.out.println(number.getText());
-//        }
+    private void updateStockPanel(String itemCode, int quantity) {
+        for (int i = 0; i < 7; i++) {
+
+            if (itemCode.equals(myItems.get(i).getItemCode())) {
+                JLabel number = (JLabel) typePanel[i].getComponent(1);
+                number.setText(Integer.toString(quantity));
+                System.out.println(number.getText());
+                break;
+            }
+        }
+
     }
 
     @Override
     public void updateObserver(String itemCode, int quantity) {
         System.out.println("Admin updateObserver");
-        System.out.println(itemCode+" : "+quantity);
-        newItemCode=Integer.parseInt(itemCode);
-        newQuantity=quantity;
+        System.out.println(itemCode + " : " + quantity);
 
-        updateStockPanel(Integer.parseInt(itemCode), quantity);
+        updateStockPanel(itemCode, quantity);
     }// new
 }
