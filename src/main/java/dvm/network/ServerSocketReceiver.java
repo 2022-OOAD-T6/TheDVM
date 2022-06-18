@@ -60,7 +60,7 @@ public class ServerSocketReceiver implements Receiver {
 
     @Override
     public Vector<Message> getResponseMessages() {
-        return responseMessages;
+        return new Vector<>(responseMessages);
     }
 
     @Override
