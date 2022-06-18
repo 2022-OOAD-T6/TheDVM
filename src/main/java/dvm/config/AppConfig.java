@@ -19,7 +19,6 @@ public class AppConfig {
     private static Controller controller;
     private static ItemService itemService;
     private static PrepaymentService prepaymentService;
-    private static CardCompany cardCompany;
     private static CardService cardService;
     private static NetworkService networkService;
 
@@ -44,16 +43,10 @@ public class AppConfig {
         return prepaymentService;
     }
 
-    public static CardCompany cardCompany() {
-        if (cardCompany == null) {
-            cardCompany = new CardCompany();
-        }
-        return cardCompany;
-    }
 
     public static CardService cardService() {
         if (cardService == null) {
-            cardService = new CardService(cardCompany());
+            cardService = new CardService(CardCompany.getInstance());
         }
         return cardService;
     }
