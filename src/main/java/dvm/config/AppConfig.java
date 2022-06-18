@@ -12,7 +12,10 @@ import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
 
-import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Properties;
 
 public class AppConfig {
@@ -54,10 +57,11 @@ public class AppConfig {
 
     public static NetworkService networkService() {
         if (networkService == null) {
-            try {
+            try (BufferedReader reader = new BufferedReader
+                    (new InputStreamReader(new FileInputStream("src/main/resources/properties/network.properties"), StandardCharsets.UTF_8))) {
                 // resources에 properties/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
                 Properties p = new Properties();
-                p.load(new FileReader("src/main/resources/properties/network.properties"));
+                p.load(reader);
                 MessageFactory.setCurrentId(p.getProperty("current.id"));
                 MessageFactory.setCurrentX(Integer.parseInt(p.getProperty("current.x")));
                 MessageFactory.setCurrentY(Integer.parseInt(p.getProperty("current.y")));

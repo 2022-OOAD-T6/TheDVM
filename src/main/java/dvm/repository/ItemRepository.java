@@ -4,7 +4,11 @@ import dvm.domain.Item;
 import dvm.util.Observer;
 import dvm.util.Subject;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,16 +45,16 @@ public class ItemRepository implements Subject {
     );// 모든 음료 20개
     private final ConcurrentHashMap<String, Integer> stock;// 우리 자판기 음료 7개
 
-    private final List<Observer> observers =  new ArrayList<>();
+    private final List<Observer> observers = new ArrayList<>();
 
     private final Logger logger = Logger.getGlobal();
 
     private ItemRepository() { // singleton 위해 생성자 접근 막음
         stock = new ConcurrentHashMap<>();
-        try {
-            // resources에 properties/?.properties 파일들 읽어서 세팅 -> 매번 빌드 안하기 위함
+        try (BufferedReader reader = new BufferedReader
+                (new InputStreamReader(new FileInputStream("src/main/resources/properties/stock.properties"), StandardCharsets.UTF_8))) {
             Properties p = new Properties();
-            p.load(new FileReader("src/main/resources/properties/stock.properties"));
+            p.load(reader);
             if (p.size() != 7) {
                 logger.warning("자판기 음료 개수는 7개여야 합니다.");
                 throw new Exception();
