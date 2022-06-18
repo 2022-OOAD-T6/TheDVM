@@ -13,31 +13,28 @@ import dvm.repository.PrepaymentRepository;
 import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
+import dvm.util.Observer;
 
 public class MainFrame extends JFrame {
-    Container contentPane = getContentPane();
-    CardLayout cards = new CardLayout();
-    JPanel cardPanel = new JPanel(cards);
-    JPanel menuPanel;
-    JPanel adminPanel;
-    JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
+    private final Container contentPane = getContentPane();
+    private final CardLayout cards = new CardLayout();
+    private final JPanel cardPanel = new JPanel(cards);
+    private JPanel adminPanel;
+    private final JPanel bottomPanel = new JPanel(); // 관리자와 배출구를 담고 있는 panel
 
-
-    JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
-    JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
-
-    boolean menu;//지금 menuPanel이 보이는가
+    private final JButton adminBtn = new JButton("ADMIN"); // 관라자 버튼
+    private final JLabel itemLb = new JLabel("배출구"); // 배출구 라벨, 일단 임시
     private final Controller controller;
 
     public MainFrame(Controller controller) {
         this.controller = controller;
-        menu = true;
         setTitle("DVM6");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setting();
         showBottom();
         makeEvent();
+        addObserver();
 
         contentPane.add(cardPanel);
         setSize(600, 450);
@@ -52,17 +49,6 @@ public class MainFrame extends JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
-
-                if (menu) {// 현재 menuPanel이 보이는가
-                    menu = false;
-                    cardPanel.remove(cardPanel.getComponent(1));
-                    adminPanel = new AdminPanel(controller);// 관리자 화면
-                    adminPanel.setName("admin");
-                    cardPanel.add("2", adminPanel);
-                } else {// 현재 adminPanel이 보이는가
-                    menu = true;
-//                    cards.show(cardPanel,"1");
-                }
                 cards.next(cardPanel);
             }
         });
@@ -76,7 +62,7 @@ public class MainFrame extends JFrame {
 
 
     private void setting() {
-        menuPanel = new MenuPanel(controller);// 메뉴있는 화면
+        JPanel menuPanel = new MenuPanel(controller);// 메뉴있는 화면
         menuPanel.setName("menu");
         cardPanel.add("1", menuPanel);
         adminPanel = new AdminPanel(controller);// 관리자 화면
@@ -95,9 +81,18 @@ public class MainFrame extends JFrame {
         bottomPanel.add(itemLb);
     }
 
+    private void addObserver() {
+        ItemRepository.getInstance()
+                .registerObserver((Observer) adminPanel);
+    }
+
+
+    /**
+     * GUI 테스팅 용 메인 클래스
+     */
     public static void main(String[] args) {
-        ItemService itemService = new ItemService(new ItemRepository());
-        PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
+        ItemService itemService = new ItemService(ItemRepository.getInstance());
+        PrepaymentService prepaymentService = new PrepaymentService(PrepaymentRepository.getInstance());
         new MainFrame(new Controller(new NetworkService(itemService, prepaymentService), itemService,
                 prepaymentService, new CardService(new CardCompany())));
     }

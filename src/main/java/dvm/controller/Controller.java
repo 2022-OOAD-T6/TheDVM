@@ -51,32 +51,33 @@ public class Controller {
     }
 
     public Response<PrepaymentInfo> enterVerificationCode(String verificationCode) {
-        PrepaymentInfo info = prepaymentService.getPrepaymentInfo(verificationCode);
-        if (info == null) {
+        try {
+            PrepaymentInfo info = prepaymentService.getPrepaymentInfo(verificationCode);
+            if (info.isValid()) {
+                return new Response<>(true, CODE_OK, info);
+            } else {
+                return new Response<>(false, INVALID_PREPAYMENT);
+            }
+        } catch (IllegalArgumentException e) {
             return new Response<>(false, NOT_EXIST_CODE);
-        } else if (!info.isValid()) {
-            return new Response<>(false, INVALID_PREPAYMENT);
         }
-        return new Response<>(true, CODE_OK, info);
     }
 
 
     public Response<Message> selectItem(String itemCode, int quantity) {
-        boolean result = itemService.isEnough(itemCode, quantity);
-        if (result) {
+        if (itemService.isEnough(itemCode, quantity)) {
             return new Response<>(true, SELECTION_OK);
         }
+
         networkService.sendSaleRequestMessage(itemCode, quantity);
+
         try {
             Thread.sleep(5000);
             Message message = networkService.getSaleResponseMessage(itemCode);
-            if (message == null) {
-                logger.warning("Controller | SaleResponseMessage 없음 | 받은 SaleResponseMessage가 없습니다.");
-                return new Response<>(false, NO_RESPONSE_MESSAGE);
-            }
             logger.info("Controller | SaleResponseMessage 받음 | from " + message.getSrcId() + " | 보유 수량: " + message.getMsgDescription().getItemNum());
             return new Response<>(true, RESPONSE_OK, message);
-        } catch (Exception e) {
+        } catch (IllegalStateException | InterruptedException e) {
+            logger.warning("Controller | SaleResponseMessage 없음 | 받은 SaleResponseMessage가 없습니다.");
             return new Response<>(false, NO_RESPONSE_MESSAGE);
         }
     }
@@ -103,24 +104,31 @@ public class Controller {
             e.printStackTrace();
         }
 
-        Message message = networkService.getStockResponseMessageFrom(dstDvmId, itemCode, quantity);
-        if (message == null) {
+        try {
+            Message message = networkService.getStockResponseMessageFrom(dstDvmId, itemCode, quantity);
+            if (message.getMsgDescription().getItemNum() < quantity) {
+                logger.info("Controller | StockResponseMessage 받음 | from " + message.getSrcId() + " | 하지만 재고가 부족합니다.");
+                return new Response<>(false, NOT_ENOUGH_STOCK);
+            }
+
+            logger.info("Controller | StockResponseMessage 받음 | from " + message.getSrcId() + " | 재고가 충분합니다.");
+            int price = itemService.getItemPrice(itemCode);
+
+            if (cardService.pay(price * quantity)) {
+                String code = prepaymentService.generateVerificationCode();
+                networkService.sendPrepaymentInfoMessage(dstDvmId, itemCode, quantity, code);
+                return new Response<>(true, PREPAYMENT_OK, code);
+            } else {
+                return new Response<>(false, PREPAYMENT_FAIL);
+            }
+        } catch (IllegalStateException e) {
             logger.warning("Controller | StockResponseMessage 없음 | 받은 StockResponseMessage가 없습니다.");
             return new Response<>(false, NO_RESPONSE_MESSAGE);
-        } else if (message.getMsgDescription().getItemNum() < quantity) {
-            logger.info("Controller | StockResponseMessage 받음 | from " + message.getSrcId() + " | 하지만 재고가 부족합니다.");
-            return new Response<>(false, NOT_ENOUGH_STOCK);
+        } catch (IllegalArgumentException e) {
+            logger.warning("Controller | 존재하지 않는 ItemCode를 받았습니다.");
+            return new Response<>(false, NOT_EXIST_CODE);
         }
-        logger.info("Controller | StockResponseMessage 받음 | from " + message.getSrcId() + " | 재고가 충분합니다.");
 
-        int price = itemService.getItemPrice(itemCode);
-        if (cardService.pay(price * quantity)) {
-            String code = prepaymentService.generateVerificationCode();
-            networkService.sendPrepaymentInfoMessage(dstDvmId, itemCode, quantity, code);
-            return new Response<>(true, PREPAYMENT_OK, code);
-        } else {
-            return new Response<>(false, PREPAYMENT_FAIL);
-        }
 
     }
 

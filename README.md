@@ -38,34 +38,42 @@ public class Message {
     }
 }
 ```
-## 2. Server
-- 클라 -> 서버에게 메세지를 보내면, 서버는 Statc ArrayList에 Message타입 객체를 저장
-- 따라서 가장 마지막 인덱스에서 최신 메세지를 얻을 수 있음
-  - 무한 루프를 도는 쓰레드를 만들어서 서버의 ArrayList에 접근해서 계속 최신화
-    ```java
-    // 서버용 쓰레드 하나 만들어서 사용
-    static class Thread1 extends Thread {
-        @Override
-        public void run() {
-            server = new DVMServer(); // ⭐️
-            try {
-                server.run();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }  
-    }
-    ```
-- 서버의 static ArrayList에 접근해야함 -> `Server.msgList`
+## 4. Server
+- 클라 -> 서버에게 메세지를 보내면, 서버는 Statc ObservableList에 Message타입 객체를 저장
+- OvservableList 에는 리스너를 달아줄 수 있음
+  - 이 리스너가 새로운 메세지를 수신할 때 마다 적절히 핸들링 하도록 구현   
   ```java
-  public static 무언가 어떤 우리의 함수() {
-    if (server.msgList.size() > 0) {
-        /* 메세지 읽어서 잘 사용... */
-    } else {
-        /* 메세지 리스트 비어있음... */
-    }
+  // 서버용 쓰레드가 서버 시작
+  static class Thread1 extends Thread {
+      @Override
+      public void run() {
+          server = new DVMServer(); // ⭐️
+          try {
+              server.run();
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+      }  
   }
   ```
+- 리스너는 서버의 static ObservableLis에 접근함 -> `Server.observableList`
+  ```java
+  // 리스너 구현 예시
+  class MyListener implements messageListChangeListener {
+  
+    @override
+    void onChanged() {
+      while(change.next()) {
+        if (change.wasAdded()) {
+            message = DvmServer.observableList.get();
+            /* 메세지 읽어서 잘 사용... */
+        }     
+      }
+    }
+  
+  }
+  ```
+  
 ## 그 외
-- 포트는 8080 고정
+- dvm_network 라이브러리 정책에 의해 포트는 8080으로 고정되어있음
 

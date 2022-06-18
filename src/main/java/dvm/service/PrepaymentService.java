@@ -22,8 +22,9 @@ public class PrepaymentService {
     /**
      * 선결제 정보 확인
      */
-    public PrepaymentInfo getPrepaymentInfo(String verificationCode) {
-        return prepaymentRepository.getPrepaymentInfo(verificationCode);
+    public PrepaymentInfo getPrepaymentInfo(String verificationCode) throws IllegalArgumentException {
+        return prepaymentRepository.getPrepaymentInfo(verificationCode)
+                .orElseThrow(() -> new IllegalArgumentException("wrong verification code"));
     }
 
     /**
@@ -46,11 +47,11 @@ public class PrepaymentService {
      */
     public String generateVerificationCode() {
         int leftLimit = 48;
-        int rightLimit = 122;
+        int rightLimit = 123;
         int codeLength = 10;
 
         while (true) {
-            String code = random.ints(leftLimit, rightLimit + 1)
+            String code = random.ints(leftLimit, rightLimit)
                     .filter(ascii -> (ascii <= 57 || ascii >= 97))
                     .limit(codeLength)
                     .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)

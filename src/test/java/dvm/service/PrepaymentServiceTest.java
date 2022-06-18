@@ -10,14 +10,17 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class PrepaymentServiceTest {
 
-    PrepaymentService prepaymentService = new PrepaymentService(new PrepaymentRepository());
+    PrepaymentService prepaymentService = new PrepaymentService(PrepaymentRepository.getInstance());
 
-    ItemService itemService = new ItemService(new ItemRepository());
+    ItemService itemService = new ItemService(ItemRepository.getInstance());
 
     @Test
     void getPrepaymentInfo() {
-        PrepaymentInfo saveInfo = prepaymentService.getPrepaymentInfo("vCode1");
-        assertNull(saveInfo);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> prepaymentService.getPrepaymentInfo("vCode1"));
+
+        assertEquals(exception.getMessage(), "wrong verification code");
 
         String vCode = "vCode1";
         String iCode = "01";
@@ -25,7 +28,7 @@ class PrepaymentServiceTest {
         boolean valid = false;
 
         prepaymentService.savePrepaymentInfo(itemService, vCode, iCode, quantity);
-        saveInfo = prepaymentService.getPrepaymentInfo(vCode);
+        PrepaymentInfo saveInfo = prepaymentService.getPrepaymentInfo(vCode);
 
         assertEquals(saveInfo.getItemCode(), iCode);
         assertEquals(saveInfo.getQuantity(), quantity);

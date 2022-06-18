@@ -11,7 +11,6 @@ import dvm.controller.Controller;
 import dvm.domain.Item;
 import dvm.domain.PrepaymentInfo;
 import dvm.domain.Response;
-import dvm.domain.ResponseType;
 
 import static dvm.domain.ResponseType.*;
 
@@ -21,32 +20,32 @@ import static dvm.domain.ResponseType.*;
  */
 public class MenuPanel extends JPanel {
 
-    Controller controller;
-    int userItemIndex = -1;            //유저 선택 음료코드 -> List<Item> allItems 기반 인덱스
-    int userItemQuantity = 0;         //유저 선택 음료개수
+    private final Controller controller;
+    private int userItemIndex = -1;            //유저 선택 음료코드 -> List<Item> allItems 기반 인덱스
+    private int userItemQuantity = 0;         //유저 선택 음료개수
 
-    String userCardNum;
+    private String userCardNum;
 
-    JPanel menu = new JPanel();// 아이템 20개 panel을 담고 있는 panel
-    JPanel[] itemsPanel = new JPanel[20];// 음료와 가격을 갖고 있는 panel
-    JPanel selectPanel = new JPanel(); // 음료 종류와 개수를 선택하고 결제하기를 담고 있는 panel
-    JPanel inputPanel = new JPanel(); // 인증코드나 카드번호 입력을 담고 있는 panel
+    private final JPanel menu = new JPanel();// 아이템 20개 panel을 담고 있는 panel
+    private final JPanel[] itemsPanel = new JPanel[20];// 음료와 가격을 갖고 있는 panel
+    private final JPanel selectPanel = new JPanel(); // 음료 종류와 개수를 선택하고 결제하기를 담고 있는 panel
+    private final JPanel inputPanel = new JPanel(); // 인증코드나 카드번호 입력을 담고 있는 panel
 
-    JButton[] itemsBtn = new JButton[20]; // 음료 20개 버튼
-    JLabel[] pricesLb = new JLabel[20];// 가격 20개 라벨
+    private final JButton[] itemsBtn = new JButton[20]; // 음료 20개 버튼
+    private final JLabel[] pricesLb = new JLabel[20];// 가격 20개 라벨
 
-    List<Item> allItems; // 메뉴선택에 음료와 가격을 보여주기 위한 리스트
+    private List<Item> allItems; // 메뉴선택에 음료와 가격을 보여주기 위한 리스트
 
-    JButton minusBtn = new JButton("-");// 빼기 버튼
-    JButton plusBtn = new JButton("+");// 넣기 버튼
-    JLabel countLb = new JLabel("0개");// 총 개수 라벨
-    JLabel priceLb = new JLabel("0원");// 총 가격 라벨
-    JLabel selectedItemLb = new JLabel("");
+    private final JButton minusBtn = new JButton("-");// 빼기 버튼
+    private final JButton plusBtn = new JButton("+");// 넣기 버튼
+    private final JLabel countLb = new JLabel("0개");// 총 개수 라벨
+    private final JLabel priceLb = new JLabel("0원");// 총 가격 라벨
+    private final JLabel selectedItemLb = new JLabel("");
 
-    JLabel infoLb = new JLabel("카드를 먼저 입력해주세요."); // 카드 넣기 전 안내 문구
-    JButton payBtn = new JButton("결제하기");// 결제하기 버튼 -> dialog
-    JButton codeBtn = new JButton("인증코드");// 인증코드 버튼 -> dialog
-    JButton cardBtn = new JButton("카드 입력");// 카드번호 버튼 -> dialog
+    private final JLabel infoLb = new JLabel("카드를 먼저 입력해주세요."); // 카드 넣기 전 안내 문구
+    private final JButton payBtn = new JButton("결제하기");// 결제하기 버튼 -> dialog
+    private final JButton codeBtn = new JButton("인증코드");// 인증코드 버튼 -> dialog
+    private final JButton cardBtn = new JButton("카드 입력");// 카드번호 버튼 -> dialog
 
 
     MenuPanel(Controller controller) {
@@ -56,7 +55,6 @@ public class MenuPanel extends JPanel {
 
         showMenu();
         showSelect();
-//        showInfo();
         showInput();
         makeEvent();
 
@@ -111,9 +109,6 @@ public class MenuPanel extends JPanel {
                 itemsPanel[i] = new JPanel();
                 itemsPanel[i].setLayout(new GridLayout(2, 1));
                 itemsBtn[i] = new JButton(item.getName());
-//                itemsBtn[i].setBackground(Color.darkGray);                  //배경색
-//                itemsBtn[i].setForeground(Color.white);                     //글자색
-//                itemsBtn[i].setBorderPainted(false);
                 pricesLb[i] = new JLabel(item.getPrice() + "원");
                 pricesLb[i].setHorizontalAlignment(JLabel.CENTER);
                 itemsPanel[i].add(itemsBtn[i]);
@@ -205,10 +200,8 @@ public class MenuPanel extends JPanel {
                             prepaymentItemQuantity + "개 만큼 " + "제공 완료");
                     System.out.println(prepaymentItemCode + "번 음료를" + prepaymentItemQuantity + "개 만큼 " + "제공 완료");
                 } else if (response.getResponseType() == NOT_EXIST_CODE) {
-//                    System.out.println("존재하지 않는 인증번호입니다.");
                     JOptionPane.showMessageDialog(null, "존재하지 않는 인증번호입니다.");
                 } else {
-//                    System.out.println("잘못된 선결제 인증번호입니다.");
                     JOptionPane.showMessageDialog(null, "잘못된 선결제 인증번호입니다.");
                 }
             }
@@ -257,6 +250,8 @@ public class MenuPanel extends JPanel {
                     break;
                 case PREPAYMENT_FAIL:
                     JOptionPane.showMessageDialog(null, "잔액이 부족합니다.");
+                    break;
+                default:
                     break;
             }
         }

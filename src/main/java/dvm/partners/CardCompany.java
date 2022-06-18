@@ -1,6 +1,7 @@
 package dvm.partners;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Logger;
 
 /**
@@ -8,6 +9,8 @@ import java.util.logging.Logger;
  */
 public class CardCompany {
     private final Logger logger = Logger.getGlobal();
+
+    private final HashMap<String, Integer> registeredCards = new HashMap<>();
 
     public CardCompany() {
         registeredCards.put("01711374", 1000);
@@ -21,16 +24,21 @@ public class CardCompany {
 
         // 디버깅 위해 카드 번호 로그 남김
         System.out.println("----------------현재 등록된 카드 정보------------------");
-        for (String cardNum : registeredCards.keySet()) {
-            System.out.println("카드번호: " + cardNum + " | 잔고: " + registeredCards.get(cardNum));
+        for (Map.Entry<String, Integer> cardEntry : registeredCards.entrySet()) {
+            logger.info("카드번호: " + cardEntry.getKey() + " | 잔고: " + cardEntry.getValue());
         }
         System.out.println("--------------------------------------------------");
     }
 
-    private final HashMap<String, Integer> registeredCards = new HashMap<>();
+    private static class CardCompanyHelper{
+        private static final CardCompany cardCompany = new CardCompany();
+    }
+
+    public static CardCompany getInstance() {
+        return CardCompanyHelper.cardCompany;
+    }
 
     public boolean isValid(String cardNum) {
-        // TODO implement here
         //존재하는 카드일 경우
         return this.registeredCards.containsKey(cardNum);
     }
