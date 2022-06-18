@@ -1,6 +1,9 @@
 package dvm.repository;
 
 import dvm.domain.Item;
+import dvm.gui.AdminPanel;
+import dvm.util.Observer;
+import dvm.util.Subject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 20220517 MJY
  */
-public class ItemRepository {
+public class ItemRepository implements Subject {
 
     private final List<Item> items = new ArrayList<>(
             Arrays.asList(new Item("01", "콜라", 1000),
@@ -37,6 +40,8 @@ public class ItemRepository {
     );// 모든 음료 20개
     private final ConcurrentHashMap<String, Integer> stock;// 우리 자판기 음료 7개
 
+    private final List<Observer> observers;
+
     public ItemRepository() {
         stock = new ConcurrentHashMap<>(7);
         // 임시 배정
@@ -47,11 +52,13 @@ public class ItemRepository {
         stock.put("05", 2);
         stock.put("06", 2);
         stock.put("10", 10);
+        this.observers = new ArrayList<>();
         printCurrentStock();
     }
 
     public ItemRepository(ConcurrentHashMap<String, Integer> stock) {
         this.stock = stock;
+        this.observers = new ArrayList<>();
         printCurrentStock();
     }
 
@@ -100,14 +107,18 @@ public class ItemRepository {
     }
 
     /**
-     * 우리가 팔고있는 아이템 키값 리턴?
+     * 우리가 팔고있는 아이템 리스트로 변환 후 리턴
      */
     public List<Item> findMyItems() {
         ArrayList<Item> ourItems = new ArrayList<>();
 
-        for (String key : stock.keySet()) {
+        /*for (String key : stock.keySet()) {
             ourItems.add(findItem(key));
-        }
+        }*/
+
+        stock.keySet()
+                .forEach(key -> ourItems.add(findItem(key)));
+
         return ourItems;
     }
 
@@ -118,6 +129,17 @@ public class ItemRepository {
     public void update(String itemCode, int quantity) {
         int oldQty = stock.get(itemCode);
         stock.put(itemCode, oldQty + quantity);
+
+        notifyObservers(itemCode, oldQty + quantity);
     }
 
+    @Override
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    @Override
+    public void notifyObservers(String itemCode, int quantity) {
+        observers.forEach(observer -> observer.updateObserver(itemCode, quantity));
+    }
 }
