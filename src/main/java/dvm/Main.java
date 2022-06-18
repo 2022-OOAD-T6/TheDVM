@@ -9,6 +9,5 @@ public class Main {
     public static void main(String[] args) {
         Controller controller = AppConfig.controller();
         MainFrame mainFrame = new MainFrame(controller);
-        ItemRepository itemRepository = ItemRepository.getInstance();
     }
 }

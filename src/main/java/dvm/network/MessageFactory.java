@@ -106,11 +106,11 @@ public class MessageFactory {
                 int rightDifferY = currentY - o2.getMsgDescription().getDvmYCoord();
                 double otherDistance = Math.sqrt(rightDifferX * rightDifferX + rightDifferY * rightDifferY);
 
-                if (thisDistance == otherDistance) {
+                if (Double.compare(thisDistance, otherDistance) == 0) {
                     if ((o1.getSrcId().compareTo(o2.getSrcId())) > 0) {
                         return 1;
                     }
-                } else if (thisDistance > otherDistance) {
+                } else if (Double.compare(thisDistance, otherDistance) > 1) { // thisDistance가 더 크면 1
                     return 1;
                 }
                 return -1;
