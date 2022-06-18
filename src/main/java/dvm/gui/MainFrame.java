@@ -88,7 +88,7 @@ public class MainFrame extends JFrame {
     }
 
     private void addObserver() {
-        AppConfig.itemRepository()
+        ItemRepository.getInstance()
                 .registerObserver((Observer) adminPanel);
     }
 
