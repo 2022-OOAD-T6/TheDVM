@@ -61,7 +61,7 @@ public class ItemRepository implements Subject {
             }
             for (Object o : p.keySet()) {
                 String key = (String) o;
-                stock.put((String) key, Integer.parseInt(p.getProperty(key)));
+                stock.put(key, Integer.parseInt(p.getProperty(key)));
             }
         } catch (Exception e) {
             logger.warning("stock.properties 이상. 기본 세팅으로 세팅합니다.");
