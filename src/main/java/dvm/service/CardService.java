@@ -23,10 +23,6 @@ public class CardService {
     }
 
     public boolean pay(int price) {
-        // TODO implement here
-        if (cardCompany.pay(this.curCardNum, price)) {
-            return true;
-        } else
-            return false;
+        return cardCompany.pay(this.curCardNum, price);
     }
 }
