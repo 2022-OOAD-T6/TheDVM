@@ -52,7 +52,7 @@ public class NetworkService {
         sender.send(MessageFactory.createSaleResponseMessage(dstId, itemCode));
     }
 
-    public Message getSaleResponseMessage(String itemCode) {
+    public Message getSaleResponseMessage(String itemCode) throws IllegalStateException {
         Vector<Message> saleResponseMessages = getMessages(SALE_RESPONSE);
         clearResponseMessages();
 
@@ -62,7 +62,8 @@ public class NetworkService {
                 .orElseThrow(() -> new IllegalStateException("No Sale Response Message Received"));
     }
 
-    public Message getStockResponseMessageFrom(String srcId, String itemCode, int quantity) {
+    public Message getStockResponseMessageFrom(String srcId, String itemCode, int quantity)
+            throws IllegalStateException {
         Vector<Message> stockResponseMessages = getMessages(STOCK_RESPONSE);
         clearResponseMessages();
 
