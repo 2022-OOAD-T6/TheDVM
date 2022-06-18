@@ -55,44 +55,38 @@ public class NetworkService {
     public Message getSaleResponseMessage(String itemCode) {
         Vector<Message> saleResponseMessages = getMessages(SALE_RESPONSE);
         clearResponseMessages();
-        if (saleResponseMessages.isEmpty()) {
-            return null;
-        } else {
-            for (Message saleResponseMessage : saleResponseMessages) {
-                if (saleResponseMessage.getMsgDescription().getItemCode().equals(itemCode)) {
-                    return saleResponseMessage;
-                }
-            }
-            return null;
-        }
+
+        return saleResponseMessages.stream()
+                .filter(message -> message.getMsgDescription().getItemCode().equals(itemCode))
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("No Sale Response Message Received"));
     }
 
     public Message getStockResponseMessageFrom(String srcId, String itemCode, int quantity) {
         Vector<Message> stockResponseMessages = getMessages(STOCK_RESPONSE);
         clearResponseMessages();
-        for (Message message : stockResponseMessages) {
-            if (message.getSrcId().equals(srcId) && message.getMsgDescription().getItemCode().equals(itemCode) && message.getMsgDescription().getItemNum() >= quantity) {
-                return message;
-            }
-        }
-        return null;
+
+        return stockResponseMessages.stream()
+                .filter(message -> message.getSrcId().equals(srcId) &&
+                        message.getMsgDescription().getItemCode().equals(itemCode) &&
+                        message.getMsgDescription().getItemNum() >= quantity)
+                .findAny()
+                .orElseThrow(() -> new IllegalStateException("No Stock Response Message Received"));
     }
 
     private Vector<Message> getMessages(MessageType messageType) {
         receiver.changeWaitingMessageType(NONE);
         Vector<Message> messages = receiver.getResponseMessages();
+        Vector<Message> responseMessage = new Vector<>();
         logger.info("----------저장된 메세지------------");
         for (Message message : messages) {
             System.out.println(serializer.message2Json(message));
         }
         logger.info("--------------------------------");
 
-        Vector<Message> responseMessage = new Vector<>();
-        for (Message message : messages) {
-            if (message.getMsgType().equals(messageType.getTypeName())) {
-                responseMessage.add(message);
-            }
-        }
+        messages.stream()
+                .filter(message -> message.getMsgType().equals(messageType.getTypeName()))
+                .forEach(responseMessage::add);
         MessageFactory.sortMessages(responseMessage);
         return responseMessage;
     }
