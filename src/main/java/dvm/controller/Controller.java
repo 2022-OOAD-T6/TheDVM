@@ -114,6 +114,7 @@ public class Controller {
 
             logger.info("Controller | StockResponseMessage 받음 | from " + message.getSrcId() + " | 재고가 충분합니다.");
             int price = itemService.getItemPrice(itemCode);
+
             if (cardService.pay(price * quantity)) {
                 String code = prepaymentService.generateVerificationCode();
                 networkService.sendPrepaymentInfoMessage(dstDvmId, itemCode, quantity, code);
@@ -124,6 +125,9 @@ public class Controller {
         } catch (IllegalStateException e) {
             logger.warning("Controller | StockResponseMessage 없음 | 받은 StockResponseMessage가 없습니다.");
             return new Response<>(false, NO_RESPONSE_MESSAGE);
+        } catch (IllegalArgumentException e) {
+            logger.warning("Controller | 존재하지 않는 ItemCode를 받았습니다.");
+            return new Response<>(false, NOT_EXIST_CODE);
         }
 
 
