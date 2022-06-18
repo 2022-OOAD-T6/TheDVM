@@ -13,6 +13,7 @@ import dvm.repository.PrepaymentRepository;
 import dvm.service.CardService;
 import dvm.service.ItemService;
 import dvm.service.PrepaymentService;
+import dvm.util.Observer;
 
 public class MainFrame extends JFrame {
     Container contentPane = getContentPane();
@@ -53,16 +54,16 @@ public class MainFrame extends JFrame {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
 
-                if (menu) {// 현재 menuPanel이 보이는가
-                    menu = false;
-                    cardPanel.remove(cardPanel.getComponent(1));
-                    adminPanel = new AdminPanel(controller);// 관리자 화면
-                    adminPanel.setName("admin");
-                    cardPanel.add("2", adminPanel);
-                } else {// 현재 adminPanel이 보이는가
-                    menu = true;
-//                    cards.show(cardPanel,"1");
-                }
+//                if (menu) {// 현재 menuPanel이 보이는가
+//                    menu = false;
+//                    cardPanel.remove(cardPanel.getComponent(1));
+//                    adminPanel = new AdminPanel(controller);// 관리자 화면
+//                    adminPanel.setName("admin");
+//                    cardPanel.add("2", adminPanel);
+//                    repaint();
+//                } else {// 현재 adminPanel이 보이는가
+//                    menu = true;
+//                }
                 cards.next(cardPanel);
             }
         });
@@ -94,6 +95,10 @@ public class MainFrame extends JFrame {
         bottomPanel.add(adminBtn);
         bottomPanel.add(itemLb);
     }
+
+    public Observer getAdminPanel() {
+        return (Observer) adminPanel;
+    }// new
 
     public static void main(String[] args) {
         ItemService itemService = new ItemService(new ItemRepository());

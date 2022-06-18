@@ -10,9 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d174a89b-127d-40ad-bc23-167effab20a8" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/properties/network.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/properties/network.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/properties/stock.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/properties/stock.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/OOAD_DVM_T6_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/OOAD_DVM_T6_jar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/gui/AdminPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/gui/AdminPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/gui/MainFrame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/gui/MainFrame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/repository/ItemRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,7 +34,12 @@
       <state>
         <projects_view>
           <tree_state>
-            <expand />
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="OOAD-DVM-T6" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
             <select />
           </tree_state>
         </projects_view>
@@ -65,9 +75,10 @@
     &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/jamjoa/Documents/OOAD-DVM-T6/out/artifacts/OOAD_DVM_T6_main_jar&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.26666668&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;
   }
 }</component>
@@ -163,6 +174,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.MessageFactoryTest" />
+      <item itemvalue="JUnit.MessageFactoryTest.sortMessages3" />
+      <item itemvalue="JUnit.NetworkServiceTest" />
+      <item itemvalue="JUnit.NetworkServiceTest.getResponseMessage" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
