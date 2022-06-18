@@ -110,7 +110,7 @@ public class MessageFactory {
                     if ((o1.getSrcId().compareTo(o2.getSrcId())) > 0) {
                         return 1;
                     }
-                } else if (Double.compare(thisDistance, otherDistance) > 1) { // thisDistance가 더 크면 1
+                } else if (Double.compare(thisDistance, otherDistance) == 1) {
                     return 1;
                 }
                 return -1;

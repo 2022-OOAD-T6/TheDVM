@@ -13,7 +13,6 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dvm/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dvm/network/MessageFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/network/MessageFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dvm/service/PrepaymentService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,7 +89,7 @@
       <recent name="dvm.network" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.MessageFactoryTest.sortMessages">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="dvm.Main" />
       <module name="OOAD-DVM-T6.main" />
@@ -112,17 +111,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="NetworkServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="MessageFactoryTest.sortMessages" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="OOAD-DVM-T6.test" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="dvm.service.*" />
+          <option name="PATTERN" value="dvm.network.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="dvm.service" />
-      <option name="MAIN_CLASS_NAME" value="dvm.service.NetworkServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="PACKAGE_NAME" value="dvm.network" />
+      <option name="MAIN_CLASS_NAME" value="dvm.network.MessageFactoryTest" />
+      <option name="METHOD_NAME" value="sortMessages" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -161,18 +161,18 @@
     </configuration>
     <list>
       <item itemvalue="Application.Main" />
+      <item itemvalue="JUnit.MessageFactoryTest.sortMessages" />
       <item itemvalue="JUnit.PrepaymentServiceTest.getPrepaymentInfo" />
       <item itemvalue="JUnit.All in OOAD-DVM-T6.test" />
-      <item itemvalue="JUnit.NetworkServiceTest" />
       <item itemvalue="JUnit.NetworkServiceTest.getResponseMessage" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.MessageFactoryTest.sortMessages" />
         <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.PrepaymentServiceTest.getPrepaymentInfo" />
         <item itemvalue="JUnit.All in OOAD-DVM-T6.test" />
         <item itemvalue="JUnit.NetworkServiceTest.getResponseMessage" />
-        <item itemvalue="JUnit.NetworkServiceTest" />
       </list>
     </recent_temporary>
   </component>
@@ -197,7 +197,7 @@
       <workItem from="1653480239681" duration="16796000" />
       <workItem from="1653541506395" duration="8405000" />
       <workItem from="1655543157739" duration="2131000" />
-      <workItem from="1655545818791" duration="7589000" />
+      <workItem from="1655545818791" duration="3970000" />
     </task>
     <servers />
   </component>
