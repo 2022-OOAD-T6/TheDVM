@@ -13,12 +13,10 @@ import dvm.service.PrepaymentService;
 
 import java.io.FileReader;
 import java.util.Properties;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class AppConfig {
 
     private static Controller controller;
-    private static PrepaymentRepository prepaymentRepository;
     private static ItemService itemService;
     private static PrepaymentService prepaymentService;
     private static CardCompany cardCompany;
@@ -32,13 +30,6 @@ public class AppConfig {
         return controller;
     }
 
-    public static PrepaymentRepository prepaymentRepository() {
-        if (prepaymentRepository == null) {
-            prepaymentRepository = new PrepaymentRepository();
-        }
-        return prepaymentRepository;
-    }
-
     public static ItemService itemService() {
         if (itemService == null) {
             itemService = new ItemService(ItemRepository.getInstance());
@@ -48,7 +39,7 @@ public class AppConfig {
 
     public static PrepaymentService prepaymentService() {
         if (prepaymentService == null) {
-            prepaymentService = new PrepaymentService(prepaymentRepository());
+            prepaymentService = new PrepaymentService(PrepaymentRepository.getInstance());
         }
         return prepaymentService;
     }
