@@ -1,42 +1,49 @@
 package dvm.service;
 
 import dvm.repository.ItemRepository;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ItemServiceTest {
-    String itemCode = "01";
-    int qty = 111;
+
+    ItemRepository itemRepository;
+    ItemService itemService;
+
+    @BeforeEach
+    void beforeEach() {
+        itemRepository = new ItemRepository();
+        itemService = new ItemService(itemRepository);
+    }
 
     @Test
     void isEnough() {
-        ItemRepository ir = new ItemRepository();
-        ItemService is = new ItemService(ir);
-        assertEquals(is.isEnough(itemCode, qty), false);
+        String itemCode = "01";
+        int qty = 111;
+        assertFalse(itemService.isEnough(itemCode, qty));
     }
 
     @Test
     void getItemPrice() {
-        ItemRepository ir = new ItemRepository();
-        ItemService is = new ItemService(ir);
-        //assertEquals(is.getItemPrice(itemCode), 100);
+        String itemCode = "01";
+        assertEquals(itemService.getItemPrice(itemCode), 1000);
     }
 
     @Test
     void updateStock() {
-        ItemRepository ir = new ItemRepository();
-        ItemService is = new ItemService(ir);
-        int oldQty = ir.count(itemCode);
-        is.updateStock(itemCode, qty);
-        int newQty=ir.count(itemCode);
-        assertEquals(oldQty+111, newQty);
+        String itemCode = "01";
+        int oldQuantity = itemRepository.count(itemCode);
+        int updateCount = 111;
+
+        itemService.updateStock(itemCode, updateCount);
+        int newQuantity=itemRepository.count(itemCode);
+        assertEquals(oldQuantity+111, newQuantity);
     }
 
     @Test
     void getItemCount() {
-        // ItemRepository ir = new ItemRepository();
-        // ItemService is = new ItemService(ir);
-        // assertEquals(is.getItemCount(itemCode), 100);
+        String itemCode = "01";
+         assertEquals(itemService.getItemCount(itemCode), 2);
     }
 }
