@@ -86,14 +86,4 @@ public class MainFrame extends JFrame {
                 .registerObserver((Observer) adminPanel);
     }
 
-
-    /**
-     * GUI 테스팅 용 메인 클래스
-     */
-    public static void main(String[] args) {
-        ItemService itemService = new ItemService(ItemRepository.getInstance());
-        PrepaymentService prepaymentService = new PrepaymentService(PrepaymentRepository.getInstance());
-        new MainFrame(new Controller(new NetworkService(itemService, prepaymentService), itemService,
-                prepaymentService, new CardService(new CardCompany())));
-    }
 }
