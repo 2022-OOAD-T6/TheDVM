@@ -21,9 +21,10 @@ public class NetworkService {
     private final Serializer serializer = new Serializer();
 
     public NetworkService(ItemService itemService, PrepaymentService prepaymentService) {
-        // 리시버 구현체는 여기서 선택
-//        this.receiver = new NettyReceiver(itemService, prepaymentService, this);
         this.sender = new Sender();
+
+        // 리시버 구현체는 이중에서 선택
+//        this.receiver = new NettyReceiver(itemService, prepaymentService, this);
 //        this.receiver = new ServerSocketReceiver(itemService, prepaymentService, this);
         this.receiver = new EventNettyReceiver(itemService, prepaymentService, this);
 

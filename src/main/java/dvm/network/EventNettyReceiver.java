@@ -12,6 +12,10 @@ import java.util.logging.Logger;
 
 import static dvm.network.MessageType.*;
 
+/**
+ * Receiver 구현 클래스
+ * DvmServer 라이브러리 1.2의 ObservableList 사용하는 버전
+ */
 public class EventNettyReceiver implements Receiver {
 
     private int consumed;
